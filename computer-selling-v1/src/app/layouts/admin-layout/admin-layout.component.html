@@ -1,0 +1,54 @@
+<nz-layout>
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" nzTheme="light">
+        <div class="d-flex justify-content-between flex-column h-100">
+            <div>
+                <div class="logo"><img src="https://openclipart.org/download/232064/Logo-Logo-White-Background.svg"
+                        width="100%" height="100%" />
+                </div>
+                <ul nz-menu nzTheme="light" nzMode="inline">
+                    <li nz-submenu nzTitle="User" nzIcon="user">
+                        <ul>
+                            <li nz-menu-item (click)="onSelect(TITLE.USER)" class="menu-item">User</li>
+                            <li nz-menu-item (click)="onSelect(TITLE.PRODUCT)" class="menu-item">Product</li>
+                            <li nz-menu-item class="menu-item">Alex</li>
+                        </ul>
+                    </li>
+                    <li nz-submenu nzTitle="Team" nzIcon="team" class="menu-item">
+                        <ul>
+                            <li nz-menu-item class="menu-item">Team 1</li>
+                            <li nz-menu-item class="menu-item">Team 2</li>
+                        </ul>
+                    </li>
+                    <li nz-menu-item class="menu-item">
+                        <!-- <nz-icon nzType="file" /> -->
+                        <span>File</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex justify-content-between flex-column ">
+                <div class="d-flex justify-content-center algin-items-center w-100">
+                    <nz-avatar nzIcon="user" nz-dropdown [nzDropdownMenu]="menu2" nzPlacement="topRight"></nz-avatar>
+                </div>
+                <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+                    (click)="isCollapsed = !isCollapsed"></span>
+            </div>
+
+        </div>
+
+    </nz-sider>
+    <nz-layout>
+        <nz-content>
+
+            <div class="inner-content">
+                <app-tab-group [(activeIndex)]="currentIndex" [tabPanelList]="tabPanelList">
+                </app-tab-group>
+            </div>
+        </nz-content>
+    </nz-layout>
+</nz-layout>
+<nz-dropdown-menu #menu2="nzDropdownMenu">
+    <ul nz-menu>
+        <li nz-menu-item (click)="onLogOut()">Logout</li>
+        <li nz-menu-item>Xem hồ sơ</li>
+    </ul>
+</nz-dropdown-menu>

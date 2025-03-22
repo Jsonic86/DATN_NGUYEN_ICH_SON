@@ -1,0 +1,35 @@
+<form nz-form [formGroup]="myForm" nzLayout="vertical">
+    <nz-row [nzGutter]="16">
+        <ng-container *ngFor="let field of fieldFormGroup" [ngSwitch]="field.type">
+            <ng-container *ngSwitchCase="TYPE.TEXT">
+                <nz-col [nzSpan]="field.span">
+                    <nz-form-item>
+                        <nz-form-label [nzFor]="field.fieldName"
+                            [nzRequired]="field.required">{{field.label}}</nz-form-label>
+                        <nz-form-control [nzErrorTip]="errorTemplate">
+                            <input [formControlName]="field.fieldName" nz-input [placeholder]="field.placeholder" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </nz-col>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngFor="let field of fieldFormGroup" [ngSwitch]="field.type">
+            <ng-container *ngSwitchCase="TYPE.NUMBER">
+                <nz-col [nzSpan]="field.span">
+                    <nz-form-item>
+                        <nz-form-label [nzFor]="field.fieldName"
+                            [nzRequired]="field.required">{{field.label}}</nz-form-label>
+                        <nz-form-control [nzErrorTip]="errorTemplate">
+                            <input [formControlName]="field.fieldName" nz-input [placeholder]="field.placeholder" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </nz-col>
+            </ng-container>
+        </ng-container>
+    </nz-row>
+</form>
+<ng-template #errorTemplate let-fieldName="fieldName">
+    <ng-container *ngIf="getErrorMessage(fieldName) as errorText">
+        {{ errorText }}
+    </ng-container>
+</ng-template>

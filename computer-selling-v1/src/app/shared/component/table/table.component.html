@@ -1,0 +1,74 @@
+<nz-table #basicTable [nzData]="data" [nzBordered]="settingValue?.border" [nzSize]="settingValue?.size!">
+    <thead>
+        <tr>
+            <th *ngFor="let col of columns" nzAlign="center">{{ col.arr }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data">
+            <td *ngFor="let col of columns" [ngStyle]="{'width': col?.width}">
+                <ng-container [ngSwitch]="col.type">
+                    <!-- Nếu type là 'currency' -->
+                    <span *ngSwitchCase="TYPE.CURRENCY">{{ data[col.fieldName] | currency }}</span>
+
+                    <!-- Nếu type là 'date' -->
+                    <span *ngSwitchCase="TYPE.DATE">{{ data[col.fieldName] | date:'dd/MM/yyyy' }}</span>
+
+                    <!-- Nếu type là 'boolean' -->
+                    <span *ngSwitchCase="TYPE.BOOLEAN">
+                        <nz-tag [nzColor]="data[col.fieldName] ? 'green' : 'red'">
+                            {{ data[col.fieldName] ? 'Active' : 'Inactive' }}
+                        </nz-tag>
+                    </span>
+
+                    <!-- Nếu type là 'text' -->
+                    <span *ngSwitchCase="TYPE.TEXT">{{ data[col.fieldName] }}</span>
+
+                    <!-- Nếu type là 'img' -->
+                    <span *ngSwitchCase="TYPE.IMAGE"><img src="{{data[col.fieldName]}}" width="30px"
+                            height="30px" /></span>
+
+                    <!-- Mặc định nếu không khớp type nào -->
+                    <span *ngSwitchDefault>{{ data[col.fieldName] ?? '-' }}</span>
+
+                    <!-- Nếu type là 'action' -->
+                    <span *ngSwitchCase="TYPE.ACTION">
+                        <ng-container *ngFor="let action of col?.listOfAction; let last = last">
+                            <a (click)="actionClick(action.keyName,data)">
+                                <i class="action-icon" nz-icon [nzType]="action.icon" nz-tooltip
+                                    nzTooltipTitle="{{action.actionName}}"></i>
+                            </a>
+                            <nz-divider *ngIf="!last" nzType="vertical"></nz-divider>
+                        </ng-container>
+                    </span>
+
+                </ng-container>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+
+
+<!-- 
+column:Column[]
+ {
+id
+fieldName
+type
+
+}
+-->
+<!-- listOfAction:Action[]:
+ {
+    actionName
+    icon
+    keyName
+ }
+-->
+<!-- settingValue:
+ {
+    border
+    size
+    checkBox
+ }
+-->

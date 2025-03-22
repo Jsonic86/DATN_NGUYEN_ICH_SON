@@ -1,0 +1,18 @@
+<div class="tab-header">
+    <div *ngFor="let tab of tabPanelList; let i = index">
+        <span *ngIf="tab.isAdded" class="tab-header-item" (click)="setActiveIndex(i)"
+            [class.active]="i === activeIndex">
+            {{tab.title}}
+            <span class="close-icon" (click)="removeTab(i); $event.stopPropagation()">x</span>
+        </span>
+
+    </div>
+</div>
+
+<div *ngIf="tabPanelList.length; else noTabs" class="tab-body">
+    <ng-container #tabContainer></ng-container>
+</div>
+
+<ng-template #noTabs>
+    No more tabs
+</ng-template>

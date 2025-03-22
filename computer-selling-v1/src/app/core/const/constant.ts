@@ -1,0 +1,16 @@
+export enum StatusResponse {
+    OK = 1000,
+}
+export const TITLE = {
+    USER: 'User',
+    PRODUCT: 'Product',
+}
+export const TYPE = {
+    TEXT: 'text',
+    NUMBER: 'number',
+    DATE: 'date',
+    BOOLEAN: 'boolean',
+    IMAGE: 'image',
+    CURRENCY: 'currency',
+    ACTION: 'action',
+}

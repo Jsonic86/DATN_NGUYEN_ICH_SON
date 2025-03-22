@@ -1,0 +1,42 @@
+::ng-deep nz-layout {
+    min-height: 100vh;
+    /* Đảm bảo layout luôn chiếm đủ màn hình */
+}
+
+nz-content {
+    flex: 1;
+    /* Nội dung mở rộng để đẩy footer xuống */
+    display: flex;
+    flex-direction: column;
+}
+
+.ant-modal {
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+.ant-modal-content {
+    border-radius: 12px !important;
+}
+
+.ant-modal-header {
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+}
+
+.ant-modal-footer {
+    border-bottom-left-radius: 12px !important;
+    border-bottom-right-radius: 12px !important;
+}
+
+.ant-btn {
+    border-radius: 12px;
+}
+
+.ant-notification-notice {
+    border-radius: 12px;
+}
+
+.ant-input {
+    border-radius: 12px;
+}

@@ -1,0 +1,9 @@
+.login-wrapper {
+    height: calc(100vh - 64px - 70px);
+}
+
+nz-card {
+    min-height: 200px; // Không nhỏ hơn 200px
+    max-height: 400px; // Không lớn hơn 500px
+    overflow: auto; // Hiển thị thanh cuộn nếu nội dung quá dài
+}
