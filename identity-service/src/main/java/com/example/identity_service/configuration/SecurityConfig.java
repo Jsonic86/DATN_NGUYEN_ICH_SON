@@ -23,7 +23,10 @@ import java.util.Arrays;
 @EnableMethodSecurity
 public class SecurityConfig {
     private final String[] PUBLIC_ENDPOINTS = {
-            "users/register","/auth/introspect","/auth/login","auth/logout","auth/refresh"
+            "users/register","/auth/introspect","/auth/login","auth/logout","auth/refresh","api/images"
+    };
+    private final String[] PUBLIC_GETTING_ENDPOINTS = {
+            "/api/images/**","/products","/categories","/categories/**"
     };
     @Autowired
     private CustomDecoderJwt customDecoderJwt;
@@ -48,6 +51,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(HttpMethod.POST, PUBLIC_ENDPOINTS).permitAll()
+                        .requestMatchers(HttpMethod.GET, PUBLIC_GETTING_ENDPOINTS).permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwtConfigurer -> jwtConfigurer
                                 .decoder(customDecoderJwt)

@@ -11,7 +11,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProductRequest {
+public class ProductUpdationRequest {
+    Integer productId;
 
     Long categoryId;
 
@@ -25,5 +26,3 @@ public class ProductRequest {
 
     MultipartFile image;
 }
-
-

@@ -1,0 +1,63 @@
+package com.example.identity_service.controller;
+
+import com.example.identity_service.dto.request.CategoryRequest;
+import com.example.identity_service.dto.request.CategoryUpdationRequest;
+import com.example.identity_service.dto.response.ApiResponse;
+import com.example.identity_service.entity.Category;
+import com.example.identity_service.service.CategoryService;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/categories")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+public class CategoryController {
+    @Autowired
+    CategoryService categoryService;
+
+    @GetMapping()
+    public ApiResponse<List<Category>> findAll(){
+        return ApiResponse.<List<Category>>builder()
+                .result(categoryService.findAll())
+                .code(1000)
+                .build();
+    }
+
+    @GetMapping("/{id}")
+    public ApiResponse<Category> findById(@PathVariable Long id){
+        return ApiResponse.<Category>builder()
+                .result(categoryService.findById(id))
+                .code(1000)
+                .build();
+    }
+
+    @PostMapping()
+    public ApiResponse<Category> create(@RequestBody CategoryRequest request){
+        return ApiResponse.<Category>builder()
+                .result(categoryService.create(request))
+                .code(1000)
+                .build();
+    }
+    @PutMapping()
+    public ApiResponse<Category> update(@RequestBody CategoryUpdationRequest request){
+        return ApiResponse.<Category>builder()
+                .result(categoryService.update(request))
+                .code(1000)
+                .build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ApiResponse<Void> delete(@PathVariable Long id){
+        categoryService.delete(id);
+        return ApiResponse.<Void>builder()
+                .code(1000)
+                .message("deleted")
+                .build();
+    }
+}

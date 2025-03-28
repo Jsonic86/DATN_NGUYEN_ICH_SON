@@ -21,4 +21,5 @@ public class ProductResponse {
     Integer stockQuantity;
 
     String imageUrl;
+
 }

@@ -1,4 +1,4 @@
-package com.example.identity_service.entity;
+package com.example.identity_service.dto.request;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -6,7 +6,7 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
-@Entity
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,11 +14,8 @@ import java.time.LocalDateTime;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 
-public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class CategoryUpdationRequest {
     Long categoryId;
-    @Column(unique = true)
     String categoryName;
     String categoryDescription;
 

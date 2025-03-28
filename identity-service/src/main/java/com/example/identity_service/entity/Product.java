@@ -28,6 +28,10 @@ public class Product {
     @Column(name = "product_name", nullable = false, length = 255)
     String productName;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "fk_products_categories"))
+    Category category;
+
     @Column(columnDefinition = "TEXT")
     String description;
 
@@ -40,9 +44,6 @@ public class Product {
     @Column(name = "image_url", length = 255)
     String imageUrl;
 
-    @Lob // Định nghĩa kiểu dữ liệu BLOB
-    @Column(name = "image", columnDefinition = "LONGBLOB") // Dùng LONGBLOB cho MySQL
-    byte[] image;
 
     @Column(name = "created_at", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     LocalDateTime createdAt;
@@ -50,5 +51,9 @@ public class Product {
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+    }
+
+    public String getCategoryName() {
+        return category != null ? category.getCategoryName() : null;
     }
 }

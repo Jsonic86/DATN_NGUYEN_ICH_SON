@@ -1,7 +1,9 @@
 package com.example.identity_service.controller;
 
 import com.example.identity_service.dto.request.ProductRequest;
+import com.example.identity_service.dto.request.ProductUpdationRequest;
 import com.example.identity_service.dto.response.ApiResponse;
+import com.example.identity_service.dto.response.ProductResponse;
 import com.example.identity_service.entity.Product;
 import com.example.identity_service.repository.ProductRepository;
 import com.example.identity_service.service.ProductService;
@@ -26,17 +28,17 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping()
-    ApiResponse<List<Product>> getAllProducts() {
+    ApiResponse<List<ProductResponse>> getAllProducts() {
 
-        return ApiResponse.<List<Product>>builder()
+        return ApiResponse.<List<ProductResponse>>builder()
                 .result(productService.findAll())
                 .code(1000)
                 .build();
     }
 
     @GetMapping("/{id}")
-    ApiResponse<Product> getProductById(@PathVariable Integer id) {
-        return ApiResponse.<Product>builder()
+    ApiResponse<ProductResponse> getProductById(@PathVariable Integer id) {
+        return ApiResponse.<ProductResponse>builder()
                 .result(productService.findById(id))
                 .code(1000)
                 .build();
@@ -45,6 +47,7 @@ public class ProductController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Product> createProduct(
             @RequestParam("productName") String productName,
+            @RequestParam("categoryId") Long categoryId,
             @RequestParam("description") String description,
             @RequestParam("price") BigDecimal price,
             @RequestParam("stockQuantity") Integer stockQuantity,
@@ -56,9 +59,44 @@ public class ProductController {
         request.setPrice(price);
         request.setStockQuantity(stockQuantity);
         request.setImage(image);
-
+        request.setCategoryId(categoryId);
 
         Product product = productService.create(request);
         return ResponseEntity.ok(product);
+    }
+
+    @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ApiResponse<Product> updateProduct(
+            @RequestParam("productId") Integer productId,
+            @RequestParam("productName") String productName,
+            @RequestParam("description") String description,
+            @RequestParam("price") BigDecimal price,
+            @RequestParam("stockQuantity") Integer stockQuantity,
+            @RequestPart(value = "image", required = false) MultipartFile image) {
+
+        ProductUpdationRequest request = new ProductUpdationRequest();
+        request.setProductId(productId);
+        request.setProductName(productName);
+        request.setDescription(description);
+        request.setPrice(price);
+        request.setStockQuantity(stockQuantity);
+        request.setImage(image);
+
+
+        Product product = productService.update(request);
+        return ApiResponse.<Product>builder()
+                .result(product)
+                .code(1000)
+                .message("Product updated")
+                .build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ApiResponse<Void> deleteProductById(@PathVariable Integer id) {
+        productService.delete(id);
+        return ApiResponse.<Void>builder()
+                .code(1000)
+                .message("Product deleted")
+                .build();
     }
 }

@@ -15,6 +15,7 @@ public enum ErrorCode {
     ROLE_NOT_EXISTED(1007, "Permission not existed", HttpStatus.NOT_FOUND),
     INVALID_DOB(1008, "your age be at least {min}", HttpStatus.BAD_REQUEST),
     PRODUCT_NOT_EXISTED(1009, "Product not existed", HttpStatus.NOT_FOUND),
+    CATEGORY_NOT_EXISTED(1010, "Category not existed", HttpStatus.NOT_FOUND),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode httpStatusCode) {
