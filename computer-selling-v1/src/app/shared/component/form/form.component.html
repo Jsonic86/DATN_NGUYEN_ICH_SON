@@ -12,6 +12,18 @@
                     </nz-form-item>
                 </nz-col>
             </ng-container>
+            <ng-container *ngSwitchCase="TYPE.IMAGE">
+                <nz-col [nzSpan]="field.span">
+                    <nz-form-item>
+                        <nz-form-label [nzFor]="field.fieldName"
+                            [nzRequired]="field.required">{{field.label}}</nz-form-label>
+                        <nz-form-control [nzErrorTip]="errorTemplate">
+                            <img src="http://localhost:8080/identity/api/images/{{item[field.fieldName]}}" width="40px"
+                                height="40px" />
+                        </nz-form-control>
+                    </nz-form-item>
+                </nz-col>
+            </ng-container>
         </ng-container>
         <ng-container *ngFor="let field of fieldFormGroup" [ngSwitch]="field.type">
             <ng-container *ngSwitchCase="TYPE.NUMBER">

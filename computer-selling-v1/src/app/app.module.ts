@@ -17,11 +17,13 @@ import { SharedModule } from './shared/module/shared.module';
 import { ConfirmComponent } from './shared/component/confirm/confirm.component';
 import { FormComponent } from './shared/component/form/form.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     LayoutComponent,
     ConfirmComponent,
+
   ],
   imports: [
     BrowserModule,

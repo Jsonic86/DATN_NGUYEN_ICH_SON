@@ -36,8 +36,8 @@ public class ProductController {
                 .build();
     }
 
-    @GetMapping("/{id}")
-    ApiResponse<ProductResponse> getProductById(@PathVariable Integer id) {
+    @GetMapping("/detail")
+    ApiResponse<ProductResponse> getProductById(@RequestParam Integer id) {
         return ApiResponse.<ProductResponse>builder()
                 .result(productService.findById(id))
                 .code(1000)

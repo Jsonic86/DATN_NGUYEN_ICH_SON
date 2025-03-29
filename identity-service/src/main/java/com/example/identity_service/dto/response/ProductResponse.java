@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductResponse {
+    Integer productId;
+
     String categoryName;
 
     String productName;

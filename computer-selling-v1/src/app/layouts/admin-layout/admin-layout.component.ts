@@ -6,6 +6,7 @@ import { deleteCookie } from 'src/app/core/utils';
 import { UserComponent } from 'src/app/modules/user/user.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { TabGroupComponent } from './tab-group/tab-group.component';
+import { ProductComponent } from 'src/app/modules/product/product.component';
 
 @Component({
   selector: 'app-admin-layout',
@@ -24,7 +25,7 @@ export class AdminLayoutComponent {
     },
     {
       title: 'Product',
-      panelBody: UserComponent,
+      panelBody: ProductComponent,
       isAdded: false
     }
   ];

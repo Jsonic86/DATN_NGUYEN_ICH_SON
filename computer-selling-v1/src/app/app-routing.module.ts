@@ -46,6 +46,10 @@ const routes: Routes = [
     path: 'users',
     loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule)
   },
+  {
+    path: 'products',
+    loadChildren: () => import('./modules/product/product.module').then(m => m.ProductModule)
+  },
   { path: '**', redirectTo: 'auth/login' }
 ];
 @NgModule({
