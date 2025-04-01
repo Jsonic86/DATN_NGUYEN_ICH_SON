@@ -18,8 +18,15 @@
                         <nz-form-label [nzFor]="field.fieldName"
                             [nzRequired]="field.required">{{field.label}}</nz-form-label>
                         <nz-form-control [nzErrorTip]="errorTemplate">
-                            <img src="http://localhost:8080/identity/api/images/{{item[field.fieldName]}}" width="40px"
-                                height="40px" />
+                            <!-- <img src="http://localhost:8080/identity/api/images/{{item[field.fieldName]}}" width="40px"
+                                height="40px" /> -->
+                            <nz-upload nzListType="picture" [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+                                <button nz-button class="w-100 h-auto p-2">
+                                    <span nz-icon nzType="upload"
+                                        class="d-flex justify-content-center gap-2">Upload</span>
+                                </button>
+                            </nz-upload>
+
                         </nz-form-control>
                     </nz-form-item>
                 </nz-col>

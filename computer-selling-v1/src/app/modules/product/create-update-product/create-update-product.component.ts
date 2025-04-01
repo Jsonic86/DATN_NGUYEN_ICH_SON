@@ -42,6 +42,28 @@ export class CreateUpdateProductComponent {
     this.modalRef.close();
   }
   onSave() {
-    this.modalRef.close(true);
+    const payload: any = {
+      productName: this.formComponent.myForm.get('productName')?.value,
+      categoryId: 1,
+      image: this.formComponent.fileList[0],
+      price: this.formComponent.myForm.get('price')?.value,
+      stockQuantity: this.formComponent.myForm.get('stockQuantity')?.value,
+      description: this.formComponent.myForm.get('description')?.value,
+    };
+    if (this.id) {
+      payload.productId = this.id
+      this.productService.updateProduct(payload).subscribe(res => {
+        if (res.code === StatusResponse.OK) {
+          this.modalRef.close(true);
+        }
+      })
+    }
+    else {
+      this.productService.createProduct(payload).subscribe(res => {
+        if (res.code === StatusResponse.OK) {
+          this.modalRef.close(true);
+        }
+      })
+    }
   }
 }

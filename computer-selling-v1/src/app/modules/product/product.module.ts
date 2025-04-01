@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductComponent } from './product.component';
 import { NgZorroModule } from 'src/app/shared/module/ng-zorro.module';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -17,7 +17,8 @@ import { CreateUpdateProductComponent } from './create-update-product/create-upd
         ProductRoutingModule,
         NzDividerModule,
         CommonModule,
-        SharedModule
+        SharedModule,
+        FormsModule
     ],
     providers: [],
 })

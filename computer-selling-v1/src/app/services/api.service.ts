@@ -54,38 +54,77 @@ export class ApiService {
     body: Object = {},
     contentType: string = ''
   ): Observable<any> {
-    if (!contentType) {
+    if (body instanceof FormData) {
+      contentType = '';
+    } else if (!contentType) {
       contentType = this.CONTENT_TYPE_APP_JSON;
     }
+
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': contentType,
         Authorization: `Bearer ${this.Api_key_Value}`,
       }),
     };
+
+
     return this.http.post(
       `${this.baseUrl}/${path}`,
-      JSON.stringify(body),
+      body,
+      httpOptions
+    );
+  }
+  public put(
+    path: string,
+    body: FormData | Object = {},
+    contentType: string = ''
+  ): Observable<any> {
+    // Nếu body là FormData, không cần thiết phải thay đổi Content-Type
+    if (body instanceof FormData) {
+      contentType = '';  // Trình duyệt sẽ tự động thiết lập Content-Type cho FormData
+    } else if (!contentType) {
+      contentType = this.CONTENT_TYPE_APP_JSON;
+    }
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${this.Api_key_Value}`,
+      }),
+    };
+
+    // Nếu là FormData, không cần JSON.stringify
+    return this.http.put(
+      `${this.baseUrl}/${path}`,
+      body, // Truyền trực tiếp FormData hoặc Object
       httpOptions
     );
   }
   public get(
     path: string,
+    payload?: any,
     contentType: string = ''
   ): Observable<any> {
     if (!contentType) {
       contentType = this.CONTENT_TYPE_APP_JSON;
     }
+
+    let params = new HttpParams();
+
+
+    if (payload) {
+      Object.keys(payload).forEach(key => {
+        params = params.set(key, payload[key]);
+      });
+    }
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': contentType,
         Authorization: `Bearer ${this.Api_key_Value}`,
       }),
+      params: params
     };
-    return this.http.get(
-      `${this.baseUrl}/${path}`,
-      httpOptions
-    );
+
+    return this.http.get(`${this.baseUrl}/${path}`, httpOptions);
   }
   public getById(
     path: string,

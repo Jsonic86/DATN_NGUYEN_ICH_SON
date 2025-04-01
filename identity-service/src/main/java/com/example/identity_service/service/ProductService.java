@@ -9,7 +9,10 @@ import com.example.identity_service.exception.ErrorCode;
 import com.example.identity_service.mapper.ProductMapper;
 import com.example.identity_service.repository.CategoryRepository;
 import com.example.identity_service.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,10 +28,21 @@ public class ProductService {
     @Autowired
     ProductMapper productMapper;
 
-    public List<ProductResponse> findAll(){
-        List<Product> products = productRepository.findAll();
-        List<ProductResponse> responseList = productMapper.toProductList(products);
-        return responseList;
+    public Page<ProductResponse> findAll(String name,Pageable pageable) {
+        try {
+            System.out.println("START findAll()");
+            Page<Product> products = productRepository.findByProductNameContaining(name,pageable);
+            System.out.println("Query executed!");
+
+            System.out.println("Total Elements: " + products.getTotalElements());
+            System.out.println("Total Pages: " + products.getTotalPages());
+
+            return products.map(productMapper::toProductResponse);
+        } catch (Exception e) {
+            System.err.println("Error in findAll(): " + e.getMessage());
+            e.printStackTrace();
+            return Page.empty();
+        }
     }
 
     public ProductResponse findById(int id){

@@ -11,6 +11,10 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +32,14 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping()
-    ApiResponse<List<ProductResponse>> getAllProducts() {
-
-        return ApiResponse.<List<ProductResponse>>builder()
-                .result(productService.findAll())
+    ApiResponse<Page<ProductResponse>> getAllProducts(
+            @RequestParam(defaultValue = "") String name,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("productId").ascending());
+        return ApiResponse.<Page<ProductResponse>>builder()
+                .result(productService.findAll(name,pageable))
                 .code(1000)
                 .build();
     }
@@ -45,7 +53,7 @@ public class ProductController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Product> createProduct(
+    public ApiResponse<Product> createProduct(
             @RequestParam("productName") String productName,
             @RequestParam("categoryId") Long categoryId,
             @RequestParam("description") String description,
@@ -62,7 +70,11 @@ public class ProductController {
         request.setCategoryId(categoryId);
 
         Product product = productService.create(request);
-        return ResponseEntity.ok(product);
+        return ApiResponse.<Product>builder()
+                .result(product)
+                .code(1000)
+                .message("Product created")
+                .build();
     }
 
     @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -91,8 +103,8 @@ public class ProductController {
                 .build();
     }
 
-    @DeleteMapping("/{id}")
-    public ApiResponse<Void> deleteProductById(@PathVariable Integer id) {
+    @DeleteMapping("")
+    public ApiResponse<Void> deleteProductById(@RequestParam Integer id) {
         productService.delete(id);
         return ApiResponse.<Void>builder()
                 .code(1000)

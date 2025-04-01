@@ -34,6 +34,7 @@ import { NzListModule } from 'ng-zorro-antd/list';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
 };
@@ -76,6 +77,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(
     DragDropModule,
     NzSpinModule,
     NzTableModule,
+    NzUploadModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

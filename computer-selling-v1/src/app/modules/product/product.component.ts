@@ -9,6 +9,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { ConfirmComponent } from 'src/app/shared/component/confirm/confirm.component';
 import { CreateUpdateProductComponent } from './create-update-product/create-update-product.component';
 import { ProductItemResponse } from 'src/app/model/response/product.response';
+import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-product',
@@ -25,6 +26,12 @@ export class ProductComponent {
     checkBox: false
   }
   cols: Column[] = [];
+  loading: boolean = false;
+  totalElements: number = 0;
+  page: number = 0;
+  pageSize: number = 10;
+  searchQuery: string = '';
+  searchSubject: Subject<string> = new Subject<string>();
   constructor(private productSerivce: ProductService, private modalService: NzModalService, private notification: NzNotificationService) {
     this.token = getCookie('token');
   }
@@ -92,30 +99,70 @@ export class ProductComponent {
         ]
       },
     ]
-
+    this.searchSubject.pipe(
+      debounceTime(300),  // Đợi 300ms sau khi người dùng dừng nhập
+      distinctUntilChanged(),  // Chỉ thực hiện khi giá trị thay đổi
+      switchMap(searchTerm => {
+        return this.productSerivce.getAllProducts({ page: 0, size: this.pageSize, name: searchTerm });  // Gọi API với từ khóa tìm kiếm
+      })
+    ).subscribe(res => {
+      if (res.code === StatusResponse.OK && res.result?.content.length > 0) {
+        this.data = res.result?.content;
+        this.page = res.result?.number + 1;
+        this.totalElements = res.result?.totalElements;
+        this.pageSize = res.result?.size;
+        this.loading = false;
+      }
+    });
   }
   ngAfterViewInit() {
     if (this.token) {
       this.getAllProducts();
     }
   }
-  getAllProducts() {
-    this.productSerivce.getAllProducts().subscribe((res: any) => {
-      if (res.code === StatusResponse.OK) {
-        this.data = res.result;
+  getAllProducts(payload: any = {}) {
+    this.loading = true;
+    this.productSerivce.getAllProducts(payload).subscribe((res: any) => {
+      if (res.code === StatusResponse.OK && res.result?.content.length > 0) {
+        this.data = res.result?.content;
+        this.page = res.result?.number + 1;
+        this.totalElements = res.result?.totalElements;
+        this.pageSize = res.result?.size;
+        this.loading = false;
       }
     });
   }
-
+  onSearch() {
+    this.searchSubject.next(this.searchQuery);
+  }
   onEdit(e: ProductItemResponse) {
     const modal = this.modalService.create({
-      nzTitle: 'Sửa thông tin người dùng',
+      nzTitle: 'Sửa thông tin sản phẩm',
       nzContent: CreateUpdateProductComponent,
-      nzWidth: '30%',
+      nzWidth: '50%',
       nzMask: false,
       nzFooter: null
     })
     modal.componentInstance!.id = e?.productId;
+    modal.afterClose.subscribe((res) => {
+      if (res === true) {
+        this.getAllProducts({ page: this.page - 1, size: this.pageSize });
+      }
+    })
+  }
+  onCreate() {
+    const modal = this.modalService.create({
+      nzTitle: 'Thêm mới sản phẩm',
+      nzContent: CreateUpdateProductComponent,
+      nzWidth: '50%',
+      nzMask: false,
+      nzFooter: null
+    })
+    modal.afterClose.subscribe((res) => {
+      if (res === true) {
+        this.getAllProducts({ page: this.page - 1, size: this.pageSize });
+      }
+    })
   }
   onDelete(e: any) {
     const modal = this.modalService.create({
@@ -129,10 +176,10 @@ export class ProductComponent {
     modal.componentInstance!.action = 'Xóa';
     modal.afterClose.subscribe((res) => {
       if (res) {
-        this.productSerivce.deleteById(e.id).subscribe((response: any) => {
+        this.productSerivce.deleteById(e.productId).subscribe((response: any) => {
           if (response.code === StatusResponse.OK) {
             this.notification.success('Success', 'Login successfully');
-            this.getAllProducts();
+            this.getAllProducts({ page: this.page - 1, size: this.pageSize });
           } else {
             this.notification.error('Error', response.message);
           }
@@ -149,5 +196,14 @@ export class ProductComponent {
         this.onDelete(e.data);
         break;
     }
+  }
+  onPageChange(page: number) {
+    this.page = page - 1;
+    this.getAllProducts({ page: this.page });
+  }
+  onPageSizeChange(pageSize: number) {
+    this.pageSize = pageSize;
+    this.page = 0;
+    this.getAllProducts({ size: this.pageSize });
   }
 }

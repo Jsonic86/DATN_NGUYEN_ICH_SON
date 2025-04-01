@@ -1,0 +1,18 @@
+.preview-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.preview-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin: 4px;
+}
+
+.upload-button {
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+}

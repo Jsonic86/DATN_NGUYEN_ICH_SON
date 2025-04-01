@@ -1,4 +1,5 @@
-<nz-table #basicTable [nzData]="data" [nzBordered]="settingValue?.border" [nzSize]="settingValue?.size!">
+<nz-table #basicTable [nzData]="data" [nzBordered]="settingValue?.border" [nzSize]="settingValue?.size!"
+    [nzScroll]="{ y: scrollY }" [nzPageSize]="pageSize" [nzLoading]="loading" [nzShowPagination]="false">
     <thead>
         <tr>
             <th *ngFor="let col of columns" nzAlign="center">{{ col.arr }}</th>
@@ -48,28 +49,6 @@
         </tr>
     </tbody>
 </nz-table>
-
-
-<!-- 
-column:Column[]
- {
-id
-fieldName
-type
-
-}
--->
-<!-- listOfAction:Action[]:
- {
-    actionName
-    icon
-    keyName
- }
--->
-<!-- settingValue:
- {
-    border
-    size
-    checkBox
- }
--->
+<nz-pagination [(nzPageIndex)]="page" [nzTotal]="totalElements" [nzPageSize]="pageSize"
+    (nzPageIndexChange)="onPageChange($event)" (nzPageSizeChange)="onPageSizeChange($event)" nzShowSizeChanger>
+</nz-pagination>

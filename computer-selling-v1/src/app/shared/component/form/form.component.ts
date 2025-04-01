@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 import { TYPE } from 'src/app/core/const/constant';
 import { FormItem } from 'src/app/core/const/form.type';
 
@@ -12,6 +13,7 @@ export class FormComponent implements OnInit {
   @Input() fieldFormGroup: FormItem[] = [];
   @Input() item: any;
   myForm!: FormGroup;
+  fileList: NzUploadFile[] = [];
   TYPE = TYPE;
   constructor(private fb: FormBuilder) {
     this.myForm = this.fb.group({});
@@ -24,6 +26,12 @@ export class FormComponent implements OnInit {
     if (changes['item']?.currentValue !== changes['item']?.previousValue) {
       console.log(this.item);
       this.initForm(this.item);
+      this.fileList = [{
+        uid: '-1',
+        name: this.item.imageUrl,
+        status: 'done',
+        url: `http://localhost:8080/identity/api/images/${this.item.imageUrl}`  // URL của hình ảnh mà bạn muốn preview
+      }]
     }
   }
 
@@ -52,4 +60,19 @@ export class FormComponent implements OnInit {
 
     return null;
   }
+
+
+
+
+  beforeUpload = (file: NzUploadFile): boolean => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file as any);
+    reader.onload = () => {
+      file.thumbUrl = reader.result as string;
+      this.fileList = [file]; // Chỉ giữ 1 file duy nhất
+    };
+    console.log(file);
+    return false; // Ngăn upload tự động
+  };
+
 }
