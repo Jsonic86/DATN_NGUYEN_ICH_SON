@@ -9,6 +9,10 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,15 +26,20 @@ public class CategoryController {
     CategoryService categoryService;
 
     @GetMapping()
-    public ApiResponse<List<Category>> findAll(){
-        return ApiResponse.<List<Category>>builder()
-                .result(categoryService.findAll())
+    public ApiResponse<Page<Category>> findAll(
+            @RequestParam(defaultValue = "") String name  ,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        Pageable pageable = PageRequest.of(page, size, Sort.by("categoryId").ascending());
+        return ApiResponse.<Page<Category>>builder()
+                .result(categoryService.findAll(name, pageable))
                 .code(1000)
                 .build();
     }
 
-    @GetMapping("/{id}")
-    public ApiResponse<Category> findById(@PathVariable Long id){
+    @GetMapping("/detail")
+    public ApiResponse<Category> findById(@RequestParam Long id){
         return ApiResponse.<Category>builder()
                 .result(categoryService.findById(id))
                 .code(1000)

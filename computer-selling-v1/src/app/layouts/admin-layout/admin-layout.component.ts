@@ -7,6 +7,7 @@ import { UserComponent } from 'src/app/modules/user/user.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { ProductComponent } from 'src/app/modules/product/product.component';
+import { CategoryComponent } from 'src/app/modules/category/category.component';
 
 @Component({
   selector: 'app-admin-layout',
@@ -26,6 +27,11 @@ export class AdminLayoutComponent {
     {
       title: 'Product',
       panelBody: ProductComponent,
+      isAdded: false
+    }
+    , {
+      title: 'Category',
+      panelBody: CategoryComponent,
       isAdded: false
     }
   ];

@@ -14,6 +14,8 @@ public class ProductResponse {
 
     String categoryName;
 
+    Long categoryId;
+
     String productName;
 
     String description;

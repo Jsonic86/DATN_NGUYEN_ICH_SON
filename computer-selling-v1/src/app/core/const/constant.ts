@@ -4,6 +4,7 @@ export enum StatusResponse {
 export const TITLE = {
     USER: 'User',
     PRODUCT: 'Product',
+    CATEGORY: 'Category',
 }
 export const TYPE = {
     TEXT: 'text',
@@ -13,4 +14,5 @@ export const TYPE = {
     IMAGE: 'image',
     CURRENCY: 'currency',
     ACTION: 'action',
+    SELECT: 'select',
 }

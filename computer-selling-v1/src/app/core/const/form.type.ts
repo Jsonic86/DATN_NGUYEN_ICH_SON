@@ -1,3 +1,5 @@
+import { NzSelectOptionInterface } from "ng-zorro-antd/select";
+
 export class FormItem {
     id: number;
     type: string;
@@ -8,7 +10,7 @@ export class FormItem {
     disabled: boolean;
     required?: boolean;
     span: number;
-
+    listOfOptions?: NzSelectOptionInterface[];
     constructor(init?: Partial<FormItem>) {
         this.id = init?.id ?? 0;
         this.type = init?.type ?? 'text';
@@ -19,5 +21,6 @@ export class FormItem {
         this.disabled = init?.disabled ?? false;
         this.required = init?.required ?? false;
         this.span = init?.span ?? 24;
+        this.listOfOptions = this.listOfOptions = init?.listOfOptions ?? [];
     }
 }

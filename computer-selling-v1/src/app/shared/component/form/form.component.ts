@@ -12,9 +12,11 @@ import { FormItem } from 'src/app/core/const/form.type';
 export class FormComponent implements OnInit {
   @Input() fieldFormGroup: FormItem[] = [];
   @Input() item: any;
+  @Input() selectOptions: { [key: string]: any[] } = {};
   myForm!: FormGroup;
   fileList: NzUploadFile[] = [];
   TYPE = TYPE;
+
   constructor(private fb: FormBuilder) {
     this.myForm = this.fb.group({});
 

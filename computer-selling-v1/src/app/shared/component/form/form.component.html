@@ -31,8 +31,6 @@
                     </nz-form-item>
                 </nz-col>
             </ng-container>
-        </ng-container>
-        <ng-container *ngFor="let field of fieldFormGroup" [ngSwitch]="field.type">
             <ng-container *ngSwitchCase="TYPE.NUMBER">
                 <nz-col [nzSpan]="field.span">
                     <nz-form-item>
@@ -44,7 +42,24 @@
                     </nz-form-item>
                 </nz-col>
             </ng-container>
+            <ng-container *ngSwitchCase="TYPE.SELECT">
+                <nz-col [nzSpan]="field.span">
+                    <nz-form-item>
+                        <nz-form-label [nzFor]="field.fieldName"
+                            [nzRequired]="field.required">{{field.label}}</nz-form-label>
+                        <nz-form-control [nzErrorTip]="errorTemplate">
+                            <nz-select [formControlName]="field.fieldName" [nzShowSearch]="true"
+                                [nzOptions]="selectOptions[field.fieldName]" nzPlaceHolder="Select">
+
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </nz-col>
+            </ng-container>
         </ng-container>
+        <!-- <ng-container *ngFor="let field of fieldFormGroup" [ngSwitch]="field.type">
+            
+        </ng-container> -->
     </nz-row>
 </form>
 <ng-template #errorTemplate let-fieldName="fieldName">

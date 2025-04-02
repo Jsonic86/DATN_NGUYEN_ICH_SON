@@ -16,6 +16,8 @@ import { TableComponent } from './shared/component/table/table.component';
 import { SharedModule } from './shared/module/shared.module';
 import { ConfirmComponent } from './shared/component/confirm/confirm.component';
 import { FormComponent } from './shared/component/form/form.component';
+import { CategoryComponent } from './modules/category/category.component';
+import { CategoryModule } from './modules/category/category.module';
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { FormComponent } from './shared/component/form/form.component';
     HttpClientModule,
     AdminLayoutModule,
     UserLayoutModule,
-    SharedModule
+    SharedModule,
+    CategoryModule
   ],
   providers: [],
   bootstrap: [AppComponent]

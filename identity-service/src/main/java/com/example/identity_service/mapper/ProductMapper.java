@@ -30,6 +30,7 @@ public abstract class ProductMapper {
     public abstract Product updateProduct(@MappingTarget Product product, ProductUpdationRequest request);
 
     @Mapping(target = "categoryName", source = "category.categoryName")
+    @Mapping(target = "categoryId", source = "category.categoryId")
     public abstract ProductResponse toProductResponse(Product product);
 
     public abstract List<ProductResponse> toProductList(List<Product> products);

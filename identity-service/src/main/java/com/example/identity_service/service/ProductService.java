@@ -30,16 +30,9 @@ public class ProductService {
 
     public Page<ProductResponse> findAll(String name,Pageable pageable) {
         try {
-            System.out.println("START findAll()");
             Page<Product> products = productRepository.findByProductNameContaining(name,pageable);
-            System.out.println("Query executed!");
-
-            System.out.println("Total Elements: " + products.getTotalElements());
-            System.out.println("Total Pages: " + products.getTotalPages());
-
             return products.map(productMapper::toProductResponse);
         } catch (Exception e) {
-            System.err.println("Error in findAll(): " + e.getMessage());
             e.printStackTrace();
             return Page.empty();
         }

@@ -1,0 +1,15 @@
+<div class="mb-2 d-flex justify-content-between">
+
+    <nz-input-group [nzSuffix]="suffixIcon" class="w-50">
+        <input nz-input [(ngModel)]="searchQuery" placeholder="Search name" (ngModelChange)="onSearch()">
+    </nz-input-group>
+    <span class="tab-header-item" (click)="onCreate()">
+        Thêm mới
+    </span>
+    <ng-template #suffixIcon>
+        <i nz-icon nzType="search" style="cursor: pointer;" (click)="onSearch()"></i>
+    </ng-template>
+</div>
+<app-table [data]="data" [settingValue]="settingValue" [columns]="cols" (onAction)="onAction($event)" [scrollY]="'50vh'"
+    [pageSize]="pageSize" [loading]="loading" [page]="page" [totalElements]="totalElements"
+    (pageChange)="onPageChange($event)" (pageSizeChange)="onPageSizeChange($event)"></app-table>
