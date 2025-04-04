@@ -1,0 +1,15 @@
+<ng-template #individualInfo let-person>
+    <h3>{{ person?.firstName + person?.lastName}}</h3>
+    <ng-container *ngFor="let key of keysName;let i =index">
+        <p class="info-row"><strong>{{keys[key]}} : </strong> <span style="margin-left: 5px;">{{ person?.[key] }}</span>
+        </p>
+    </ng-container>
+    <ng-container *ngFor="let key of keysNameEmployee;let i =index">
+        <p class="info-row"><strong>{{keysEmployee[key]}} : </strong> <span style="margin-left: 5px;">{{
+                person?.employee?.[key] }}</span>
+        </p>
+    </ng-container>
+</ng-template>
+
+<!-- Example usage -->
+<ng-container *ngTemplateOutlet="individualInfo; context: { $implicit: infor }"></ng-container>

@@ -8,11 +8,13 @@ import { AdminLayoutRoutingModule } from './admin-layout-routing.modules';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { TabPanelComponent } from './tab-panel/tab-panel.component';
+import { MyinfoComponent } from './myinfo/myinfo.component';
 @NgModule({
     declarations: [
         AdminLayoutComponent,
         TabGroupComponent,
         TabPanelComponent,
+        MyinfoComponent,
     ],
     imports: [
         NzDropDownModule,

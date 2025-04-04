@@ -4,6 +4,7 @@ import com.example.identity_service.dto.response.ApiGetAllResponse;
 import com.example.identity_service.dto.response.ApiResponse;
 import com.example.identity_service.dto.request.UserCreationRequest;
 import com.example.identity_service.dto.request.UserUpdationRequest;
+import com.example.identity_service.dto.response.UserResponse;
 import com.example.identity_service.entity.User;
 import com.example.identity_service.repository.UserRepositoy;
 import com.example.identity_service.service.UserService;
@@ -40,8 +41,8 @@ public class UserController {
     }
 
     @GetMapping("/myInfo")
-    ApiResponse<User> getMyInfo() {
-        return ApiResponse.<User>builder()
+    ApiResponse<UserResponse> getMyInfo() {
+        return ApiResponse.<UserResponse>builder()
                 .result(userService.getMyInfo())
                 .build();
     }

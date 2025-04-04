@@ -19,4 +19,7 @@ export class UserService {
   getById(id: string): Observable<any> {
     return this.apiService.getById(`users/detail`, id);
   }
+  getInfo() {
+    return this.apiService.get(`users/myInfo`);
+  }
 }

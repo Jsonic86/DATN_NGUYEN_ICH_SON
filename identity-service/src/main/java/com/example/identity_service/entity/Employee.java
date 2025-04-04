@@ -19,8 +19,11 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer employeeId;
 
-    @Column(nullable = false, length = 255)
-    String employeeName;
+    @Column(nullable = false, unique = true, length = 255)
+    String email;
+
+    @Column(nullable = false,  length = 255)
+    String phoneNumber;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     Set<Order> orders;

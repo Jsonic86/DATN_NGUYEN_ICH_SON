@@ -1,5 +1,6 @@
 package com.example.identity_service.dto.request;
 
+import com.example.identity_service.enums.UserType;
 import com.example.identity_service.validator.LocalDateConstraint;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -21,5 +22,6 @@ public class UserUpdationRequest {
      String lastName;
      @LocalDateConstraint(min=18,message = "INVALID_DOB")
      LocalDate dob;
+     UserType userType;
      Set<String> roles;
 }

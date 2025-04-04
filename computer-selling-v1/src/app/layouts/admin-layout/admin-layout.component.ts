@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { ProductComponent } from 'src/app/modules/product/product.component';
 import { CategoryComponent } from 'src/app/modules/category/category.component';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { MyinfoComponent } from './myinfo/myinfo.component';
 
 @Component({
   selector: 'app-admin-layout',
@@ -37,7 +39,7 @@ export class AdminLayoutComponent {
   ];
   TITLE = TITLE;
   @ViewChild(TabGroupComponent) tabGroupComponent!: TabGroupComponent;
-  constructor(public authService: AuthService, private router: Router) { }
+  constructor(public authService: AuthService, private router: Router, private modalService: NzModalService) { }
 
   ngOnInit(): void {
   }
@@ -54,5 +56,14 @@ export class AdminLayoutComponent {
         this.tabGroupComponent.setActiveIndex(index);
       }
     });
+  }
+  getProfile() {
+    const modal = this.modalService.create({
+      nzTitle: "Thông tin cá nhân",
+      nzContent: MyinfoComponent,
+      nzWidth: "50%",
+      nzMaskClosable: false,
+      nzFooter: null
+    })
   }
 }

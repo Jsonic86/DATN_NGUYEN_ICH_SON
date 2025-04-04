@@ -45,9 +45,7 @@ export class AuthService {
           .split(" ") // Tách chuỗi thành mảng ["ROLE_ADMIN", "ROLE_USER"]
           .filter((role: string) => role.startsWith("ROLE_")); // Giữ lại các phần tử bắt đầu bằng "ROLE_"
         setCookie('roles', roles.join(", "), 8);
-        setTimeout(() => {
-          this.redirectAfterLogin();
-        }, 100);
+        this.redirectAfterLogin();
       })
     );
   }

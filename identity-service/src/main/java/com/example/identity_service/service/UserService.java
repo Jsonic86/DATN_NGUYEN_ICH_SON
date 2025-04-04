@@ -3,10 +3,12 @@ package com.example.identity_service.service;
 import com.example.identity_service.dto.request.UserCreationRequest;
 import com.example.identity_service.dto.request.UserUpdationRequest;
 import com.example.identity_service.dto.response.ApiGetAllResponse;
+import com.example.identity_service.dto.response.UserResponse;
 import com.example.identity_service.entity.User;
 import com.example.identity_service.exception.AppException;
 import com.example.identity_service.exception.ErrorCode;
 import com.example.identity_service.mapper.UserMapper;
+import com.example.identity_service.repository.EmployeeRepository;
 import com.example.identity_service.repository.RoleRepository;
 import com.example.identity_service.repository.UserRepositoy;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +33,9 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     public User createRequest(UserCreationRequest request){
         if(userRepositoy.existsByUsername(request.getUsername())){
@@ -84,12 +89,13 @@ public class UserService {
         }
     }
 
-    public User getMyInfo(){
+    public UserResponse getMyInfo(){
         var context = SecurityContextHolder.getContext();
         String name = context.getAuthentication().getName();
         User userGet = userRepositoy.findByUsername(name).orElseThrow(
                 () -> new AppException(ErrorCode.USER_NOT_EXISTED)
         );
-        return  userMapper.toUserResponse(userGet);
+
+        return  userMapper.toUser(userGet);
     }
 }

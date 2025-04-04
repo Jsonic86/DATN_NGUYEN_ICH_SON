@@ -1,24 +1,22 @@
-package com.example.identity_service.entity;
+package com.example.identity_service.dto.response;
 
+
+import com.example.identity_service.entity.Customer;
+import com.example.identity_service.entity.Employee;
+import com.example.identity_service.entity.Role;
 import com.example.identity_service.enums.UserType;
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 import java.util.Set;
 
-
-@Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+public class UserResponse {
     String id;
     String username;
     String password;
@@ -26,17 +24,11 @@ public class User {
     String lastName;
     LocalDate dob;
 
-    @Enumerated(EnumType.STRING)
     UserType userType;
 
-    @OneToOne
-    @JoinColumn(name = "employee_id")
     Employee employee;
 
-    @OneToOne
-    @JoinColumn(name = "customer_id")
     Customer customer;
 
-    @ManyToMany
     Set<Role> roles;
 }

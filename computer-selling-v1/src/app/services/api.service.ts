@@ -62,7 +62,7 @@ export class ApiService {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: `Bearer ${this.Api_key_Value}`,
+        Authorization: `Bearer ${getCookie('token')}`,
       }),
     };
 
@@ -87,7 +87,7 @@ export class ApiService {
 
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: `Bearer ${this.Api_key_Value}`,
+        Authorization: `Bearer ${getCookie('token')}`,
       }),
     };
 
@@ -115,11 +115,11 @@ export class ApiService {
         params = params.set(key, payload[key]);
       });
     }
-
+    const _token = getCookie('token');
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': contentType,
-        Authorization: `Bearer ${this.Api_key_Value}`,
+        Authorization: `Bearer ${_token}`,
       }),
       params: params
     };
@@ -137,7 +137,7 @@ export class ApiService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': contentType,
-        Authorization: `Bearer ${this.Api_key_Value}`,
+        Authorization: `Bearer ${getCookie('token')}`,
       }),
       params: new HttpParams()
         .set('id', id.toString())
@@ -158,7 +158,7 @@ export class ApiService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': contentType,
-        Authorization: `Bearer ${this.Api_key_Value}`,
+        Authorization: `Bearer ${getCookie('token')}`,
       }),
       params: new HttpParams()
         .set('id', id.toString())

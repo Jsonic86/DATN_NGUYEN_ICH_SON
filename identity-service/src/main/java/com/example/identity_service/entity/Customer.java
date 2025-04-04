@@ -19,11 +19,15 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer customerId;
 
-    @Column(nullable = false, length = 255)
-    String customerName;
 
     @Column(nullable = false, unique = true, length = 255)
     String email;
+
+    @Column(nullable = false,  length = 255)
+    String phoneNumber;
+
+    @Column(nullable = false,  length = 255)
+    String address;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Order> orders;
