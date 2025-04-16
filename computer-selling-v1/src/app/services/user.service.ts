@@ -22,4 +22,7 @@ export class UserService {
   getInfo() {
     return this.apiService.get(`users/myInfo`);
   }
+  updateEmployee(payload: any) {
+    return this.apiService.post(`users/update-info`, payload);
+  }
 }

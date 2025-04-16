@@ -62,3 +62,16 @@ nz-sider {
     height: 95.2vh;
     margin-top: 12px;
 }
+
+.menu-item:hover {
+    background-color: #1890ff;
+    border-radius: 18px;
+    color: white;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(2px);
+}
+
+::ng-deep .ant-menu-title-content {
+    display: flex;
+    align-items: center;
+}

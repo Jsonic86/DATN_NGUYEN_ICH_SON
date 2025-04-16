@@ -17,6 +17,8 @@ public enum ErrorCode {
     PRODUCT_NOT_EXISTED(1009, "Product not existed", HttpStatus.NOT_FOUND),
     CATEGORY_NOT_EXISTED(1010, "Category not existed", HttpStatus.NOT_FOUND),
     SUPPLIER_NOT_EXISTED(1011, "Supplier not existed", HttpStatus.NOT_FOUND),
+    CATEGORY_LINK_PRODUCT(1012, "Category is existed in some products", HttpStatus.BAD_REQUEST),
+    ORDER_ITEM_EMPTY(1013,"Order must contain at least one item", HttpStatus.BAD_REQUEST),
     ;
 
     ErrorCode(int code, String message, HttpStatusCode httpStatusCode) {

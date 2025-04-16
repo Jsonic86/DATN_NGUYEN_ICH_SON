@@ -1,4 +1,4 @@
-<ng-template #individualInfo let-person>
+<!-- <ng-template #individualInfo let-person>
     <h3>{{ person?.firstName + person?.lastName}}</h3>
     <ng-container *ngFor="let key of keysName;let i =index">
         <p class="info-row"><strong>{{keys[key]}} : </strong> <span style="margin-left: 5px;">{{ person?.[key] }}</span>
@@ -11,5 +11,11 @@
     </ng-container>
 </ng-template>
 
-<!-- Example usage -->
-<ng-container *ngTemplateOutlet="individualInfo; context: { $implicit: infor }"></ng-container>
+ <ng-container *ngTemplateOutlet="individualInfo; context: { $implicit: infor }"></ng-container> -->
+
+
+<app-form [fieldFormGroup]="fieldFormGroup" [item]="item"></app-form>
+<div style="display: flex; justify-content: flex-end; gap: 8px;">
+    <button nz-button nzType="default" (click)="onCancel()">Hủy</button>
+    <button nz-button nzType="primary" (click)="onSave()">Lưu</button>
+</div>

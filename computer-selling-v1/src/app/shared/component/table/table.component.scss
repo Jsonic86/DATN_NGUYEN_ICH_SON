@@ -1,7 +1,88 @@
-::ng-deep .ant-table-container {
-    border: 1px solid #d9d9d9;
-    border-radius: 12px;
+::ng-deep nz-table {
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    border-radius: 16px;
     overflow: hidden;
+    background-color: #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+
+    .ant-table-thead>tr>th {
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border: none;
+        text-align: center;
+    }
+
+    .ant-table-tbody>tr>td {
+        text-align: center;
+        padding: 16px 10px;
+        font-size: 14px;
+        color: #333;
+        transition: all 0.2s;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .ant-table-tbody>tr:nth-child(even) td {
+        background-color: #fafbff;
+    }
+
+    .ant-table-tbody>tr:hover td {
+        background-color: #e3ecff;
+    }
+
+    .action-icon {
+        font-size: 18px;
+        color: #3f51b5;
+        margin: 0 4px;
+        cursor: pointer;
+        transition: 0.2s ease-in-out;
+
+        &:hover {
+            color: #1a237e;
+            transform: scale(1.2);
+        }
+    }
+
+    .ant-tag {
+        border-radius: 20px;
+        padding: 2px 10px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    nz-divider[nzType="vertical"] {
+        margin: 0 6px;
+    }
+
+}
+
+::ng-deep .ant-table-body {
+    scrollbar-width: thin;
+    scrollbar-color: #6a11cb #f2f4f8;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: linear-gradient(to bottom, #6a11cb, #2575fc);
+        border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #f4f6fc;
+        border-radius: 8px;
+    }
+}
+
+::ng-deep .ant-table-header {
+    overflow: visible !important;
+    /* Loại bỏ scroll ở header */
 }
 
 .action-icon {
@@ -17,5 +98,17 @@
 }
 
 .ant-pagination {
-    margin: 10px 0px;
+    margin: 20px 0px;
+}
+
+::ng-deep .ant-pagination-item-link {
+    border: none !important;
+}
+
+::ng-deep .ant-pagination-item {
+    border-radius: 50% !important;
+}
+
+::ng-deep .ant-select-selector {
+    border-radius: 18px !important;
 }

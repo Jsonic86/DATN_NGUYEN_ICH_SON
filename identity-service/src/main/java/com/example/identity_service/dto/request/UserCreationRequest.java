@@ -24,5 +24,5 @@ public class UserCreationRequest {
      LocalDate dob;
      @Builder.Default
      UserType userType=UserType.CUSTOMER;
-     Set<String> roles;
+     Set<String> roles=Set.of("CUSTOMER");
 }

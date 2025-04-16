@@ -59,7 +59,7 @@ export class AuthService {
   //   );;
   // }
   register(body: any): Observable<CommonResponse<RegisterResponse>> {
-    return this.apiService.login_api('auth/register', body);
+    return this.apiService.login_api('users/register', body);
   }
   isLoggedIn(): boolean {
     const info = getCookie('token');

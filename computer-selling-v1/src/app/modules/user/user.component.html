@@ -1,1 +1,5 @@
-<app-table [data]="data" [settingValue]="settingValue" [columns]="cols" (onAction)="onAction($event)"></app-table>
+<span class="tab-header-item mb-2" (click)="onCreateEmpoyeeAccount()">
+    Tạo mới tài khoản nhân viên
+</span>
+<app-table [data]="data" [settingValue]="settingValue" [columns]="cols" (onAction)="onAction($event)"
+    [scrollY]="'45vh'"></app-table>

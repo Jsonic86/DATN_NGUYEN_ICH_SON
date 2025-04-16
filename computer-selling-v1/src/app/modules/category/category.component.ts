@@ -144,23 +144,23 @@ export class CategoryComponent {
       nzFooter: null
     })
     modal.componentInstance!.action = 'Xóa';
-    // modal.afterClose.subscribe((res) => {
-    //   if (res) {
-    //     this.productSerivce.deleteById(e.productId).subscribe((response: any) => {
-    //       if (response.code === StatusResponse.OK) {
-    //         this.notification.success('Success', 'Login successfully');
-    //         this.getAllCategories({ page: this.page - 1, size: this.pageSize });
-    //       } else {
-    //         this.notification.error('Error', response.message);
-    //       }
-    //     })
-    //   }
-    // })
+    modal.afterClose.subscribe((res) => {
+      if (res) {
+        this.categorySerivce.deleteById(e.categoryId.toString()).subscribe((response: any) => {
+          if (response.code === StatusResponse.OK) {
+            this.notification.success('Success', 'Xóa thành công');
+            this.getAllCategories({ page: this.page - 1, size: this.pageSize });
+          } else {
+            this.notification.error('Error', response.message);
+          }
+        })
+      }
+    })
   }
   onAction(e: any) {
     switch (e.actionName) {
       case 'edit':
-        // this.onEdit(e.data);
+        this.onEdit(e.data);
         break;
       case 'delete':
         this.onDelete(e.data);

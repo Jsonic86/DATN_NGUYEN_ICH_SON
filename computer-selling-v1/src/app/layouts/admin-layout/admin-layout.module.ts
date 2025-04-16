@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+
 import { NgZorroModule } from 'src/app/shared/module/ng-zorro.module';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { CommonModule } from '@angular/common';
@@ -9,6 +9,9 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { TabPanelComponent } from './tab-panel/tab-panel.component';
 import { MyinfoComponent } from './myinfo/myinfo.component';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/module/shared.module';
 @NgModule({
     declarations: [
         AdminLayoutComponent,
@@ -17,11 +20,14 @@ import { MyinfoComponent } from './myinfo/myinfo.component';
         MyinfoComponent,
     ],
     imports: [
+        ReactiveFormsModule,
         NzDropDownModule,
         NgZorroModule,
         AdminLayoutRoutingModule,
         NzDividerModule,
-        CommonModule
+        CommonModule,
+        NzMenuModule,
+        SharedModule
     ],
     providers: [],
 })

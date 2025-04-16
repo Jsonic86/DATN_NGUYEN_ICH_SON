@@ -1,0 +1,57 @@
+<form nz-form [formGroup]="registerForm" nzLayout="vertical">
+    <div class="row">
+        <div class="col-6">
+            <nz-form-item>
+                <nz-form-label nzRequired>Username</nz-form-label>
+                <nz-form-control nzErrorTip="Please input your username!">
+                    <input nz-input formControlName="username" />
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="col-6">
+            <nz-form-item>
+                <nz-form-label nzRequired>Password</nz-form-label>
+                <nz-form-control nzErrorTip="Please input your password!">
+                    <input nz-input type="password" formControlName="password" />
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <nz-form-item>
+                <nz-form-label nzRequired>First Name</nz-form-label>
+                <nz-form-control nzErrorTip="Please input your first name!">
+                    <input nz-input formControlName="firstName" />
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <div class="col-6">
+            <nz-form-item>
+                <nz-form-label nzRequired>Last Name</nz-form-label>
+                <nz-form-control nzErrorTip="Please input your last name!">
+                    <input nz-input type="text" formControlName="lastName" />
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <nz-form-item>
+                <nz-form-label nzRequired>Date of birth</nz-form-label>
+                <nz-form-control nzErrorTip="Please input your local date!">
+                    <input nz-input type="text" formControlName="dob" />
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center algin-items-center flex-column">
+        <div class="d-flex justify-content-center algin-items-center">
+            <button class="w-25" nz-button nzType="primary" (click)="onRegister()" [nzLoading]="loading">Sign
+                up</button>
+        </div>
+    </div>
+</form>

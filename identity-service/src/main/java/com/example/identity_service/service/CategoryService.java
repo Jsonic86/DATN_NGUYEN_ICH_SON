@@ -8,6 +8,7 @@ import com.example.identity_service.exception.AppException;
 import com.example.identity_service.exception.ErrorCode;
 import com.example.identity_service.mapper.CategoryMapper;
 import com.example.identity_service.repository.CategoryRepository;
+import com.example.identity_service.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,10 @@ import java.util.List;
 public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
     @Autowired
     private CategoryMapper categoryMapper;
 
@@ -46,7 +51,14 @@ public class CategoryService {
     public void delete(Long id){
         boolean isExists = categoryRepository.existsById(id);
         if(isExists){
-            categoryRepository.deleteById(id);
+            Category category = categoryRepository.findById(id).orElseThrow(
+                    ()-> new AppException(ErrorCode.CATEGORY_NOT_EXISTED)
+            );
+            boolean isExistCategory = productRepository.existsByCategory(category);
+            if(isExistCategory){
+                throw new AppException(ErrorCode.CATEGORY_LINK_PRODUCT);
+            }
+            else categoryRepository.deleteById(id);
         }
         else throw new AppException(ErrorCode.CATEGORY_NOT_EXISTED);
     }

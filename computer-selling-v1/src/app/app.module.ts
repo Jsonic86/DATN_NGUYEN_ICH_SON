@@ -17,7 +17,10 @@ import { SharedModule } from './shared/module/shared.module';
 import { ConfirmComponent } from './shared/component/confirm/confirm.component';
 import { FormComponent } from './shared/component/form/form.component';
 import { CategoryComponent } from './modules/category/category.component';
+import { SupplierComponent } from './modules/supplier/supplier.component';
+import { CreateUpdateSupplierComponent } from './modules/supplier/create-update-supplier/create-update-supplier.component';
 import { CategoryModule } from './modules/category/category.module';
+import { SupplierModule } from './modules/supplier/supplier.module';
 
 
 @NgModule({
@@ -25,7 +28,6 @@ import { CategoryModule } from './modules/category/category.module';
     AppComponent,
     LayoutComponent,
     ConfirmComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,8 @@ import { CategoryModule } from './modules/category/category.module';
     AdminLayoutModule,
     UserLayoutModule,
     SharedModule,
-    CategoryModule
+    CategoryModule,
+    SupplierModule
   ],
   providers: [],
   bootstrap: [AppComponent]

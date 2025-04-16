@@ -10,6 +10,7 @@ import { ProductComponent } from 'src/app/modules/product/product.component';
 import { CategoryComponent } from 'src/app/modules/category/category.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { MyinfoComponent } from './myinfo/myinfo.component';
+import { SupplierComponent } from 'src/app/modules/supplier/supplier.component';
 
 @Component({
   selector: 'app-admin-layout',
@@ -22,18 +23,23 @@ export class AdminLayoutComponent {
   isCollapsed = false;
   tabPanelList: TabItem[] = [
     {
-      title: 'User',
+      title: 'Quản lý tài khoản',
       panelBody: UserComponent,
       isAdded: false
     },
     {
-      title: 'Product',
+      title: 'Quản lý sản phẩm',
       panelBody: ProductComponent,
       isAdded: false
     }
     , {
-      title: 'Category',
+      title: 'Quản lý danh mục',
       panelBody: CategoryComponent,
+      isAdded: false
+    }
+    , {
+      title: 'Quản lý nhà cung cấp',
+      panelBody: SupplierComponent,
       isAdded: false
     }
   ];
@@ -42,6 +48,7 @@ export class AdminLayoutComponent {
   constructor(public authService: AuthService, private router: Router, private modalService: NzModalService) { }
 
   ngOnInit(): void {
+    this.onSelect(TITLE.USER);
   }
   onLogOut() {
     deleteCookie('token');

@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         console.log('Response:', res); // ✅ In response ra kiểm tra
 
         if (res.code === StatusResponse.OK) {
-          this.notification.success('Success', 'Login successfully');
+          this.notification.success('Success', 'Đăng nhập thành công');
         } else {
           this.notification.error('Error', res.message);
         }

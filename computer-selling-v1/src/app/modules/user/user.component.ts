@@ -8,6 +8,8 @@ import { getCookie } from 'src/app/core/utils';
 import { UserService } from 'src/app/services/user.service';
 import { ConfirmComponent } from 'src/app/shared/component/confirm/confirm.component';
 import { CreateUpdateUserComponent } from './create-update-user/create-update-user.component';
+import { RegisterComponent } from 'src/app/auth/register/register/register.component';
+import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 
 @Component({
   selector: 'app-user',
@@ -134,5 +136,19 @@ export class UserComponent implements OnInit {
         this.onDelete(e.data);
         break;
     }
+  }
+  onCreateEmpoyeeAccount() {
+    const modal = this.modalService.create({
+      nzTitle: 'Tạo tài khoản nhân viên',
+      nzContent: RegisterEmployeeComponent,
+      nzWidth: '50%',
+      nzMaskClosable: false,
+      nzFooter: null,
+    })
+    modal.afterClose.subscribe((res) => {
+      if (res === true) {
+        this.getAllUsers();
+      }
+    })
   }
 }

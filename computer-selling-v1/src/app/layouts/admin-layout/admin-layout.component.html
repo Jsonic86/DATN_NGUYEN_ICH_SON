@@ -2,27 +2,26 @@
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" nzTheme="light">
         <div class="d-flex justify-content-between flex-column h-100">
             <div>
-                <div class="logo"><img src="https://openclipart.org/download/232064/Logo-Logo-White-Background.svg"
-                        width="100%" height="100%" />
+                <div class="logo"><img src="../../../assets/icon/logo.svg" width="100%" height="100%" />
                 </div>
                 <ul nz-menu nzTheme="light" nzMode="inline">
-                    <li nz-submenu nzTitle="User" nzIcon="user">
-                        <ul>
-                            <li nz-menu-item (click)="onSelect(TITLE.USER)" class="menu-item">Tài khoản</li>
-                            <li nz-menu-item (click)="onSelect(TITLE.PRODUCT)" class="menu-item">Sản phẩm</li>
-                            <li nz-menu-item (click)="onSelect(TITLE.CATEGORY)" class="menu-item">Danh mục</li>
-                        </ul>
+                    <li nz-menu-item (click)="onSelect(TITLE.USER)" class="menu-item ">
+                        <span nz-icon nzType="user" nzTheme="outline"></span>
+                        <span>Quản lý tài khoản</span>
                     </li>
-                    <li nz-submenu nzTitle="Team" nzIcon="team" class="menu-item">
-                        <ul>
-                            <li nz-menu-item class="menu-item">Team 1</li>
-                            <li nz-menu-item class="menu-item">Team 2</li>
-                        </ul>
+                    <li nz-menu-item (click)="onSelect(TITLE.PRODUCT)" class="menu-item ">
+                        <span nz-icon nzType="gift" nzTheme="outline"></span>
+                        <span>Quản lý sản phẩm</span>
                     </li>
-                    <li nz-menu-item class="menu-item">
-                        <!-- <nz-icon nzType="file" /> -->
-                        <span>File</span>
+                    <li nz-menu-item (click)="onSelect(TITLE.CATEGORY)" class="menu-item ">
+                        <span nz-icon nzType="appstore" nzTheme="outline"></span>
+                        <span>Quản lý danh mục</span>
                     </li>
+                    <li nz-menu-item (click)="onSelect(TITLE.SUPPLIER)" class="menu-item ">
+                        <span nz-icon nzType="appstore" nzTheme="outline"></span>
+                        <span>Quản lý nhà cung cấp</span>
+                    </li>
+
                 </ul>
             </div>
             <div class="d-flex justify-content-between flex-column ">

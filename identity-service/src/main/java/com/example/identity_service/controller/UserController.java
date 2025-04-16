@@ -1,5 +1,6 @@
 package com.example.identity_service.controller;
 
+import com.example.identity_service.dto.request.UpdateInfoRequest;
 import com.example.identity_service.dto.response.ApiGetAllResponse;
 import com.example.identity_service.dto.response.ApiResponse;
 import com.example.identity_service.dto.request.UserCreationRequest;
@@ -56,6 +57,14 @@ public class UserController {
     @PutMapping()
     User updateUser(@RequestBody UserUpdationRequest request) {
         return userService.updateRequest(request);
+    }
+
+    @PostMapping("/update-info")
+    ApiResponse<UserResponse> updateEmployee(@RequestBody UpdateInfoRequest request) {
+        return ApiResponse.<UserResponse>builder()
+                .code(1000)
+                .result(userService.updateInfoEmployee(request))
+                .build();
     }
 
     @DeleteMapping()

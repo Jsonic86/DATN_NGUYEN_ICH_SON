@@ -2,9 +2,10 @@ export enum StatusResponse {
     OK = 1000,
 }
 export const TITLE = {
-    USER: 'User',
-    PRODUCT: 'Product',
-    CATEGORY: 'Category',
+    USER: 'Quản lý tài khoản',
+    PRODUCT: 'Quản lý sản phẩm',
+    CATEGORY: 'Quản lý danh mục',
+    SUPPLIER: 'Quản lý nhà cung cấp',
 }
 export const TYPE = {
     TEXT: 'text',
@@ -15,4 +16,8 @@ export const TYPE = {
     CURRENCY: 'currency',
     ACTION: 'action',
     SELECT: 'select',
+}
+export const USER_TYPE = {
+    CUSTOMER: 'CUSTOMER',
+    EMPLOYEE: 'EMPLOYEE'
 }

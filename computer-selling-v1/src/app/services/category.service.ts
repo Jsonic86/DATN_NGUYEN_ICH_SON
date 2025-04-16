@@ -21,4 +21,7 @@ export class CategoryService {
   updateCategory(payload: any): Observable<any> {
     return this.apiService.put('categories', payload);
   }
+  deleteById(id: string): Observable<any> {
+    return this.apiService.delete('categories', id);
+  }
 }

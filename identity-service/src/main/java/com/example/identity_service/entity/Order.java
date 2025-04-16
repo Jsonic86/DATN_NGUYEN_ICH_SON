@@ -1,13 +1,13 @@
-
 package com.example.identity_service.entity;
 
 import com.example.identity_service.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -38,11 +38,26 @@ public class Order {
     BigDecimal totalAmount;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "ENUM('Chờ xử lý', 'Đang giao', 'Hoàn thành', 'Đã hủy') DEFAULT 'Chờ xử lý'")
+    @Column(nullable = false, columnDefinition = "ENUM('CHỜ_XỬ_LÝ', 'ĐANG_GIAO', 'HOÀN_THÀNH', 'ĐÃ_HỦY') DEFAULT 'CHỜ_XỬ_LÝ'")
     OrderStatus status;
+
+    // ✅ One Order → Many OrderDetails
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<OrderDetail> orderDetails;
 
     @PrePersist
     protected void onCreate() {
         orderDate = LocalDateTime.now();
+        calculateTotalAmount(); // Tự động tính tổng tiền khi tạo
+    }
+
+    public void calculateTotalAmount() {
+        if (orderDetails == null || orderDetails.isEmpty()) {
+            totalAmount = BigDecimal.ZERO;
+        } else {
+            totalAmount = orderDetails.stream()
+                    .map(item -> item.getUnitPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        }
     }
 }

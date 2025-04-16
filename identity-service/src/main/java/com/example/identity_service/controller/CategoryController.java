@@ -61,8 +61,8 @@ public class CategoryController {
                 .build();
     }
 
-    @DeleteMapping("/{id}")
-    public ApiResponse<Void> delete(@PathVariable Long id){
+    @DeleteMapping("")
+    public ApiResponse<Void> delete(@RequestParam Long id){
         categoryService.delete(id);
         return ApiResponse.<Void>builder()
                 .code(1000)
