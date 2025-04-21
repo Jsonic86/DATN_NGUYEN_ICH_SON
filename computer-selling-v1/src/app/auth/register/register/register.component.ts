@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -12,7 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   loading: boolean = false;
-  constructor(private fb: FormBuilder, private authService: AuthService, private notification: NzNotificationService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private notification: NzNotificationService, private router: Router, private modalRef: NzModalRef) {
 
   }
 
@@ -44,5 +45,8 @@ export class RegisterComponent implements OnInit {
         this.loading = false;
       }
     );
+  }
+  onLogin() {
+    this.modalRef.close('login');
   }
 }

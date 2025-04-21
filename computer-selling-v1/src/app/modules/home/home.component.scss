@@ -1,0 +1,92 @@
+.hero-area {
+    background-color: #fff;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.hero-area h2 {
+    font-size: 2.5rem;
+}
+
+.hero-area .lead {
+    font-size: 1.1rem;
+}
+
+.trending-products img {
+    max-height: 200px;
+    object-fit: contain;
+}
+
+.card-title a:hover {
+    color: #0d6efd;
+}
+
+.custom-carousel-wrapper {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    scroll-behavior: smooth;
+}
+
+.custom-carousel-track {
+    display: flex;
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
+.custom-carousel-track img {
+    flex: 0 0 auto;
+    width: 300px;
+    height: auto;
+    scroll-snap-align: start;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+.custom-carousel-track img:hover {
+    transform: scale(1.05);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    /* nền tối mờ */
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 30px;
+    height: 30px;
+    filter: invert(1);
+    /* biến icon từ trắng sang đen hoặc ngược lại */
+}
+
+.carousel-control-prev {
+    left: 10px;
+}
+
+.carousel-control-next {
+    right: 10px;
+}
+
+.category-item {
+    cursor: pointer;
+}
+
+.category-item:hover {
+    background-color: #6994d1 !important;
+}

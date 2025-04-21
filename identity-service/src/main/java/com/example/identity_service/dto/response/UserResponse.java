@@ -26,9 +26,9 @@ public class UserResponse {
 
     UserType userType;
 
-    Employee employee;
+    Integer employeeId;
 
-    Customer customer;
+    Integer customerId;
 
     Set<Role> roles;
 }

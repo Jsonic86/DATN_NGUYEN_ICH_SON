@@ -21,6 +21,10 @@ import { SupplierComponent } from './modules/supplier/supplier.component';
 import { CreateUpdateSupplierComponent } from './modules/supplier/create-update-supplier/create-update-supplier.component';
 import { CategoryModule } from './modules/category/category.module';
 import { SupplierModule } from './modules/supplier/supplier.module';
+import { ProductDetailComponent } from './modules/product-detail/product-detail.component';
+import { ShoppingCartsComponent } from './modules/shopping-carts/shopping-carts.component';
+import { CheckoutComponent } from './modules/checkout/checkout.component';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 
 @NgModule({
@@ -28,6 +32,7 @@ import { SupplierModule } from './modules/supplier/supplier.module';
     AppComponent,
     LayoutComponent,
     ConfirmComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

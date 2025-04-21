@@ -3,6 +3,7 @@ package com.example.identity_service.controller;
 import com.example.identity_service.dto.request.CategoryRequest;
 import com.example.identity_service.dto.request.CategoryUpdationRequest;
 import com.example.identity_service.dto.response.ApiResponse;
+import com.example.identity_service.dto.response.CategoryResponse;
 import com.example.identity_service.entity.Category;
 import com.example.identity_service.service.CategoryService;
 import lombok.AccessLevel;
@@ -26,13 +27,13 @@ public class CategoryController {
     CategoryService categoryService;
 
     @GetMapping()
-    public ApiResponse<Page<Category>> findAll(
+    public ApiResponse<Page<CategoryResponse>> findAll(
             @RequestParam(defaultValue = "") String name  ,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ){
         Pageable pageable = PageRequest.of(page, size, Sort.by("categoryId").ascending());
-        return ApiResponse.<Page<Category>>builder()
+        return ApiResponse.<Page<CategoryResponse>>builder()
                 .result(categoryService.findAll(name, pageable))
                 .code(1000)
                 .build();

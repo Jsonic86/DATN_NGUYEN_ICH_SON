@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthGuard } from './guard/auth.guard';
+import { NotFoundComponent } from './modules/not-found/not-found.component';
 
 // const routes: Routes = [
 //   {
@@ -26,12 +27,8 @@ const routes: Routes = [
   },
   {
     path: 'user',
-    component: UserLayoutComponent,
-    canActivate: [AuthGuard],
-    data: { role: 'ROLE_USER' },
-    children: [
-      // { path: 'home', loadChildren: () => import('./layouts/user-layout/user-layout.module').then(m => m.UserLayoutModule) }
-    ]
+    loadChildren: () => import('./layouts/user-layout/user-layout.module').then(m => m.UserLayoutModule),
+    data: { role: 'ROLE_CUSTOMER' },
   },
   {
     path: 'admin',
@@ -50,7 +47,7 @@ const routes: Routes = [
     path: 'products',
     loadChildren: () => import('./modules/product/product.module').then(m => m.ProductModule)
   },
-  { path: '**', redirectTo: 'auth/login' }
+  { path: '**', component: NotFoundComponent }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

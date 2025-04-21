@@ -1,22 +1,26 @@
-<div class="d-flex justify-content-center align-items-center login-wrapper">
-    <nz-card [nzBordered]="true" [nzTitle]="'Login'" [nzBodyStyle]="{ width: 'auto' }" class="w-25">
-        <form nz-form [formGroup]="loginForm" nzLayout="vertical">
-            <nz-form-item>
-                <nz-form-label nzRequired>Username</nz-form-label>
-                <nz-form-control nzErrorTip="Please input your username!">
-                    <input nz-input formControlName="username" />
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-label nzRequired>Password</nz-form-label>
-                <nz-form-control nzErrorTip="Please input your password!">
-                    <input nz-input type="password" formControlName="password" />
-                </nz-form-control>
-            </nz-form-item>
-            <div class="d-flex justify-content-center algin-items-center flex-column">
-                <button nz-button nzType="primary" (click)="login()" [nzLoading]="loading">Login</button>
-                <a nz-button nzType="link" routerLink="/auth/register">Sign up now!</a>
-            </div>
-        </form>
-    </nz-card>
-</div>
+<!-- <div class="d-flex justify-content-center align-items-center login-wrapper">
+    <nz-card [nzBordered]="true" [nzTitle]="'Login'" [nzBodyStyle]="{ width: 'auto' }" class="w-25"> -->
+<form nz-form [formGroup]="loginForm" nzLayout="vertical">
+    <div class="row">
+        <nz-form-item>
+            <nz-form-label nzRequired>Username</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your username!">
+                <input nz-input formControlName="username" />
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+    <div class="row">
+        <nz-form-item>
+            <nz-form-label nzRequired>Password</nz-form-label>
+            <nz-form-control nzErrorTip="Please input your password!">
+                <input nz-input type="password" formControlName="password" />
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+    <div class="d-flex justify-content-center align-items-center flex-column">
+        <button class="w-25" nz-button nzType="primary" (click)="login()" [nzLoading]="loading">Login</button>
+        <a nz-button nzType="link" (click)="onRegister()">Sign up now!</a>
+    </div>
+</form>
+<!-- </nz-card>
+</div> -->

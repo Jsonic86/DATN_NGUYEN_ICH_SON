@@ -9,15 +9,19 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
+public abstract class UserMapper {
     @Mapping(target = "roles", ignore = true)
-    User toUser(UserCreationRequest request);
-    User toUserResponse(User user);
+    public abstract User toUser(UserCreationRequest request);
 
-    @Mapping(source = "employee", target = "employee")
-    UserResponse toUser (User user);
+    @Mapping(target = "customerId", source = "customer.customerId")
+    @Mapping(target = "employeeId", source = "employee.employeeId")
+    public abstract UserResponse toUserResponse(User user);
+
+    @Mapping(target = "customerId", source = "customer.customerId")
+    @Mapping(target = "employeeId", source = "employee.employeeId")
+    public abstract UserResponse toUser (User user);
 
     @Mapping(target = "roles", ignore = true)
-    void updateUser(@MappingTarget User user, UserUpdationRequest request);
+    public abstract void updateUser(@MappingTarget User user, UserUpdationRequest request);
 
 }

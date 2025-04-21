@@ -3,9 +3,12 @@ package com.example.identity_service.controller;
 import com.example.identity_service.dto.request.ProductRequest;
 import com.example.identity_service.dto.request.ProductUpdationRequest;
 import com.example.identity_service.dto.response.ApiResponse;
+import com.example.identity_service.dto.response.CategoryResponse;
 import com.example.identity_service.dto.response.ProductResponse;
+import com.example.identity_service.entity.Category;
 import com.example.identity_service.entity.Product;
 import com.example.identity_service.repository.ProductRepository;
+import com.example.identity_service.service.CategoryService;
 import com.example.identity_service.service.ProductService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +33,8 @@ import java.util.List;
 public class ProductController {
     @Autowired
     ProductService productService;
+    @Autowired
+    CategoryService categoryService;
 
     @GetMapping()
     ApiResponse<Page<ProductResponse>> getAllProducts(

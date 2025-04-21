@@ -1,0 +1,73 @@
+<!-- SHOPPING CART -->
+<section class="shopping-cart py-5 bg-light">
+    <div class="container">
+        <h2 class="mb-4 fw-bold text-center text-primary">🛒 Giỏ hàng của bạn</h2>
+
+        <div class="table-responsive">
+            <table class="table align-middle bg-white shadow rounded">
+                <thead class="text-uppercase text-muted">
+                    <tr>
+                        <th scope="col">Sản phẩm</th>
+                        <th scope="col">Giá</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Tổng</th>
+                        <th scope="col">Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sản phẩm 1 -->
+                    <tr *ngFor="let item of cartItems">
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img [src]="'http://localhost:8080/identity/api/images/'+item?.imageUrl"
+                                    class="img-fluid rounded" alt="Laptop" width="80">
+                                <div class="ms-3">
+                                    <h6 class="mb-0 fw-semibold">{{item?.name}}</h6>
+                                    <small class="text-muted">{{item?.name}}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="fw-bold text-success">{{item?.price|currency:'VND'}}
+                        <td>
+                            <input type="number" min="1" [value]="item!.quantity"
+                                class="form-control w-50 text-center mx-auto">
+                        </td>
+                        <td class="fw-bold">{{(item!.price*item!.quantity)|currency:'VND'}}</td>
+                        <td>
+                            <button class="btn btn-sm btn-danger" (click)="remove(item.id)">
+                                <i class="lni lni-trash-can"></i> Xoá
+                            </button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Tổng cộng -->
+        <div class="row mt-4 justify-content-end">
+            <div class="col-md-5">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold mb-3">Tóm tắt đơn hàng</h5>
+                        <ul class="list-group list-group-flush mb-3">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Tạm tính:</span>
+                                <span>{{cartService.getTotal()|currency:'VND'}}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Phí vận chuyển:</span>
+                                <span>$20</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between fw-bold text-primary">
+                                <span>Tổng cộng:</span>
+                                <span>{{cartService.getTotal()|currency:'VND'}}</span>
+                            </li>
+                        </ul>
+                        <a href="#" class="btn btn-success w-100">🧾 Thanh toán</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

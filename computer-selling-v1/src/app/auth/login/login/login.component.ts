@@ -5,6 +5,7 @@ import { LoginResponse } from 'src/app/model/response/login.response';
 import { AuthService } from 'src/app/services/auth.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { StatusResponse } from 'src/app/core/const/constant';
+import { NzModalRef } from 'ng-zorro-antd/modal';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +14,7 @@ import { StatusResponse } from 'src/app/core/const/constant';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   loading: boolean = false;
-  constructor(private fb: FormBuilder, private authService: AuthService, private notification: NzNotificationService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private notification: NzNotificationService, private modalRef: NzModalRef) {
 
   }
 
@@ -36,12 +37,14 @@ export class LoginComponent implements OnInit {
         console.log('Response:', res); // ✅ In response ra kiểm tra
 
         if (res.code === StatusResponse.OK) {
+          this.modalRef.close();
           this.notification.success('Success', 'Đăng nhập thành công');
         } else {
           this.notification.error('Error', res.message);
         }
 
         this.loading = false;
+
       },
       (error) => {
         console.error('Login error:', error); // ✅ In lỗi nếu API bị lỗi
@@ -50,5 +53,7 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
+  onRegister() {
+    this.modalRef.close('register');
+  }
 }

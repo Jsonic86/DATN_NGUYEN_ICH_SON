@@ -116,11 +116,15 @@ export class ApiService {
       });
     }
     const _token = getCookie('token');
+    const headersConfig: any = {
+      'Content-Type': contentType
+    };
+
+    if (_token) {
+      headersConfig.Authorization = `Bearer ${_token}`;
+    }
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': contentType,
-        Authorization: `Bearer ${_token}`,
-      }),
+      headers: new HttpHeaders(headersConfig),
       params: params
     };
 
@@ -134,14 +138,19 @@ export class ApiService {
     if (!contentType) {
       contentType = this.CONTENT_TYPE_APP_JSON;
     }
+    const headersConfig: any = {
+      'Content-Type': contentType
+    };
+    const _token = getCookie('token');
+    if (_token) {
+      headersConfig.Authorization = `Bearer ${_token}`;
+    }
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': contentType,
-        Authorization: `Bearer ${getCookie('token')}`,
-      }),
+      headers: new HttpHeaders(headersConfig),
       params: new HttpParams()
         .set('id', id.toString())
     };
+
     return this.http.get(
       `${this.baseUrl}/${path}`,
       httpOptions

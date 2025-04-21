@@ -73,7 +73,7 @@ export class AuthService {
     if (role.includes('ROLE_ADMIN')) {
       this.router.navigate(['/admin']); // Điều hướng admin
     } else {
-      this.router.navigate(['/user']); // Điều hướng user
+      this.router.navigate(['/user/home']); // Điều hướng user
     }
   }
 }

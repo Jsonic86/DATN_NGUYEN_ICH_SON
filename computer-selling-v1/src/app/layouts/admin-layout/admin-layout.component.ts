@@ -53,7 +53,7 @@ export class AdminLayoutComponent {
   onLogOut() {
     deleteCookie('token');
     deleteCookie('roles');
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/user/home']);
   }
   onSelect(title: string) {
     this.tabPanelList.forEach((item, index) => {

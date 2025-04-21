@@ -4,6 +4,7 @@ import com.example.identity_service.dto.request.CategoryRequest;
 import com.example.identity_service.dto.request.CategoryUpdationRequest;
 import com.example.identity_service.dto.response.CategoryResponse;
 import com.example.identity_service.entity.Category;
+import com.example.identity_service.entity.Product;
 import com.example.identity_service.exception.AppException;
 import com.example.identity_service.exception.ErrorCode;
 import com.example.identity_service.mapper.CategoryMapper;
@@ -27,9 +28,14 @@ public class CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
-    public Page<Category> findAll(String name, Pageable pageable) {
-        Page<Category> categories = categoryRepository.findByCategoryNameContaining(name,pageable);
-        return  categories;
+    public Page<CategoryResponse> findAll(String name, Pageable pageable) {
+        try {
+            Page<Category> categories = categoryRepository.findByCategoryNameContaining(name,pageable);
+            return categories.map(categoryMapper::toCategoryResponse);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Page.empty();
+        }
     }
     public Category findById(Long id){
         return categoryRepository.findById(id).orElseThrow(

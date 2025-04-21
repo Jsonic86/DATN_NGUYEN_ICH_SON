@@ -1,0 +1,138 @@
+<!-- Start Breadcrumbs -->
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6 col-12">
+                <div class="breadcrumbs-content">
+                    <h1 class="page-title">Single Product</h1>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <ul class="breadcrumb-nav">
+                    <li><a routerLink="/user/home" class="d-flex justify-content-center align-items-center gap-2"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 576 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                <path
+                                    d="M575.8 255.5c0 18-15 32.1-32 32.1l-32 0 .7 160.2c0 2.7-.2 5.4-.5 8.1l0 16.2c0 22.1-17.9 40-40 40l-16 0c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1L416 512l-24 0c-22.1 0-40-17.9-40-40l0-24 0-64c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32 14.3-32 32l0 64 0 24c0 22.1-17.9 40-40 40l-24 0-31.9 0c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2l-16 0c-22.1 0-40-17.9-40-40l0-112c0-.9 0-1.9 .1-2.8l0-69.7-32 0c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z" />
+                            </svg> Home</a></li>
+                    <li><a class="d-flex justify-content-center align-items-center gap-2"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                <path
+                                    d="M40 48C26.7 48 16 58.7 16 72l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24L40 48zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L192 64zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32l288 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-288 0zM16 232l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24l-48 0c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24l0 48c0 13.3 10.7 24 24 24l48 0c13.3 0 24-10.7 24-24l0-48c0-13.3-10.7-24-24-24l-48 0z" />
+                            </svg>{{item?.categoryName}}</a>
+                    </li>
+                    <li><a class="d-flex justify-content-center align-items-center gap-2"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                                <path
+                                    d="M326.3 218.8c0 20.5-16.7 37.2-37.2 37.2h-70.3v-74.4h70.3c20.5 0 37.2 16.7 37.2 37.2zM504 256c0 137-111 248-248 248S8 393 8 256 119 8 256 8s248 111 248 248zm-128.1-37.2c0-47.9-38.9-86.8-86.8-86.8H169.2v248h49.6v-74.4h70.3c47.9 0 86.8-38.9 86.8-86.8z" />
+                            </svg>{{item?.productName}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Breadcrumbs -->
+
+<!-- Start Item Details -->
+<section class="item-details section">
+    <div class="container">
+        <div class="top-area">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-12 col-12">
+                    <div class="product-images">
+                        <main id="gallery">
+                            <div class="main-img">
+                                <img [src]="'http://localhost:8080/identity/api/images/'+item?.imageUrl" width="350"
+                                    height="450" id="current" alt="#">
+                            </div>
+                            <div class="images">
+                                <img src="../../../assets/icon/logo.svg" width="50" height="50" class="img" alt="#">
+                                <img src="../../../assets/icon/logo.svg" width="50" height="50" class="img" alt="#">
+                                <img src="../../../assets/icon/logo.svg" width="50" height="50" class="img" alt="#">
+                                <img src="../../../assets/icon/logo.svg" width="50" height="50" class="img" alt="#">
+                                <img src="../../../assets/icon/logo.svg" width="50" height="50" class="img" alt="#">
+                            </div>
+                        </main>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-12">
+                    <div class="product-info">
+                        <h2 class="title">{{item?.productName}}</h2>
+                        <!-- <p class="category"><i class="lni lni-tag"></i> Drones:<a href="javascript:void(0)">Action
+                                cameras</a></p> -->
+                        <h3 class="price">{{item?.price|currency:'VND' }}</h3>
+                        <p class="info-text">{{item?.description}}</p>
+                        <div class="row">
+
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <div class="form-group quantity">
+                                    <label for="color">Quantity</label>
+                                    <select class="form-control" [(ngModel)]="selectedQuantity" name="quantity">
+                                        <option *ngFor="let qty of [1, 2, 3, 4, 5]" [value]="qty">{{ qty }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom-content">
+                            <div class="row align-items-end">
+                                <div class="col-lg-4 col-md-4 col-12">
+                                    <div class=" button cart-button">
+                                        <button class="btn" style="width: 100%;border: 1px grey solid;"
+                                            (click)="addToCart(item)">Add to
+                                            Cart</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="product-details-info">
+            <div class="single-block">
+                <div class="row">
+                    <div class="col-lg-6 col-12">
+                        <div class="info-body custom-responsive-margin">
+                            <h4>Details</h4>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
+                            <h4>Features</h4>
+                            <ul class="features">
+                                <li>Capture 4K30 Video and 12MP Photos</li>
+                                <li>Game-Style Controller with Touchscreen</li>
+                                <li>View Live Camera Feed</li>
+                                <li>Full Control of HERO6 Black</li>
+                                <li>Use App for Dedicated Camera Operation</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <div class="info-body">
+                            <h4>Specifications</h4>
+                            <ul class="normal-list">
+                                <li><span>Weight:</span> 35.5oz (1006g)</li>
+                                <li><span>Maximum Speed:</span> 35 mph (15 m/s)</li>
+                                <li><span>Maximum Distance:</span> Up to 9,840ft (3,000m)</li>
+                                <li><span>Operating Frequency:</span> 2.4GHz</li>
+                                <li><span>Manufacturer:</span> GoPro, USA</li>
+                            </ul>
+                            <h4>Shipping Options:</h4>
+                            <ul class="normal-list">
+                                <li><span>Courier:</span> 2 - 4 days, $22.50</li>
+                                <li><span>Local Shipping:</span> up to one week, $10.00</li>
+                                <li><span>UPS Ground Shipping:</span> 4 - 6 days, $18.00</li>
+                                <li><span>Unishop Global Export:</span> 3 - 4 days, $25.00</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Item Details -->

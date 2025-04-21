@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping()
-    ApiGetAllResponse<User> getAllUsers() {
+    ApiGetAllResponse<UserResponse> getAllUsers() {
         return userService.getAllUser();
     }
 

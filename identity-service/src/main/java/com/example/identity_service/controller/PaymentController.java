@@ -28,6 +28,6 @@ public class PaymentController {
                 .build();
     }
 
-    @PostMapping()
-    public ApiResponse<PaymentResponse> updateStatusPayment(@RequestParam Long id, @RequestParam PaymentStatus paymentStatus) {}
+//    @PostMapping()
+//    public ApiResponse<PaymentResponse> updateStatusPayment(@RequestParam Long id, @RequestParam PaymentStatus paymentStatus) {}
 }

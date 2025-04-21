@@ -6,6 +6,12 @@ const routes: Routes = [
     {
         path: '',
         component: UserLayoutComponent,
+        children: [
+            { path: 'home', loadChildren: () => import('./../../modules/home/home.module').then(m => m.HomeModule) },
+            { path: 'product-detail/:id', loadChildren: () => import('./../../modules/product-detail/product-detail.module').then(m => m.ProductDetailModule) },
+            { path: 'shopping-carts', loadChildren: () => import('./../../modules/shopping-carts/shopping-carts.module').then(m => m.ShoppingCartsModule) },
+            { path: 'checkout', loadChildren: () => import('./../../modules/checkout/checkout.module').then(m => m.CheckoutModule) },
+        ]
     },
 
 ];

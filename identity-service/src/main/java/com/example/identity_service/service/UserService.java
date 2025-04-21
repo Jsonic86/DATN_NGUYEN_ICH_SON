@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashSet;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -74,15 +75,16 @@ public class UserService {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    public ApiGetAllResponse<User> getAllUser(){
+    public ApiGetAllResponse<UserResponse> getAllUser(){
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         log.info("user Name {}",authentication.getName());
         authentication.getAuthorities().forEach(authority -> {
             log.info("user Role {}",authority.getAuthority());
         });
 
-        ApiGetAllResponse<User> response = new ApiGetAllResponse<>();
-        response.setResult(userRepositoy.findAll());
+        ApiGetAllResponse<UserResponse> response = new ApiGetAllResponse<>();
+        List<User> users = userRepositoy.findAll();
+        response.setResult(users.stream().map(userMapper::toUserResponse).toList());
         return response;
     }
 
