@@ -12,6 +12,9 @@ export class ProductService {
   getAllProducts(payload: any = {}): Observable<any> {
     return this.apiService.get('products', payload);
   }
+  getAllProductsByCategory(payload: any = {}): Observable<any> {
+    return this.apiService.get('products/by-category', payload);
+  }
   deleteById(id: string): Observable<any> {
     return this.apiService.delete('products', id);
   }

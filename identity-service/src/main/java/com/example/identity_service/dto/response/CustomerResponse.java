@@ -21,5 +21,5 @@ public class CustomerResponse {
 
     String address;
 
-    Set<Order> orderId;
+    String note;
 }

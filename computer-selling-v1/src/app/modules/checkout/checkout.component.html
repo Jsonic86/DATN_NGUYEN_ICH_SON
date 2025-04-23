@@ -6,27 +6,31 @@
             <div class="col-md-7">
                 <div class="bg-white p-4 rounded shadow-sm mb-4">
                     <h5 class="mb-3 fw-semibold">Thông tin khách hàng</h5>
-                    <form>
+                    <form [formGroup]="checkoutForm" nz-form>
                         <div class="mb-3">
                             <label for="fullname" class="form-label">Họ và tên</label>
-                            <input type="text" class="form-control" id="fullname" placeholder="Nguyễn Văn A">
+                            <input type="text" class="form-control" id="fullname" placeholder="Nguyễn Văn A"
+                                formControlName="name">
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="abc@example.com">
+                            <input type="email" class="form-control" id="email" placeholder="abc@example.com"
+                                formControlName="email">
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="form-label">Số điện thoại</label>
-                            <input type="text" class="form-control" id="phone" placeholder="0123 456 789">
+                            <input type="text" class="form-control" id="phone" placeholder="0123 456 789"
+                                formControlName="phone">
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Địa chỉ giao hàng</label>
                             <textarea class="form-control" id="address" rows="3"
-                                placeholder="Số nhà, đường, phường, quận, thành phố..."></textarea>
+                                placeholder="Số nhà, đường, phường, quận, thành phố..."
+                                formControlName="address"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="note" class="form-label">Ghi chú đơn hàng (tuỳ chọn)</label>
-                            <textarea class="form-control" id="note" rows="2"></textarea>
+                            <textarea class="form-control" id="note" rows="2" formControlName="note"></textarea>
                         </div>
                     </form>
                 </div>
@@ -37,23 +41,18 @@
                 <div class="bg-white p-4 rounded shadow-sm">
                     <h5 class="mb-3 fw-semibold">Đơn hàng của bạn</h5>
                     <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between">
+                        <li *ngFor="let item of cartService.getItems()"
+                            class="list-group-item d-flex justify-content-between">
                             <div>
-                                <h6 class="my-0">Laptop Asus TUF Gaming F15</h6>
-                                <small class="text-muted">1 x 25.000.000đ</small>
+                                <h6 class="my-0">{{item?.name}}</h6>
+                                <small class="text-muted">{{item?.quantity}} x {{item?.price|currency:'VND'}}</small>
                             </div>
-                            <span class="text-dark">25.000.000đ</span>
+                            <span class="text-dark">{{(item!.quantity*item!.price)|currency:'VND'}}</span>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <div>
-                                <h6 class="my-0">Chuột Razer Viper Mini</h6>
-                                <small class="text-muted">1 x 890.000đ</small>
-                            </div>
-                            <span class="text-dark">890.000đ</span>
-                        </li>
+
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Tạm tính</span>
-                            <strong>25.890.000đ</strong>
+                            <strong>{{cartService.getTotal()|currency:'VND'}}</strong>
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Phí vận chuyển</span>
@@ -61,11 +60,11 @@
                         </li>
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Tổng cộng</span>
-                            <strong class="text-primary fs-5">25.890.000đ</strong>
+                            <strong class="text-primary fs-5">{{cartService.getTotal()|currency:'VND'}}</strong>
                         </li>
                     </ul>
 
-                    <button class="btn btn-primary w-100 py-2">
+                    <button class="btn btn-primary w-100 py-2" (click)="onCreateOrder()">
                         <i class="bi bi-check2-circle me-2"></i> Xác nhận đặt hàng
                     </button>
                 </div>

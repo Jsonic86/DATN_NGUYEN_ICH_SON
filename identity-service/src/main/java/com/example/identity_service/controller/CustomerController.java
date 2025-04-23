@@ -28,6 +28,14 @@ public class CustomerController {
                 .result(customerService.addCustomer(request))
                 .build();
     }
+    @GetMapping()
+    ApiResponse<Customer> getCustomer(@RequestParam int id) {
+        return ApiResponse.<Customer>builder()
+                .code(1000)
+                .message("Success")
+                .result(customerService.getById(id))
+                .build();
+    }
     @PutMapping()
     ApiResponse<Customer> updateCustomer(@RequestBody CustomerUpdationRequest request) {
         return ApiResponse.<Customer>builder()

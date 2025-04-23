@@ -1,6 +1,7 @@
 package com.example.identity_service.entity;
 
 import com.example.identity_service.enums.OrderStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -23,10 +24,12 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer orderId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false, foreignKey = @ForeignKey(name = "fk_orders_customers"))
     Customer customer;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "employee_id", foreignKey = @ForeignKey(name = "fk_orders_employees"))
     Employee employee;
@@ -44,6 +47,7 @@ public class Order {
     // ✅ One Order → Many OrderDetails
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     List<OrderDetail> orderDetails;
+
 
     @PrePersist
     protected void onCreate() {

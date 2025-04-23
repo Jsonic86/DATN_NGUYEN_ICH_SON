@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log('Submitting:', this.loginForm.getRawValue());
     this.loading = true;
 
     this.authService.login(this.loginForm.getRawValue()).subscribe(
@@ -38,7 +37,6 @@ export class LoginComponent implements OnInit {
 
         if (res.code === StatusResponse.OK) {
           this.modalRef.close();
-          this.notification.success('Success', 'Đăng nhập thành công');
         } else {
           this.notification.error('Error', res.message);
         }

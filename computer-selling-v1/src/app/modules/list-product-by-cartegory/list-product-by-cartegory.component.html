@@ -1,0 +1,10 @@
+<section id="products" class="py-5">
+    <div class="container">
+        <h2 class="text-center fw-semibold mb-4">Sản phẩm nổi bật</h2>
+        <div class="row g-4">
+            <div *ngFor="let item of listItems" class="col-md-4">
+                <app-cart-product [item]="item"></app-cart-product>
+            </div>
+        </div>
+    </div>
+</section>

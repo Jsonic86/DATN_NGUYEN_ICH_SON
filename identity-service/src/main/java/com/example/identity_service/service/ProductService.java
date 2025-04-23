@@ -37,7 +37,15 @@ public class ProductService {
             return Page.empty();
         }
     }
-
+    public Page<ProductResponse> findAllByCategoryId(Pageable pageable,Long categoryId) {
+        try {
+            Page<Product> products = productRepository.findByCategoryCategoryId(pageable,categoryId);
+            return products.map(productMapper::toProductResponse);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Page.empty();
+        }
+    }
     public ProductResponse findById(int id){
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new AppException(ErrorCode.PRODUCT_NOT_EXISTED)

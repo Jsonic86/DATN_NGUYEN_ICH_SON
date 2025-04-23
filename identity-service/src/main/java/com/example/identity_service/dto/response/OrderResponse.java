@@ -23,7 +23,6 @@ public class OrderResponse {
 
     Integer customerId;
 
-
     LocalDateTime orderDate;
 
     BigDecimal totalAmount;

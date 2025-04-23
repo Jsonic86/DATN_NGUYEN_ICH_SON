@@ -48,6 +48,19 @@ public class ProductController {
                 .code(1000)
                 .build();
     }
+    @GetMapping("/by-category")
+    ApiResponse<Page<ProductResponse>> getAllProductsByCategory(
+            @RequestParam(defaultValue = "") String name,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam() Long categoryId
+    ) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("productId").ascending());
+        return ApiResponse.<Page<ProductResponse>>builder()
+                .result(productService.findAllByCategoryId(pageable,categoryId))
+                .code(1000)
+                .build();
+    }
 
     @GetMapping("/detail")
     ApiResponse<ProductResponse> getProductById(@RequestParam Integer id) {

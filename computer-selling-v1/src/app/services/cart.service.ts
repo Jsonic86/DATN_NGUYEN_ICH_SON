@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CartItem } from '../core/interface/cart-item.interface';
+import { getCookie } from '../core/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,11 @@ export class CartService {
     localStorage.setItem('cart', JSON.stringify(this.items));
   }
   getItems(): CartItem[] {
-    return this.items;
+    return this.items.filter(item => item?.userName === getCookie('userName'));
   }
 
   addToCart(item: CartItem) {
-    const existing = this.items.find(i => i.id === item.id);
+    const existing = this.items.find(i => (i.id === item.id && i.userName === getCookie('userName')));
     if (existing) {
       existing.quantity += item.quantity;
     } else {
@@ -29,8 +30,16 @@ export class CartService {
     this.saveCart();
   }
 
-  removeFromCart(id: number) {
-    this.items = this.items.filter(item => item.id !== id);
+  removeFromCart(id: string) {
+    const currentUser = getCookie('userName');
+    this.items = this.items.filter(item => {
+      // Nếu không phải của user hiện tại → giữ nguyên
+      if (item.userName !== currentUser) return true;
+
+      // Nếu là của user hiện tại nhưng KHÔNG trùng id cần xóa → giữ lại
+      return item.id !== id;
+    });
+
     this.saveCart();
   }
 
@@ -40,6 +49,7 @@ export class CartService {
   }
 
   getTotal(): number {
-    return this.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    let items = this.items.filter(item => item?.userName === getCookie('userName'));
+    return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
 }

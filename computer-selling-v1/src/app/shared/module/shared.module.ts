@@ -6,10 +6,12 @@ import { CommonModule } from '@angular/common';
 import { TableComponent } from '../component/table/table.component';
 import { UserModule } from 'src/app/modules/user/user.module';
 import { FormComponent } from '../component/form/form.component';
+import { CartProductComponent } from '../component/cart-product/cart-product.component';
 @NgModule({
     declarations: [
         TableComponent,
-        FormComponent
+        FormComponent,
+        CartProductComponent
     ],
     imports: [
         NgZorroModule,
@@ -17,7 +19,7 @@ import { FormComponent } from '../component/form/form.component';
         CommonModule,
         ReactiveFormsModule
     ],
-    exports: [TableComponent, FormComponent],
+    exports: [TableComponent, FormComponent, CartProductComponent],
     providers: [],
 })
 export class SharedModule { }

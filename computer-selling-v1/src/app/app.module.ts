@@ -7,24 +7,16 @@ import { NgZorroModule } from './shared/module/ng-zorro.module';
 import { LayoutComponent } from './layouts/layout/layout.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { UserComponent } from './modules/user/user.component';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 import { AdminLayoutModule } from './layouts/admin-layout/admin-layout.module';
 import { UserLayoutModule } from './layouts/user-layout/user-layout.module';
-import { TableComponent } from './shared/component/table/table.component';
 import { SharedModule } from './shared/module/shared.module';
 import { ConfirmComponent } from './shared/component/confirm/confirm.component';
-import { FormComponent } from './shared/component/form/form.component';
-import { CategoryComponent } from './modules/category/category.component';
-import { SupplierComponent } from './modules/supplier/supplier.component';
-import { CreateUpdateSupplierComponent } from './modules/supplier/create-update-supplier/create-update-supplier.component';
 import { CategoryModule } from './modules/category/category.module';
 import { SupplierModule } from './modules/supplier/supplier.module';
-import { ProductDetailComponent } from './modules/product-detail/product-detail.component';
-import { ShoppingCartsComponent } from './modules/shopping-carts/shopping-carts.component';
-import { CheckoutComponent } from './modules/checkout/checkout.component';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
+import { ListOrderModule } from './modules/list-order/list-order.module';
+import { ListProductByCartegoryComponent } from './modules/list-product-by-cartegory/list-product-by-cartegory.component';
+import { ListProductByCartegoryModule } from './modules/list-product-by-cartegory/list-product-by-cartegory.module';
 
 
 @NgModule({
@@ -32,7 +24,7 @@ import { NotFoundComponent } from './modules/not-found/not-found.component';
     AppComponent,
     LayoutComponent,
     ConfirmComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +38,9 @@ import { NotFoundComponent } from './modules/not-found/not-found.component';
     UserLayoutModule,
     SharedModule,
     CategoryModule,
-    SupplierModule
+    SupplierModule,
+    ListOrderModule,
+    ListProductByCartegoryModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -26,7 +26,7 @@ public class SecurityConfig {
             "users/register","/auth/introspect","/auth/login","auth/logout","auth/refresh","api/images"
     };
     private final String[] PUBLIC_GETTING_ENDPOINTS = {
-            "/api/images/**","/products","/categories","/categories/**","suppliers/**","/suppliers","/products/detail"
+            "/api/images/**","/products","/categories","/categories/**","suppliers/**","/suppliers","/products/detail","/products/by-category/**"
     };
     @Autowired
     private CustomDecoderJwt customDecoderJwt;

@@ -1,6 +1,5 @@
 package com.example.identity_service.dto.request;
 
-import com.example.identity_service.entity.Order;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -19,6 +18,8 @@ public class CustomerRequest {
     String phoneNumber;
 
     String address;
+
+    String note;
 
     Set<Integer> orderId;
 }

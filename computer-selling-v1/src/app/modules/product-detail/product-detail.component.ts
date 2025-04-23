@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { CartItem } from 'src/app/core/interface/cart-item.interface';
+import { getCookie } from 'src/app/core/utils';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
-
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
@@ -24,14 +24,19 @@ export class ProductDetailComponent implements OnInit {
       })
     }
   }
+  generateSimpleId(): string {
+    return `${Date.now()}-${Math.floor(Math.random() * 1e9)}`;
+  }
   addToCart(product: any) {
     if (this.selectedQuantity <= product.stockQuantity) {
       const item: CartItem = {
-        id: product.id,
+        id: this.generateSimpleId(),
+        productId: product.productId,
         name: product.productName,
         price: product.price,
         quantity: this.selectedQuantity,
-        imageUrl: product.imageUrl
+        imageUrl: product.imageUrl,
+        userName: getCookie('userName')!
       };
       this.cartService.addToCart(item);
       this.notification.success('Thông báo', 'Thêm vào giỏ hàng thành công');

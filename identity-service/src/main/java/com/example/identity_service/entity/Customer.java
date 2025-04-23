@@ -29,6 +29,9 @@ public class Customer {
     @Column(nullable = false,  length = 255)
     String address;
 
+    @Column(nullable = false,  length = 255)
+    String note;
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<Order> orders;
 }

@@ -14,7 +14,7 @@ export class ShoppingCartsComponent {
   ngOnInit() {
     this.cartItems = this.cartService.getItems();
   }
-  remove(id: number) {
+  remove(id: string) {
     this.cartService.removeFromCart(id);
     this.cartItems = this.cartService.getItems();
   }

@@ -27,7 +27,10 @@ public class CustomerService {
 
     @Autowired
     private CustomerMapper customerMapper;
-
+    public  Customer getById(Integer id){
+        Customer customer = customerRepository.findById(id).orElse(null);
+        return customer;
+    }
     public Customer addCustomer(CustomerRequest customerRequest) {
         Customer customer = new Customer();
         customer= customerMapper.toCustomer(customerRequest);
@@ -36,9 +39,7 @@ public class CustomerService {
         user = userRepositoy.findById(customerRequest.getUserId()).orElseThrow(
                 ()->  new AppException(ErrorCode.USER_NOT_EXISTED)
         );
-        user.setCustomer(customer);
-        customerRepository.save(customer);
-        userRepositoy.save(user);
+
         return customer;
     }
     public Customer updateCustomer(CustomerUpdationRequest request) {

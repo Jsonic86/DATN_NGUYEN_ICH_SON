@@ -4,6 +4,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { CommonModule } from '@angular/common';
 import { CheckoutRoutingModule } from './checkout-routing.modules';
 import { CheckoutComponent } from './checkout.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
     declarations: [
         CheckoutComponent
@@ -12,7 +13,8 @@ import { CheckoutComponent } from './checkout.component';
         NgZorroModule,
         CheckoutRoutingModule,
         NzDividerModule,
-        CommonModule
+        CommonModule,
+        ReactiveFormsModule
     ],
     providers: [],
 })

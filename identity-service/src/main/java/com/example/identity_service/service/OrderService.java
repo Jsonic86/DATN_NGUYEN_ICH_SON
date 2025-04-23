@@ -1,20 +1,24 @@
 package com.example.identity_service.service;
 
+import com.example.identity_service.dto.request.CustomerRequest;
+import com.example.identity_service.dto.request.CustomerUpdationRequest;
 import com.example.identity_service.dto.request.OrderRequest;
 import com.example.identity_service.dto.response.OrderResponse;
-import com.example.identity_service.entity.Customer;
-import com.example.identity_service.entity.Order;
-import com.example.identity_service.entity.OrderDetail;
-import com.example.identity_service.entity.Product;
+import com.example.identity_service.entity.*;
 import com.example.identity_service.enums.OrderStatus;
 
 import com.example.identity_service.exception.AppException;
 import com.example.identity_service.exception.ErrorCode;
+import com.example.identity_service.mapper.CustomerMapper;
 import com.example.identity_service.mapper.OrderMapper;
 import com.example.identity_service.repository.CustomerRepository;
 import com.example.identity_service.repository.OrderRepository;
 import com.example.identity_service.repository.ProductRepository;
+import com.example.identity_service.repository.UserRepositoy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,13 +30,50 @@ public class OrderService {
 
    @Autowired private ProductRepository productRepository;
    @Autowired private CustomerRepository customerRepository;
+    @Autowired
+    private UserRepositoy userRepositoy;
    @Autowired private OrderMapper  orderMapper;
+   @Autowired private CustomerService customerService;
+   @Autowired private CustomerMapper customerMapper;
    public OrderResponse createOrder(OrderRequest dto) {
-     Customer customer = customerRepository.findById(dto.getCustomerId()).orElseThrow(
-             ()-> new AppException(ErrorCode.USER_NOT_EXISTED)
-     );
+       var context = SecurityContextHolder.getContext();
+       String name = context.getAuthentication().getName();
+       User userGet = userRepositoy.findByUsername(name).orElseThrow(
+               () -> new AppException(ErrorCode.USER_NOT_EXISTED)
+       );
+       CustomerRequest customerRequest = new CustomerRequest();
+       CustomerUpdationRequest customerUpdate = new CustomerUpdationRequest();
+       Customer insertCustomer = new Customer();
+       if (userGet.getCustomer() == null) {
+           // Tạo mới customer
+           customerRequest.setEmail(dto.getShipment().getEmail());
+           customerRequest.setPhoneNumber(dto.getShipment().getPhoneNumber());
+           customerRequest.setUserId(userGet.getId());
+           customerRequest.setAddress(dto.getShipment().getAddress());
+           customerRequest.setNote(dto.getShipment().getNote());
+
+
+
+           // Gán customer mới tạo vào user và lưu lại user
+           Customer newCustomer = customerMapper.toCustomer(customerRequest);
+           userGet.setCustomer(newCustomer);
+           insertCustomer =  customerRepository.save(newCustomer);
+           userRepositoy.save(userGet); // Cập nhật vào DB
+       } else {
+           // Cập nhật customer hiện có
+           customerUpdate.setCustomerId(userGet.getCustomer().getCustomerId());
+           customerUpdate.setEmail(dto.getShipment().getEmail());
+           customerUpdate.setPhoneNumber(dto.getShipment().getPhoneNumber());
+           customerUpdate.setUserId(userGet.getId());
+           customerUpdate.setAddress(dto.getShipment().getAddress());
+           customerUpdate.setNote(dto.getShipment().getNote());
+
+           customerService.updateCustomer(customerUpdate);
+
+           insertCustomer = customerMapper.updateCustomer(customerUpdate, new Customer());
+       }
       Order order = Order.builder()
-              .customer(customer)
+              .customer(insertCustomer)
               .employee(null)
               .status(OrderStatus.CHỜ_XỬ_LÝ)
               .build();
@@ -56,8 +97,14 @@ public class OrderService {
        return orderMapper.toOrderResponse(order) ;
    }
 
-   public List<OrderResponse> getAllOrders() {
-       return orderRepository.findAll().stream().map(orderMapper::toOrderResponse).collect(Collectors.toList());
+   public Page<Order> getAllOrders(Pageable pageable) {
+       try {
+           Page<Order> orders = orderRepository.findAll(pageable);
+           return orders;
+       } catch (Exception e) {
+           e.printStackTrace();
+           return Page.empty();
+       }
    }
 
    public OrderResponse updateStatus(Integer id , OrderStatus status) {

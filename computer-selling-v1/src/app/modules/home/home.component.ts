@@ -7,7 +7,44 @@ declare var bootstrap: any;
 })
 export class HomeComponent implements AfterViewInit {
   selectedCategory: string = 'pc';  // Mặc định chọn 'pc'
-
+  outstandingItems: any[] = [
+    {
+      productName: 'PC Gaming X II 620S',
+      price: 30000000,
+    },
+    {
+      productName: 'PC Gaming X II 620S',
+      price: 30000000,
+    },
+    {
+      productName: 'PC Gaming X II 620S',
+      price: 30000000,
+    },
+    {
+      productName: 'PC Gaming X II 620S',
+      price: 30000000,
+    },
+    {
+      productName: 'PC Gaming X II 620S',
+      price: 30000000,
+    },
+    {
+      productName: 'PC Gaming X II 620S',
+      price: 30000000,
+    },
+    {
+      productName: 'PC Gaming X II 620S',
+      price: 30000000,
+    },
+    {
+      productName: 'PC Gaming X II 620S',
+      price: 30000000,
+    },
+    {
+      productName: 'PC Gaming X II 620S',
+      price: 30000000,
+    }
+  ];
   // Mảng ảnh cho từng danh mục
   categories: any = {
     pc: [

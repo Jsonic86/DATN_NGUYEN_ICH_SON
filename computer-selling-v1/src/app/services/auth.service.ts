@@ -15,6 +15,9 @@ import { jwtDecode } from 'jwt-decode';
   providedIn: 'root'
 })
 export class AuthService {
+  subscribe(arg0: (res: any) => void) {
+    throw new Error('Method not implemented.');
+  }
   public baseUrl = '';
   public assetUrl = '';
   // private readonly Api_key = "secret_key";
@@ -45,6 +48,7 @@ export class AuthService {
           .split(" ") // Tách chuỗi thành mảng ["ROLE_ADMIN", "ROLE_USER"]
           .filter((role: string) => role.startsWith("ROLE_")); // Giữ lại các phần tử bắt đầu bằng "ROLE_"
         setCookie('roles', roles.join(", "), 8);
+        setCookie('userName', decoded.sub, 8);
         this.redirectAfterLogin();
       })
     );

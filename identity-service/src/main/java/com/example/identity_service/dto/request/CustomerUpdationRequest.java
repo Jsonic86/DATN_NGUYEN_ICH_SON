@@ -22,5 +22,7 @@ public class CustomerUpdationRequest {
 
     String address;
 
+    String note;
+
     Set<Integer> orderId;
 }

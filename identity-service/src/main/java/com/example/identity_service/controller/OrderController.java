@@ -3,12 +3,17 @@ package com.example.identity_service.controller;
 import com.example.identity_service.dto.request.OrderRequest;
 import com.example.identity_service.dto.response.ApiResponse;
 import com.example.identity_service.dto.response.OrderResponse;
+import com.example.identity_service.entity.Order;
 import com.example.identity_service.enums.OrderStatus;
 import com.example.identity_service.service.OrderService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,9 +35,12 @@ public class OrderController {
     }
 
     @GetMapping()
-    public ApiResponse<List<OrderResponse>> getAll() {
-        return ApiResponse.<List<OrderResponse>>builder()
-                .result(orderService.getAllOrders())
+    public ApiResponse<Page<Order>> getAll(@RequestParam(defaultValue = "") String name,
+                                           @RequestParam(defaultValue = "0") int page,
+                                           @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("orderId").ascending());
+        return ApiResponse.<Page<Order>>builder()
+                .result(orderService.getAllOrders(pageable))
                 .code(1000)
                 .message("success")
                 .build();

@@ -101,82 +101,68 @@
         </button>
     </div>
 </section>
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <div class="row g-4">
+            <div class="col-md-4 " (click)=" selectedCategory='pc'">
+                <div class=" bg-white p-4 rounded shadow-sm h-100 transition-all duration-300 hover:shadow-lg
+                category-item">
+                    <i class="lni lni-watch fs-1 text-primary mb-3 transition-all duration-300 hover:text-success"></i>
+                    <h5>PC</h5>
+                </div>
+            </div>
+            <div class="col-md-4 " (click)="selectedCategory = 'laptop'">
+                <div
+                    class="bg-white p-4 rounded shadow-sm h-100 transition-all duration-300 hover:shadow-lg category-item">
+                    <i class="lni lni-timer fs-1 text-success mb-3 transition-all duration-300 hover:text-danger"></i>
+                    <h5>Lap top</h5>
+                </div>
+            </div>
+            <div class="col-md-4 " (click)="selectedCategory = 'card'">
+                <div
+                    class="bg-white p-4 rounded shadow-sm h-100 transition-all duration-300 hover:shadow-lg category-item">
+                    <i class="lni lni-cog fs-1 text-danger mb-3 transition-all duration-300 hover:text-primary"></i>
+                    <h5>Card đồ họa</h5>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div id="multiItemCarousel" class="carousel slide mt-2 p-3" data-bs-ride="carousel" data-bs-interval="4000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row">
+                    <div class="col-4" *ngFor="let image of categories[selectedCategory]; let i = index"
+                        [routerLink]="['/user/product-detail', image.id]">
+                        <img [src]="image.url" class="d-block w-100 img-fluid rounded shadow" [alt]="'Image ' + (i+1)">
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row">
+                    <div class="col-4" *ngFor="let image of categoriesItem[selectedCategory]; let i = index"
+                        [routerLink]="'/user/product-detail/{{image.id}}'">
+                        <img [src]="image.url" class="d-block w-100 img-fluid rounded shadow" [alt]="'Image ' + (i+1)">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#multiItemCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#multiItemCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
 <section id="products" class="py-5">
     <div class="container">
         <h2 class="text-center fw-semibold mb-4">Sản phẩm nổi bật</h2>
         <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm transition-all duration-300 hover:shadow-lg">
-                    <img src="https://hoanghapccdn.com/media/product/250_5220_pc_gaming_x_ii_620s_ha1.jpg"
-                        class="card-img-top p-3" alt="Product">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">HHPC RYZEN 9 5900X | 16G | NVIDIA RTX 3050 6G</h5>
-                        <div class="text-warning mb-2">★★★★☆</div>
-                        <div class="fw-bold text-success mb-2">19.590.000 đ</div>
-                        <a href="#" class="btn btn-outline-primary w-100"><i class="lni lni-cart"></i> Thêm vào giỏ</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm transition-all duration-300 hover:shadow-lg">
-                    <img src="https://hoanghapccdn.com/media/product/250_5597_pc_anubis_lt720_ram_d4_14900k_ha1.jpg"
-                        class="card-img-top p-3" alt="Product">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">HHPC CORE i5 14600KF | 32G | NVIDIA RTX 4060 Ti 16GB</h5>
-                        <div class="text-warning mb-2">★★★★☆</div>
-                        <div class="fw-bold text-success mb-2">27.490.000 đ</div>
-                        <a href="#" class="btn btn-outline-primary w-100"><i class="lni lni-cart"></i> Thêm vào giỏ</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm transition-all duration-300 hover:shadow-lg">
-                    <img src="https://hoanghapccdn.com/media/product/250_5220_pc_gaming_x_ii_620s_ha1.jpg"
-                        class="card-img-top p-3" alt="Product">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">HHPC CORE i5 14600KF | 32G | NVIDIA RTX 3060 12GB</h5>
-                        <div class="text-warning mb-2">★★★★☆</div>
-                        <div class="fw-bold text-success mb-2">22.990.000 đ</div>
-                        <a href="#" class="btn btn-outline-primary w-100"><i class="lni lni-cart"></i> Thêm vào giỏ</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm transition-all duration-300 hover:shadow-lg">
-                    <img src="https://hoanghapccdn.com/media/product/250_5220_pc_gaming_x_ii_620s_ha1.jpg"
-                        class="card-img-top p-3" alt="Product">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">HHPC CORE i5 14600KF | 32G | NVIDIA RTX 3060 12GB</h5>
-                        <div class="text-warning mb-2">★★★★☆</div>
-                        <div class="fw-bold text-success mb-2">22.990.000 đ</div>
-                        <a href="#" class="btn btn-outline-primary w-100"><i class="lni lni-cart"></i> Thêm vào giỏ</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm transition-all duration-300 hover:shadow-lg">
-                    <img src="https://hoanghapccdn.com/media/product/250_5220_pc_gaming_x_ii_620s_ha1.jpg"
-                        class="card-img-top p-3" alt="Product">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">HHPC CORE i5 14600KF | 32G | NVIDIA RTX 3060 12GB</h5>
-                        <div class="text-warning mb-2">★★★★☆</div>
-                        <div class="fw-bold text-success mb-2">22.990.000 đ</div>
-                        <a href="#" class="btn btn-outline-primary w-100"><i class="lni lni-cart"></i> Thêm vào giỏ</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 shadow-sm transition-all duration-300 hover:shadow-lg">
-                    <img src="https://hoanghapccdn.com/media/product/250_5220_pc_gaming_x_ii_620s_ha1.jpg"
-                        class="card-img-top p-3" alt="Product">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">HHPC CORE i5 14600KF | 32G | NVIDIA RTX 3060 12GB</h5>
-                        <div class="text-warning mb-2">★★★★☆</div>
-                        <div class="fw-bold text-success mb-2">22.990.000 đ</div>
-                        <a href="#" class="btn btn-outline-primary w-100"><i class="lni lni-cart"></i> Thêm vào giỏ</a>
-                    </div>
-                </div>
+            <div *ngFor="let item of outstandingItems" class="col-md-4">
+                <app-cart-product [item]="item"></app-cart-product>
             </div>
         </div>
     </div>

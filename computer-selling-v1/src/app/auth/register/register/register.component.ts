@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
         console.log(res);
         this.loading = false;
         this.notification.success('Success', 'Register successfully');
-        this.router.navigate(['/auth/login']);
+        this.modalRef.close();
       },
       (error) => {
         console.error('Register error:', error);

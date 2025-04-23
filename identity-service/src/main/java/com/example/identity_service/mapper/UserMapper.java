@@ -13,12 +13,8 @@ public abstract class UserMapper {
     @Mapping(target = "roles", ignore = true)
     public abstract User toUser(UserCreationRequest request);
 
-    @Mapping(target = "customerId", source = "customer.customerId")
-    @Mapping(target = "employeeId", source = "employee.employeeId")
     public abstract UserResponse toUserResponse(User user);
 
-    @Mapping(target = "customerId", source = "customer.customerId")
-    @Mapping(target = "employeeId", source = "employee.employeeId")
     public abstract UserResponse toUser (User user);
 
     @Mapping(target = "roles", ignore = true)

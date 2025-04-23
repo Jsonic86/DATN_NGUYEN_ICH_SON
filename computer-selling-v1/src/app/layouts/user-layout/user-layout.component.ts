@@ -4,7 +4,7 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { LoginComponent } from 'src/app/auth/login/login/login.component';
 import { RegisterComponent } from 'src/app/auth/register/register/register.component';
 import { StatusResponse } from 'src/app/core/const/constant';
-import { deleteCookie } from 'src/app/core/utils';
+import { deleteCookie, getCookie } from 'src/app/core/utils';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { CategoryService } from 'src/app/services/category.service';
@@ -32,6 +32,7 @@ export class UserLayoutComponent {
   onLogOut() {
     deleteCookie('token');
     deleteCookie('roles');
+    deleteCookie('userName');
   }
   onRegister() {
     const modal = this.modalService.create({
@@ -103,5 +104,8 @@ export class UserLayoutComponent {
   showToast() {
     // const toast = new Toast(document.getElementById('successToast') as HTMLElement);
     // toast.show();
+  }
+  getUserName() {
+    return getCookie('userName');
   }
 }
