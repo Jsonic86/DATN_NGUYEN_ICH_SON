@@ -1,0 +1,19 @@
+<div class="payment-method-modal">
+    <h3>Chọn phương thức thanh toán</h3>
+
+    <nz-radio-group [(ngModel)]="selectedMethod" class="custom-radio-group">
+        <label nz-radio [nzValue]="'TIEN_MAT'" class="custom-radio">
+            <span class="icon">💵</span>
+            <span class="text">Tiền mặt</span>
+        </label>
+        <label nz-radio [nzValue]="'CHUYEN_KHOAN'" class="custom-radio">
+            <span class="icon">🏦</span>
+            <span class="text">Chuyển khoản</span>
+        </label>
+        <label nz-radio [nzValue]="'THE_TIN_DUNG'" class="custom-radio">
+            <span class="icon">💳</span>
+            <span class="text">Thẻ tín dụng</span>
+        </label>
+    </nz-radio-group>
+    <button nz-button (click)="onConfirm()" class="confirm-button">Xác nhận</button>
+</div>

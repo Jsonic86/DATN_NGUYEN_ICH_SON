@@ -1,33 +1,30 @@
 package com.example.identity_service.controller;
 
-import com.example.identity_service.dto.request.PaymentRequest;
-import com.example.identity_service.dto.response.ApiResponse;
-import com.example.identity_service.dto.response.PaymentResponse;
-import com.example.identity_service.enums.PaymentStatus;
+import com.example.identity_service.dto.request.PaymenttRequest;
 import com.example.identity_service.service.PaymentService;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping("/payments")
-@RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
 public class PaymentController {
+
     @Autowired
-    PaymentService paymentService;
+    private PaymentService vnpayService;
 
-    @PostMapping()
-    public ApiResponse<PaymentResponse> createPayment(@RequestBody PaymentRequest paymentRequest) {
-        return ApiResponse.<PaymentResponse>builder()
-                .code(1000)
-                .message("Success")
-                .result(paymentService.createPayment(paymentRequest))
-                .build();
+    @GetMapping("/create-payment")
+    public String createPayment(@RequestParam String orderInfo, @RequestParam Long amount) {
+        String paymentUrl = vnpayService.createPaymentUrl(orderInfo, amount);
+        return "Thanh toán tại URL: " + paymentUrl;
     }
-
-//    @PostMapping()
-//    public ApiResponse<PaymentResponse> updateStatusPayment(@RequestParam Long id, @RequestParam PaymentStatus paymentStatus) {}
 }

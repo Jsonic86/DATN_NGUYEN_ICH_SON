@@ -11,6 +11,7 @@ import { CategoryComponent } from 'src/app/modules/category/category.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { MyinfoComponent } from './myinfo/myinfo.component';
 import { SupplierComponent } from 'src/app/modules/supplier/supplier.component';
+import { ListOrderAdminComponent } from 'src/app/modules/list-order-admin/list-order-admin.component';
 
 @Component({
   selector: 'app-admin-layout',
@@ -40,6 +41,11 @@ export class AdminLayoutComponent {
     , {
       title: 'Quản lý nhà cung cấp',
       panelBody: SupplierComponent,
+      isAdded: false
+    }
+    , {
+      title: 'Quản lý đơn hàng',
+      panelBody: ListOrderAdminComponent,
       isAdded: false
     }
   ];

@@ -28,6 +28,10 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false, foreignKey = @ForeignKey(name = "fk_orders_customers"))
     Customer customer;
+    public Integer getCustomerId() {
+        return customer != null ? customer.getCustomerId() : null;
+    }
+
 
     @JsonIgnore
     @ManyToOne

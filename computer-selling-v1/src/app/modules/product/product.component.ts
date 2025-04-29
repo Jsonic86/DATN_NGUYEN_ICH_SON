@@ -178,7 +178,7 @@ export class ProductComponent {
       if (res) {
         this.productSerivce.deleteById(e.productId).subscribe((response: any) => {
           if (response.code === StatusResponse.OK) {
-            this.notification.success('Success', 'Login successfully');
+            this.notification.success('Thông báo', 'Xóa thành công');
             this.getAllProducts({ page: this.page - 1, size: this.pageSize });
           } else {
             this.notification.error('Error', response.message);

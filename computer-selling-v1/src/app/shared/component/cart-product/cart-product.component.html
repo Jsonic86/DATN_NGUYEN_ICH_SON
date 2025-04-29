@@ -1,10 +1,11 @@
-<div class="card h-100 shadow-sm transition-all duration-300 hover:shadow-lg">
+<div class="card h-100 shadow-sm transition-all duration-300 hover:shadow-lg"
+    [routerLink]="['/user/product-detail', item?.productId]">
     <img src="https://hoanghapccdn.com/media/product/250_5220_pc_gaming_x_ii_620s_ha1.jpg" class="card-img-top p-3"
         alt="Product">
     <div class="card-body text-center">
         <h5 class="card-title">{{item?.productName}}</h5>
         <div class="text-warning mb-2">★★★★☆</div>
         <div class="fw-bold text-success mb-2">{{item?.price|currency:'VND'}}</div>
-        <a href="#" class="btn btn-outline-primary w-100"><i class="lni lni-cart"></i> Thêm vào giỏ</a>
+        <a class="btn btn-outline-primary w-100" (click)="addToCart(item)"><i class="lni lni-cart"></i> Thêm vào giỏ</a>
     </div>
 </div>

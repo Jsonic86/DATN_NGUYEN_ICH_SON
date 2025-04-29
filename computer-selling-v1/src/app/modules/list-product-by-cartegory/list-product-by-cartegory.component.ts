@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { StatusResponse } from 'src/app/core/const/constant';
+import { CartItem } from 'src/app/core/interface/cart-item.interface';
+import { getCookie } from 'src/app/core/utils';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -10,7 +14,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class ListProductByCartegoryComponent implements OnInit {
   id?: number;
   listItems: any[] = [];
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private notification: NzNotificationService, private cartService: CartService) {
 
   }
   ngOnInit(): void {
@@ -26,5 +30,6 @@ export class ListProductByCartegoryComponent implements OnInit {
       })
     }
   }
+
 }
 

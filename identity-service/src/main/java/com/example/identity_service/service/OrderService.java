@@ -2,6 +2,7 @@ package com.example.identity_service.service;
 
 import com.example.identity_service.dto.request.CustomerRequest;
 import com.example.identity_service.dto.request.CustomerUpdationRequest;
+import com.example.identity_service.dto.request.GetRevenueRequest;
 import com.example.identity_service.dto.request.OrderRequest;
 import com.example.identity_service.dto.response.OrderResponse;
 import com.example.identity_service.entity.*;
@@ -21,6 +22,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -115,4 +118,12 @@ public class OrderService {
        orderRepository.save(order);
        return orderMapper.toOrderResponse(order);
    }
+    public BigDecimal getRevenueByMonth(int year, int month) {
+        LocalDate startOfMonth = LocalDate.of(year, month, 1);
+        LocalDate endOfMonth = startOfMonth.withDayOfMonth(startOfMonth.lengthOfMonth());
+        return orderRepository.getTotalRevenueBetween(
+                startOfMonth.atStartOfDay(),
+                endOfMonth.plusDays(1).atStartOfDay().minusSeconds(1)
+        );
+    }
 }

@@ -22,5 +22,5 @@ spring:
     show-sql: true
 
   jwt:
-    valid-duration: 3600 #in second
+    valid-duration: 360000 #in second
     refreshable-duration: 360000 #in second

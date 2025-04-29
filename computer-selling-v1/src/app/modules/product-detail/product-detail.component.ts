@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { CartItem } from 'src/app/core/interface/cart-item.interface';
 import { getCookie } from 'src/app/core/utils';
+import { ProductItemResponse } from 'src/app/model/response/product.response';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 @Component({
@@ -12,7 +13,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductDetailComponent implements OnInit {
   id?: number;
-  item?: any;
+  item?: ProductItemResponse;
   selectedQuantity: number = 1;
   constructor(private route: Router, private productService: ProductService, private cartService: CartService, private notification: NzNotificationService) { }
   ngOnInit(): void {

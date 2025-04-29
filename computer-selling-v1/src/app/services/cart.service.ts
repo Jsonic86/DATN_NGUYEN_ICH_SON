@@ -21,7 +21,7 @@ export class CartService {
   }
 
   addToCart(item: CartItem) {
-    const existing = this.items.find(i => (i.id === item.id && i.userName === getCookie('userName')));
+    const existing = this.items.find(i => (i.productId === item.productId));
     if (existing) {
       existing.quantity += item.quantity;
     } else {

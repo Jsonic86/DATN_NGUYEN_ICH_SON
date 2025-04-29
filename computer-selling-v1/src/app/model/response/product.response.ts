@@ -1,9 +1,15 @@
+import { Category } from "./category.response"
+
 export interface ProductItemResponse {
     productId: number
-    categoryName: string
     productName: string
+    category: Category
     description: string
     price: number
     stockQuantity: number
     imageUrl: string
+    createdAt: string
+    promotion: any
+    categoryName: string
+    categoryId: string
 }

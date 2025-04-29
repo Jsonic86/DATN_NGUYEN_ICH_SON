@@ -6,6 +6,7 @@ export const TITLE = {
     PRODUCT: 'Quản lý sản phẩm',
     CATEGORY: 'Quản lý danh mục',
     SUPPLIER: 'Quản lý nhà cung cấp',
+    ORDER: 'Quản lý đơn hàng',
 }
 export const TYPE = {
     TEXT: 'text',

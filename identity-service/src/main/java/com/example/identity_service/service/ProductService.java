@@ -4,11 +4,13 @@ import com.example.identity_service.dto.request.ProductRequest;
 import com.example.identity_service.dto.request.ProductUpdationRequest;
 import com.example.identity_service.dto.response.ProductResponse;
 import com.example.identity_service.entity.Product;
+import com.example.identity_service.entity.Promotion;
 import com.example.identity_service.exception.AppException;
 import com.example.identity_service.exception.ErrorCode;
 import com.example.identity_service.mapper.ProductMapper;
 import com.example.identity_service.repository.CategoryRepository;
 import com.example.identity_service.repository.ProductRepository;
+import com.example.identity_service.repository.PromotionRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +26,9 @@ public class ProductService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    @Autowired
+    private PromotionRepository promotionRepository;
 
     @Autowired
     ProductMapper productMapper;
@@ -74,5 +79,19 @@ public class ProductService {
             productRepository.deleteById(id);
         }
         else throw new AppException(ErrorCode.PRODUCT_NOT_EXISTED);
+    }
+
+    public Void setPromotion (Long promotionId,int productId){
+        Product product =productRepository.findById(productId).orElseThrow(
+                () -> new AppException(ErrorCode.PRODUCT_NOT_EXISTED)
+        );
+        if(product!=null){
+            Promotion promotion =promotionRepository.findById(promotionId).orElseThrow(null);
+            if(promotion!=null){
+                product.setPromotion(promotion);
+                productRepository.save(product);
+            }
+        }
+        return null;
     }
 }

@@ -49,6 +49,10 @@ public class Product {
     @Column(name = "created_at", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     LocalDateTime createdAt;
 
+    @ManyToOne
+    @JoinColumn(name = "promotion_id")
+    private Promotion promotion;
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

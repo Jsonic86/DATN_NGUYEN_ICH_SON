@@ -40,15 +40,17 @@ export class AuthService {
 
     return this.apiService.login_api(`auth/login`, body).pipe(
       tap((res: any) => {
-        setCookie('token', res.result.token, 8);
-        this.receiveToken(res.result.token);
         this.accessToken = res.result.token;
         const decoded: any = jwtDecode(this.accessToken);
+        setCookie('token', res.result.token, decoded.exp);
+        this.receiveToken(res.result.token);
+
+
         const roles: string[] = decoded.scope
           .split(" ") // Tách chuỗi thành mảng ["ROLE_ADMIN", "ROLE_USER"]
           .filter((role: string) => role.startsWith("ROLE_")); // Giữ lại các phần tử bắt đầu bằng "ROLE_"
-        setCookie('roles', roles.join(", "), 8);
-        setCookie('userName', decoded.sub, 8);
+        setCookie('roles', roles.join(", "));
+        setCookie('userName', decoded.sub);
         this.redirectAfterLogin();
       })
     );

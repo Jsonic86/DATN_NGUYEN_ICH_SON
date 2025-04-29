@@ -5,6 +5,7 @@ import { LoginComponent } from 'src/app/auth/login/login/login.component';
 import { RegisterComponent } from 'src/app/auth/register/register/register.component';
 import { StatusResponse } from 'src/app/core/const/constant';
 import { deleteCookie, getCookie } from 'src/app/core/utils';
+import { Category } from 'src/app/model/response/category.response';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { CategoryService } from 'src/app/services/category.service';
@@ -15,7 +16,7 @@ import { CategoryService } from 'src/app/services/category.service';
 })
 export class UserLayoutComponent {
   selectedValue: string = '1';
-  categories: any[] = [];
+  categories: Category[] = [];
   constructor(public authService: AuthService, private router: Router, private modalService: NzModalService, private categoryService: CategoryService, public cartService: CartService) {
 
   }
@@ -33,6 +34,7 @@ export class UserLayoutComponent {
     deleteCookie('token');
     deleteCookie('roles');
     deleteCookie('userName');
+    this.router.navigate(['/user/home']);
   }
   onRegister() {
     const modal = this.modalService.create({
@@ -107,5 +109,8 @@ export class UserLayoutComponent {
   }
   getUserName() {
     return getCookie('userName');
+  }
+  redirectToListOrders() {
+    this.router.navigate(['user/list-order']);
   }
 }

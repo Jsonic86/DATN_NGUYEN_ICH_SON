@@ -2,6 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { StatusResponse } from 'src/app/core/const/constant';
 import { FormItem } from 'src/app/core/const/form.type';
+import { Category } from 'src/app/model/response/category.response';
 import { CategoryService } from 'src/app/services/category.service';
 import { FormComponent } from 'src/app/shared/component/form/form.component';
 
@@ -16,7 +17,7 @@ export class CreateUpdateCategoryComponent {
     { id: 1, type: 'text', fieldName: 'categoryName', label: 'Tên danh mục', required: false, span: 12, disabled: false },
     { id: 2, type: 'text', fieldName: 'categoryDescription', label: 'Mô tả', required: true, span: 12, disabled: false },
   ];
-  item: any;
+  item?: Category;
   fieldFormGroup: FormItem[] = [];
   @ViewChild(FormComponent, { static: true }) formComponent!: FormComponent;
   constructor(private modalRef: NzModalRef, private categoryService: CategoryService) {

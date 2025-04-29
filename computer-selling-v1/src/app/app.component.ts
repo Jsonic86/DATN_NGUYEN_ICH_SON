@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
+import { deleteCookie, getCookie } from './core/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'computer-selling-v1';
+  constructor(private router: Router) { }
+
+  ngOnInit(): void {
+  }
+
+
 }

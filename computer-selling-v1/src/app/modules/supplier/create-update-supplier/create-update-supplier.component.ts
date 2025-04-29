@@ -2,6 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { StatusResponse } from 'src/app/core/const/constant';
 import { FormItem } from 'src/app/core/const/form.type';
+import { Supplier } from 'src/app/model/response/supplier.response';
 import { SupplierService } from 'src/app/services/supplier.service';
 import { FormComponent } from 'src/app/shared/component/form/form.component';
 
@@ -20,7 +21,7 @@ export class CreateUpdateSupplierComponent {
     { id: 5, type: 'text', fieldName: 'address', label: 'Địa chỉ', required: false, span: 12, disabled: false },
   ];
 
-  item: any;
+  item?: Supplier;
   fieldFormGroup: FormItem[] = [];
   @ViewChild(FormComponent, { static: true }) formComponent!: FormComponent;
   constructor(private modalRef: NzModalRef, private supplierService: SupplierService) {

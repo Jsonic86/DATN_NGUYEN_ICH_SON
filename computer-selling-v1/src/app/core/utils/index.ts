@@ -1,8 +1,12 @@
+import { jwtDecode } from "jwt-decode";
 
-export function setCookie(name: string, value: string, days: number) {
-    const expires = new Date();
-    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
-    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+export function setCookie(name: string, value: string, exp?: any) {
+    try {
+        const expires = new Date(exp * 1000);
+        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+    } catch (e) {
+        console.error('Invalid token passed to setCookie', e);
+    }
 }
 export function getCookie(name: string): string | null {
     const nameEQ = `${name}=`;
@@ -16,5 +20,5 @@ export function getCookie(name: string): string | null {
     return null;
 }
 export function deleteCookie(name: string) {
-    setCookie(name, '', -1); // Set expiration date to a past date
+    setCookie(name, ''); // Set expiration date to a past date
 }

@@ -118,10 +118,10 @@ export class UserComponent implements OnInit {
       if (res) {
         this.userSerivce.deleteById(e.id).subscribe((response: any) => {
           if (response.code === StatusResponse.OK) {
-            this.notification.success('Success', 'Login successfully');
+            this.notification.success('Thông báo', 'Đăng nhập thành công');
             this.getAllUsers();
           } else {
-            this.notification.error('Error', response.message);
+            this.notification.error('Lỗi', response.message);
           }
         })
       }

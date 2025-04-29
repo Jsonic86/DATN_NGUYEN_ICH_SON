@@ -10,6 +10,7 @@ import { SupplierService } from 'src/app/services/supplier.service';
 import { Column } from 'src/app/core/const/column.type';
 import { SettingValue } from 'src/app/core/const/settingValue.type';
 import { CreateUpdateSupplierComponent } from './create-update-supplier/create-update-supplier.component';
+import { Supplier } from 'src/app/model/response/supplier.response';
 
 @Component({
   selector: 'app-supplier',
@@ -17,7 +18,7 @@ import { CreateUpdateSupplierComponent } from './create-update-supplier/create-u
   styleUrls: ['./supplier.component.scss']
 })
 export class SupplierComponent {
-  data: any;
+  data: Supplier[] = [];
   token: string | null = '';
   settingValue: SettingValue = {
     size: 'middle',

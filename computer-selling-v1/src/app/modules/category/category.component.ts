@@ -9,6 +9,7 @@ import { getCookie } from 'src/app/core/utils';
 import { CategoryService } from 'src/app/services/category.service';
 import { ConfirmComponent } from 'src/app/shared/component/confirm/confirm.component';
 import { CreateUpdateCategoryComponent } from './create-update-category/create-update-category.component';
+import { Category } from 'src/app/model/response/category.response';
 
 @Component({
   selector: 'app-category',
@@ -16,7 +17,7 @@ import { CreateUpdateCategoryComponent } from './create-update-category/create-u
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent {
-  data: any;
+  data: Category[] = [];
   token: string | null = '';
   settingValue: SettingValue = {
     size: 'middle',

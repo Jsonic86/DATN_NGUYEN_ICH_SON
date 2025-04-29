@@ -1,5 +1,6 @@
 package com.example.identity_service.controller;
 
+import com.example.identity_service.dto.request.GetRevenueRequest;
 import com.example.identity_service.dto.request.OrderRequest;
 import com.example.identity_service.dto.response.ApiResponse;
 import com.example.identity_service.dto.response.OrderResponse;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -51,6 +53,16 @@ public class OrderController {
                 .result(orderService.updateStatus(id, status))
                 .code(1000)
                 .message("update status successfully")
+                .build();
+    }
+    @GetMapping("/month")
+    public ApiResponse<BigDecimal> getRevenueByMonth(
+            @RequestParam("year") int year,
+            @RequestParam("month") int month) {
+        return ApiResponse.<BigDecimal>builder()
+                .message("success")
+                .result(orderService.getRevenueByMonth(year, month))
+                .code(1000)
                 .build();
     }
 }

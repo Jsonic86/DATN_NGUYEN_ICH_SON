@@ -1,0 +1,8 @@
+<div class="w-100 d-flex justify-content-center">
+    <nz-select [nzOptions]="listStatus" [(ngModel)]="status" class="w-100"></nz-select>
+</div>
+<div class="w-100 d-flex justify-content-center mt-2">
+    <button nz-button nzType="primary" (click)="onUpdateStatus()">
+        <span nz-icon nzType="save" nzTheme="outline"></span>Cập nhật
+    </button>
+</div>

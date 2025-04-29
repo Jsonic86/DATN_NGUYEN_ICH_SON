@@ -17,6 +17,8 @@ import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { ListOrderModule } from './modules/list-order/list-order.module';
 import { ListProductByCartegoryComponent } from './modules/list-product-by-cartegory/list-product-by-cartegory.component';
 import { ListProductByCartegoryModule } from './modules/list-product-by-cartegory/list-product-by-cartegory.module';
+import { ListOrderAdminComponent } from './modules/list-order-admin/list-order-admin.component';
+import { UpdateStatusComponent } from './modules/list-order-admin/update-status/update-status.component';
 
 
 @NgModule({

@@ -2,6 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { StatusResponse } from 'src/app/core/const/constant';
 import { FormItem } from 'src/app/core/const/form.type';
+import { ProductItemResponse } from 'src/app/model/response/product.response';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
 import { FormComponent } from 'src/app/shared/component/form/form.component';
@@ -21,7 +22,7 @@ export class CreateUpdateProductComponent {
     { id: 5, type: 'image', fieldName: 'imageUrl', label: 'Ảnh sản phẩm', span: 12, disabled: false },
     { id: 6, type: 'text', fieldName: 'description', label: 'Mô tả', span: 12, disabled: false },
   ];
-  item: any;
+  item?: ProductItemResponse;
   fieldFormGroup: FormItem[] = [];
   @ViewChild(FormComponent, { static: true }) formComponent!: FormComponent;
   constructor(private modalRef: NzModalRef, private productService: ProductService, private categoryService: CategoryService) {

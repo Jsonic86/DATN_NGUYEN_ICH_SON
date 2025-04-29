@@ -129,4 +129,13 @@ public class ProductController {
                 .message("Product deleted")
                 .build();
     }
+
+    @PostMapping("/set-promotion")
+    public ApiResponse<Void> deleteProductById(@RequestParam Integer productId ,@RequestParam Long promotionId ) {
+        productService.setPromotion(promotionId,productId);
+        return ApiResponse.<Void>builder()
+                .code(1000)
+                .message("set promotion successfully")
+                .build();
+    }
 }

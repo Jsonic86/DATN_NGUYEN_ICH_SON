@@ -7,6 +7,7 @@ import { TableComponent } from '../component/table/table.component';
 import { UserModule } from 'src/app/modules/user/user.module';
 import { FormComponent } from '../component/form/form.component';
 import { CartProductComponent } from '../component/cart-product/cart-product.component';
+import { RouterModule } from '@angular/router';
 @NgModule({
     declarations: [
         TableComponent,
@@ -17,7 +18,8 @@ import { CartProductComponent } from '../component/cart-product/cart-product.com
         NgZorroModule,
         NzDividerModule,
         CommonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        RouterModule
     ],
     exports: [TableComponent, FormComponent, CartProductComponent],
     providers: [],
