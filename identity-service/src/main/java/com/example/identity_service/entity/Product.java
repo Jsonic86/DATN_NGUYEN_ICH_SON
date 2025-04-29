@@ -1,6 +1,7 @@
 package com.example.identity_service.entity;
 
 import com.example.identity_service.entity.Category;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -49,6 +50,7 @@ public class Product {
     @Column(name = "created_at", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     LocalDateTime createdAt;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "promotion_id")
     private Promotion promotion;

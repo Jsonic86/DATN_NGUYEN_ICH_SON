@@ -24,6 +24,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -118,12 +120,23 @@ public class OrderService {
        orderRepository.save(order);
        return orderMapper.toOrderResponse(order);
    }
-    public BigDecimal getRevenueByMonth(int year, int month) {
-        LocalDate startOfMonth = LocalDate.of(year, month, 1);
-        LocalDate endOfMonth = startOfMonth.withDayOfMonth(startOfMonth.lengthOfMonth());
-        return orderRepository.getTotalRevenueBetween(
-                startOfMonth.atStartOfDay(),
-                endOfMonth.plusDays(1).atStartOfDay().minusSeconds(1)
-        );
+
+    public List<BigDecimal> getRevenueByMonth(int year) {
+        List<BigDecimal> getRevenueByMonth = new ArrayList<>();
+
+        for (int i = 1; i <= 12; i++) {
+            LocalDate startOfMonth = LocalDate.of(year, i, 1);
+            LocalDate endOfMonth = startOfMonth.withDayOfMonth(startOfMonth.lengthOfMonth());
+
+            BigDecimal monthlyRevenue = orderRepository.getTotalRevenueBetween(
+                    startOfMonth.atStartOfDay(),
+                    endOfMonth.plusDays(1).atStartOfDay().minusSeconds(1)
+            );
+
+            getRevenueByMonth.add(monthlyRevenue);
+        }
+
+        return getRevenueByMonth;
     }
+
 }

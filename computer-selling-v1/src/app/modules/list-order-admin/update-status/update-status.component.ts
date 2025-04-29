@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd/modal';
-import { StatusResponse } from 'src/app/core/const/constant';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { StatusResponse, TYPE, TYPE_UPDATE_STATUS } from 'src/app/core/const/constant';
 import { OrderService } from 'src/app/services/order.service';
+import { PromotionService } from 'src/app/services/promotion.service';
 
 @Component({
   selector: 'app-update-status',
@@ -10,7 +12,8 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class UpdateStatusComponent implements OnInit {
   @Input() data!: any;
-  listStatus: any = [{
+
+  @Input() listStatus: any = [{
     value: 'CHỜ_XỬ_LÝ',
     label: 'Chờ xử lý'
   }, {
@@ -23,18 +26,31 @@ export class UpdateStatusComponent implements OnInit {
     value: 'ĐÃ_HỦY',
     label: 'Đã hủy'
   }];
-  status: any = 'CHỜ_XỬ_LÝ';
-  constructor(private modalRef: NzModalRef, private orderService: OrderService) {
+  @Input() status: string = 'CHỜ_XỬ_LÝ';
+  @Input() typeUpdateStatus!: string;
+  constructor(private modalRef: NzModalRef, private orderService: OrderService, private notification: NzNotificationService, private promotionService: PromotionService) {
 
   }
   ngOnInit(): void {
     console.log(this.data);
   }
   onUpdateStatus() {
-    this.orderService.updateStatus(this.data.orderId, this.status).subscribe(res => {
-      if (res.code === StatusResponse.OK) {
-        this.modalRef.close(true);
-      }
-    })
+    if (this.typeUpdateStatus === TYPE_UPDATE_STATUS.ORDER) {
+      this.orderService.updateStatus(this.data.orderId, this.status).subscribe(res => {
+        if (res.code === StatusResponse.OK) {
+          this.notification.success('Thông báo', 'Cập nhật trạng thái đơn hàng thành công');
+          this.modalRef.close(true);
+        }
+      })
+    }
+    else {
+      this.promotionService.updateStatus({ promotionId: this.data.promotionId, status: this.status }).subscribe(res => {
+        if (res.code === StatusResponse.OK) {
+          this.notification.success('Thông báo', 'Cập nhật trạng thái CT khuyến mãi thành công');
+          this.modalRef.close(true);
+        }
+      })
+    }
   }
+
 }

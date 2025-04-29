@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ListOrderDetailComponent } from '../list-order/list-order-detail/list-order-detail.component';
-import { STATUS, StatusResponse, TYPE } from 'src/app/core/const/constant';
+import { STATUS, StatusResponse, TYPE, TYPE_UPDATE_STATUS } from 'src/app/core/const/constant';
 import { OrderService } from 'src/app/services/order.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -143,6 +143,7 @@ export class ListOrderAdminComponent {
       }
     })
     modal.componentInstance!.data = e;
+    modal.componentInstance!.typeUpdateStatus = TYPE_UPDATE_STATUS.ORDER;
   }
   onAction(e: any) {
     switch (e.actionName) {

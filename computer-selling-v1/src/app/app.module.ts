@@ -19,6 +19,10 @@ import { ListProductByCartegoryComponent } from './modules/list-product-by-carte
 import { ListProductByCartegoryModule } from './modules/list-product-by-cartegory/list-product-by-cartegory.module';
 import { ListOrderAdminComponent } from './modules/list-order-admin/list-order-admin.component';
 import { UpdateStatusComponent } from './modules/list-order-admin/update-status/update-status.component';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { DashboardModule } from './modules/dashboard/dashboard.module';
+import { ListPromotionComponent } from './modules/list-promotion/list-promotion.component';
+import { ListPromotionModule } from './modules/list-promotion/list-promotion.module';
 
 
 @NgModule({
@@ -42,7 +46,8 @@ import { UpdateStatusComponent } from './modules/list-order-admin/update-status/
     CategoryModule,
     SupplierModule,
     ListOrderModule,
-    ListProductByCartegoryModule
+    DashboardModule,
+    ListProductByCartegoryModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

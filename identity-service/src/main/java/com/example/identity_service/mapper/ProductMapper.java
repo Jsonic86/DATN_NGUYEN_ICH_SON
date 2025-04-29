@@ -31,6 +31,8 @@ public abstract class ProductMapper {
 
     @Mapping(target = "categoryName", source = "category.categoryName")
     @Mapping(target = "categoryId", source = "category.categoryId")
+    @Mapping(target = "promotionName", source = "promotion.name")
+    @Mapping(target = "promotionId", source = "promotion.promotionId")
     public abstract ProductResponse toProductResponse(Product product);
 
     public abstract List<ProductResponse> toProductList(List<Product> products);

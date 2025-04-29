@@ -10,6 +10,7 @@ import { ConfirmComponent } from 'src/app/shared/component/confirm/confirm.compo
 import { CreateUpdateProductComponent } from './create-update-product/create-update-product.component';
 import { ProductItemResponse } from 'src/app/model/response/product.response';
 import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { SetPromotionComponent } from './set-promotion/set-promotion.component';
 
 @Component({
   selector: 'app-product',
@@ -81,6 +82,13 @@ export class ProductComponent {
       },
       {
         id: '6',
+        arr: 'Chương trình khuyến mãi',
+        fieldName: 'promotionName',
+        width: '10em',
+        type: TYPE.TEXT,
+      },
+      {
+        id: '7',
         arr: 'Thao tác',
         fieldName: 'action',
         type: TYPE.ACTION,
@@ -90,6 +98,11 @@ export class ProductComponent {
             actionName: 'edit',
             icon: 'edit',
             keyName: 'edit'
+          },
+          {
+            actionName: 'setPromotion',
+            icon: 'info-circle',
+            keyName: 'setPromotion'
           },
           {
             actionName: 'delete',
@@ -187,10 +200,28 @@ export class ProductComponent {
       }
     })
   }
+  onSetPromotion(e: any) {
+    const modal = this.modalService.create({
+      nzTitle: 'Chương trình khuyến mãi',
+      nzContent: SetPromotionComponent,
+      nzWidth: '20%',
+      nzMaskClosable: false,
+      nzFooter: null
+    })
+    modal.afterClose.subscribe((res: any) => {
+      if (res) {
+        this.getAllProducts({ page: this.page - 1, size: this.pageSize });
+      }
+    })
+    modal.componentInstance!.data = e;
+  }
   onAction(e: any) {
     switch (e.actionName) {
       case 'edit':
         this.onEdit(e.data);
+        break;
+      case 'setPromotion':
+        this.onSetPromotion(e.data);
         break;
       case 'delete':
         this.onDelete(e.data);

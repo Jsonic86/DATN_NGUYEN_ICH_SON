@@ -27,5 +27,6 @@ public class PromotionRequest {
 
      LocalDate endDate; // Ngày kết thúc
 
-     PromotionStatus status; // ACTIVE, INACTIVE, CANCELLED
+     @Builder.Default
+     PromotionStatus status = PromotionStatus.ACTIVE;
 }

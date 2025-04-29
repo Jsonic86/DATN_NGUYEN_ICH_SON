@@ -56,12 +56,12 @@ public class OrderController {
                 .build();
     }
     @GetMapping("/month")
-    public ApiResponse<BigDecimal> getRevenueByMonth(
-            @RequestParam("year") int year,
-            @RequestParam("month") int month) {
-        return ApiResponse.<BigDecimal>builder()
+    public ApiResponse<List<BigDecimal>> getRevenueByMonth(
+            @RequestParam("year") int year
+            ) {
+        return ApiResponse.<List<BigDecimal>>builder()
                 .message("success")
-                .result(orderService.getRevenueByMonth(year, month))
+                .result(orderService.getRevenueByMonth(year))
                 .code(1000)
                 .build();
     }

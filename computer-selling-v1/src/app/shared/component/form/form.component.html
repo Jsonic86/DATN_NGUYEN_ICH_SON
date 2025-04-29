@@ -42,6 +42,21 @@
                     </nz-form-item>
                 </nz-col>
             </ng-container>
+            <ng-container *ngSwitchCase="TYPE.DATE">
+                <nz-col [nzSpan]="field.span">
+                    <nz-form-item>
+                        <nz-form-label [nzFor]="field.fieldName" [nzRequired]="field.required">
+                            {{ field.label }}
+                        </nz-form-label>
+                        <nz-form-control [nzErrorTip]="errorTemplate">
+                            <nz-date-picker [formControlName]="field.fieldName"
+                                [nzPlaceHolder]="field.placeholder || 'Chọn ngày'" [nzFormat]="'dd/MM/yyyy'"
+                                class="w-100">
+                            </nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                </nz-col>
+            </ng-container>
             <ng-container *ngSwitchCase="TYPE.SELECT">
                 <nz-col [nzSpan]="field.span">
                     <nz-form-item>

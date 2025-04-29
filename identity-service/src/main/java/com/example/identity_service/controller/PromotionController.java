@@ -2,8 +2,10 @@ package com.example.identity_service.controller;
 
 import com.example.identity_service.dto.request.PromotionRequest;
 import com.example.identity_service.dto.request.PromotionUpdationRequest;
+import com.example.identity_service.dto.request.UpdateStatusPromotionRequest;
 import com.example.identity_service.dto.response.ApiResponse;
 import com.example.identity_service.dto.response.PromotionResponse;
+import com.example.identity_service.entity.Promotion;
 import com.example.identity_service.enums.PromotionStatus;
 import com.example.identity_service.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +22,13 @@ public class PromotionController {
     private PromotionService promotionService;
 
     @GetMapping("")
-    public ApiResponse<Page<PromotionResponse>> findAll(
+    public ApiResponse<Page<Promotion>> findAll(
             @RequestParam(defaultValue = "") String name,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("promotionId").ascending());
-        return ApiResponse.<Page<PromotionResponse>>builder()
+        return ApiResponse.<Page<Promotion>>builder()
                 .result(promotionService.findAll(pageable,name))
                 .code(1000)
                 .message("successfully")
@@ -34,10 +36,10 @@ public class PromotionController {
     }
     @GetMapping("/detail")
     public ApiResponse<PromotionResponse> findById(
-            @RequestParam Long promotionId
+            @RequestParam Long id
     ) {
         return ApiResponse.<PromotionResponse>builder()
-                .result(promotionService.findById(promotionId))
+                .result(promotionService.findById(id))
                 .code(1000)
                 .message("successfully")
                 .build();
@@ -51,9 +53,9 @@ public class PromotionController {
                 .build();
     }
     @PostMapping("/update-status")
-    public ApiResponse<Void> updateStatus(@RequestParam Long promotionId, @RequestParam PromotionStatus status) {
+    public ApiResponse<Void> updateStatus(@RequestBody UpdateStatusPromotionRequest updateStatusPromotionRequest) {
         return ApiResponse.<Void>builder()
-                .result(promotionService.updateStatus(status,promotionId))
+                .result(promotionService.updateStatus(updateStatusPromotionRequest))
                 .code(1000)
                 .message("successfully")
                 .build();

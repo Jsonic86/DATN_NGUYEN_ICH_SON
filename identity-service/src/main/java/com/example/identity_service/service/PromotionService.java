@@ -2,6 +2,7 @@ package com.example.identity_service.service;
 
 import com.example.identity_service.dto.request.PromotionRequest;
 import com.example.identity_service.dto.request.PromotionUpdationRequest;
+import com.example.identity_service.dto.request.UpdateStatusPromotionRequest;
 import com.example.identity_service.dto.response.PromotionResponse;
 import com.example.identity_service.entity.Promotion;
 import com.example.identity_service.enums.PromotionStatus;
@@ -16,7 +17,7 @@ public class PromotionService {
     @Autowired
     private PromotionRepository promotionRepository;
 
-    public Page<PromotionResponse> findAll(Pageable pageable,String name) {
+    public Page<Promotion> findAll(Pageable pageable,String name) {
         return promotionRepository.findByNameContaining(name,pageable);
     }
 
@@ -64,7 +65,6 @@ public class PromotionService {
         if(promotion != null) {
             promotion.setDescription(promotionRequest.getDescription());
             promotion.setName(promotionRequest.getName());
-            promotion.setStatus(promotionRequest.getStatus());
             promotion.setEndDate(promotionRequest.getEndDate());
             promotion.setStartDate(promotionRequest.getStartDate());
             promotion.setDiscountAmount(promotionRequest.getDiscountAmount());
@@ -82,11 +82,11 @@ public class PromotionService {
         return promotionResponse;
     }
 
-    public Void updateStatus(PromotionStatus status,Long promotionId) {
-        Promotion promotion = promotionRepository.findById(promotionId).orElse(null);
+    public Void updateStatus(UpdateStatusPromotionRequest updateStatusPromotionRequest) {
+        Promotion promotion = promotionRepository.findById(updateStatusPromotionRequest.getPromotionId()).orElse(null);
         PromotionResponse promotionResponse = new PromotionResponse();
         if(promotion != null) {
-            promotion.setStatus(status);
+            promotion.setStatus(updateStatusPromotionRequest.getStatus());
             promotionRepository.save(promotion);
         }
         return null;

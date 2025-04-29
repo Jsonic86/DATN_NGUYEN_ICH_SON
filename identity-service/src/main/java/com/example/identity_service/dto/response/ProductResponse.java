@@ -26,4 +26,7 @@ public class ProductResponse {
 
     String imageUrl;
 
+    String promotionName;
+
+    Long promotionId;
 }

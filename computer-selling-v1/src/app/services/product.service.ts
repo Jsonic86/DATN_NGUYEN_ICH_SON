@@ -57,6 +57,11 @@ export class ProductService {
   }
 
 
-
+  setPromotion(productId: string, promotionId: string): Observable<any> {
+    const payload = new URLSearchParams();
+    payload.set('productId', productId);
+    payload.set('promotionId', promotionId);
+    return this.apiService.post(`products/set-promotion?${payload.toString()}`);
+  }
 
 }

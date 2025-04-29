@@ -12,6 +12,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { MyinfoComponent } from './myinfo/myinfo.component';
 import { SupplierComponent } from 'src/app/modules/supplier/supplier.component';
 import { ListOrderAdminComponent } from 'src/app/modules/list-order-admin/list-order-admin.component';
+import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.component';
+import { ListPromotionComponent } from 'src/app/modules/list-promotion/list-promotion.component';
 
 @Component({
   selector: 'app-admin-layout',
@@ -23,6 +25,11 @@ export class AdminLayoutComponent {
   selectedValue: string = '1';
   isCollapsed = false;
   tabPanelList: TabItem[] = [
+    {
+      title: 'Dashboard',
+      panelBody: DashboardComponent,
+      isAdded: false
+    },
     {
       title: 'Quản lý tài khoản',
       panelBody: UserComponent,
@@ -46,6 +53,11 @@ export class AdminLayoutComponent {
     , {
       title: 'Quản lý đơn hàng',
       panelBody: ListOrderAdminComponent,
+      isAdded: false
+    },
+    {
+      title: 'Quản lý khuyến mãi',
+      panelBody: ListPromotionComponent,
       isAdded: false
     }
   ];
