@@ -30,6 +30,16 @@ export const STATUS: { [key: string]: string } = {
     HOÀN_THÀNH: 'Hoàn thành',
     ĐÃ_HỦY: 'Đã hủy'
 }
+export const PaymentMethod: { [key: string]: string } = {
+    TIEN_MAT: 'Tiền mặt',
+    CHUYEN_KHOAN: 'Chuyển khoản',
+    THE_TIN_DUNG: 'VNpay'
+}
+export const STATUS_PAYMENT: { [key: string]: string } = {
+    CHUA_THANH_TOAN: 'Chưa thanh toán',
+    DA_THANH_TOAN: 'Đã thanh toán',
+    HOAN_TIEN: 'Hoàn tiền',
+}
 export const PROMOTION_STATUS = [
     {
         value: 'ACTIVE',

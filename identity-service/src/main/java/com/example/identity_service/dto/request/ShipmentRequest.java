@@ -11,12 +11,10 @@ import java.util.Set;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ShipmentRequest {
-
-    String email;
+    String name;
 
     String phoneNumber;
 
     String address;
 
-    String note;
 }

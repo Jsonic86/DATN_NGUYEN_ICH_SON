@@ -15,6 +15,12 @@ export class OrderService {
   getAllOrders(payload: any = {}): Observable<CommonResponse<Order>> {
     return this.apiService.get('orders', payload)
   }
+  getAllOrdersByCustomerId(payload: any = {}): Observable<CommonResponse<Order>> {
+    return this.apiService.get('orders/by-customer-id', payload)
+  }
+  getOrderDetail(payload: any = {}): Observable<CommonResponse<Order>> {
+    return this.apiService.get('orders/get-order-detail', payload)
+  }
   updateStatus(id: string, status: string): Observable<CommonGetByIdResponse<Order>> {
     const payload = new URLSearchParams();
     payload.set('id', id);

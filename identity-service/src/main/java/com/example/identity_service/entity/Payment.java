@@ -1,6 +1,7 @@
 package com.example.identity_service.entity;
 import com.example.identity_service.enums.PaymentMethod;
 import com.example.identity_service.enums.PaymentStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -20,6 +21,7 @@ public class Payment {
     @Column(name = "payment_id")
     Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
     Order order;

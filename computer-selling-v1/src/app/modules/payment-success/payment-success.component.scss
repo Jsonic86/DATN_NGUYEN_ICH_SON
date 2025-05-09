@@ -1,0 +1,115 @@
+.payment-success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f2f6fc;
+    min-height: 100vh;
+    background-image: url('../../../assets/unnamed.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+}
+
+.payment-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    font-family: "Segoe UI", sans-serif;
+    position: absolute;
+    right: 10%;
+}
+
+.checkmark-wrapper {
+    margin-bottom: 20px;
+}
+
+.checkmark-circle {
+    width: 80px;
+    height: 80px;
+    background: #52c41a;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkmark {
+    font-size: 36px;
+    color: white;
+    font-weight: bold;
+}
+
+.success-title {
+    font-size: 24px;
+    color: #1890ff;
+    margin-bottom: 8px;
+}
+
+.success-message {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 24px;
+}
+
+.payment-details {
+    text-align: left;
+    margin-bottom: 24px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed #e0e0e0;
+}
+
+.detail-row span {
+    color: #666;
+}
+
+.detail-row strong {
+    color: #333;
+}
+
+.status.success {
+    color: #52c41a;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s ease;
+}
+
+.btn.primary {
+    background-color: #1890ff;
+    color: white;
+}
+
+.btn.primary:hover {
+    background-color: #40a9ff;
+}
+
+.btn.secondary {
+    background-color: white;
+    border: 2px solid #1890ff;
+    color: #1890ff;
+}
+
+.btn.secondary:hover {
+    background-color: #e6f7ff;
+}

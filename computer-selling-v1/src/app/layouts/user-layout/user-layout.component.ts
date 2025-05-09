@@ -113,4 +113,28 @@ export class UserLayoutComponent {
   redirectToListOrders() {
     this.router.navigate(['user/list-order']);
   }
+  onCheckedItem(item: any) {
+    this.cartService.getItems().forEach(i => {
+      if (i.productId === item.productId && i.userName === item.userName) {
+        i.checked = item.checked;
+      }
+    })
+    this.cartService.saveCart();
+  }
+  goToListCart() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['user/shopping-carts']);
+    }
+    else {
+      this.onLogin();
+    }
+  }
+  goToCheckout() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['user/checkout']);
+    }
+    else {
+      this.onLogin();
+    }
+  }
 }

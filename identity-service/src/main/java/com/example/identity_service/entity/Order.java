@@ -38,6 +38,10 @@ public class Order {
     @JoinColumn(name = "employee_id", foreignKey = @ForeignKey(name = "fk_orders_employees"))
     Employee employee;
 
+    @ManyToOne
+    @JoinColumn(name = "payment_id", foreignKey = @ForeignKey(name = "fk_orders_payments"))
+    Payment payment;
+
     @Column(name = "order_date", updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     LocalDateTime orderDate;
 
@@ -52,6 +56,9 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     List<OrderDetail> orderDetails;
 
+    @OneToOne
+    @JoinColumn(name = "shipment_id", foreignKey = @ForeignKey(name = "fk_order_shipment"))
+    ShipmentAddress shipmentAddress;
 
     @PrePersist
     protected void onCreate() {

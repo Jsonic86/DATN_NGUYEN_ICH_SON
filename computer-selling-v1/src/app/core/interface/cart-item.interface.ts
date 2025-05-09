@@ -6,4 +6,5 @@ export interface CartItem {
     imageUrl: string;
     userName: string;
     productId: string;
+    checked?: boolean;
 }

@@ -5,16 +5,20 @@ import { CommonModule } from '@angular/common';
 import { CheckoutRoutingModule } from './checkout-routing.modules';
 import { CheckoutComponent } from './checkout.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AddAddressShipmentComponent } from './add-address-shipment/add-address-shipment.component';
+import { SharedModule } from 'src/app/shared/module/shared.module';
 @NgModule({
     declarations: [
-        CheckoutComponent
+        CheckoutComponent,
+        AddAddressShipmentComponent
     ],
     imports: [
         NgZorroModule,
         CheckoutRoutingModule,
         NzDividerModule,
         CommonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        SharedModule
     ],
     providers: [],
 })

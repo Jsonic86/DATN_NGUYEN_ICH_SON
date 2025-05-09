@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ListOrderDetailComponent } from '../list-order/list-order-detail/list-order-detail.component';
-import { STATUS, StatusResponse, TYPE, TYPE_UPDATE_STATUS } from 'src/app/core/const/constant';
+import { PaymentMethod, STATUS, STATUS_PAYMENT, StatusResponse, TYPE, TYPE_UPDATE_STATUS } from 'src/app/core/const/constant';
 import { OrderService } from 'src/app/services/order.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -9,6 +9,11 @@ import { Column } from 'src/app/core/const/column.type';
 import { SettingValue } from 'src/app/core/const/settingValue.type';
 import { UpdateStatusComponent } from './update-status/update-status.component';
 import { Order } from 'src/app/model/response/order.response';
+import { Subject } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
+import { ConfirmComponent } from 'src/app/shared/component/confirm/confirm.component';
+import { PaymentComponent } from '../list-order/payment/payment.component';
+import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
   selector: 'app-list-order-admin',
@@ -31,59 +36,16 @@ export class ListOrderAdminComponent {
   pageSize: number = 10;
   searchQuery: string = '';
   customerId: string | null = '';
-  constructor(private orderService: OrderService, private modalService: NzModalService, private notification: NzNotificationService) {
+  STATUS = STATUS;
+  PaymentMethod = PaymentMethod;
+  STATUS_PAYMENT = STATUS_PAYMENT;
+  results: any[] = [];
+  searchSubject: Subject<string> = new Subject<string>();
+  constructor(private orderService: OrderService, private modalService: NzModalService, private notification: NzNotificationService, private userService: UserService, private paymentService: PaymentService) {
     this.token = getCookie('token');
   }
   ngOnInit(): void {
-    this.cols = [
-      {
-        id: '0',
-        arr: 'Mã đơn hàng',
-        fieldName: 'orderId',
-        width: '10em',
-        type: TYPE.TEXT,
-      },
-      {
-        id: '1',
-        arr: 'Trạng thái',
-        fieldName: 'statusValue',
-        width: '10em',
-        type: TYPE.TEXT,
-      },
-      {
-        id: '2',
-        arr: 'Tổng giá',
-        fieldName: 'totalAmount',
-        width: '10em',
-        type: TYPE.TEXT,
-      },
-      {
-        id: '3',
-        arr: 'Ngày đặt hàng',
-        fieldName: 'orderDate',
-        width: '10em',
-        type: TYPE.DATE,
-      },
-      {
-        id: '4',
-        arr: 'Thao tác',
-        width: '10em',
-        type: TYPE.ACTION,
-        fieldName: 'action',
-        listOfAction: [
-          {
-            actionName: 'showDetail',
-            icon: 'info-circle',
-            keyName: 'showDetail'
-          },
-          {
-            actionName: 'updateStatus',
-            icon: 'info-circle',
-            keyName: 'updateStatus'
-          },
-        ]
-      }
-    ]
+
 
   }
   ngAfterViewInit() {
@@ -92,10 +54,27 @@ export class ListOrderAdminComponent {
       this.getAllOrders();
     }
   }
+  statusBackground(status: string): string {
+    let className = '';
+    switch (STATUS[status]) {
+      case 'Chờ xử lý': className = 'bg-secondary'
+        break;
+      case 'Đang giao': className = 'bg-warning'
+        break;
+      case 'Hoàn thành': className = 'bg-success'
+        break;
+      case 'Đã hủy': className = 'bg-danger'
+        break;
+    }
+    return className;
+  }
   getAllOrders(payload: any = {}) {
     this.loading = true;
     this.orderService.getAllOrders(payload).subscribe((res: any) => {
       if (res.code === StatusResponse.OK && res.result?.content.length > 0) {
+        for (let i = 0; i < res.result?.totalPages; i++) {
+          this.results.push(i + 1);
+        }
         this.data = res.result?.content;
         this.data.forEach((element: any) => {
           element.statusValue = STATUS[element.status];
@@ -111,6 +90,7 @@ export class ListOrderAdminComponent {
 
 
   onPageChange(page: number) {
+    this.results = [];
     this.page = page - 1;
     this.getAllOrders({ page: this.page });
   }
@@ -145,14 +125,91 @@ export class ListOrderAdminComponent {
     modal.componentInstance!.data = e;
     modal.componentInstance!.typeUpdateStatus = TYPE_UPDATE_STATUS.ORDER;
   }
+  onCancelOrder(e: any) {
+    if (e.status === 'CHỜ_XỬ_LÝ') {
+      const modal = this.modalService.create({
+        nzTitle: 'Hủy đơn hàng',
+        nzContent: ConfirmComponent,
+        nzWidth: '25%',
+        nzMaskClosable: false,
+        nzFooter: null
+      })
+      modal.afterClose.subscribe((res: any) => {
+        if (res) {
+          this.orderService.updateStatus(e.orderId, 'ĐÃ_HỦY').subscribe((res: any) => {
+            if (res.code === StatusResponse.OK) {
+              this.getAllOrders({ page: this.page - 1, size: this.pageSize });
+              this.notification.success('Thông báo', 'Hủy đơn hàng thành công');
+            }
+          })
+        }
+      })
+    }
+    else {
+      this.notification.error('Thông báo', `Đơn hàng đang trong trạng thái ${STATUS[e.status]}`);
+    }
+  }
   onAction(e: any) {
     switch (e.actionName) {
       case 'showDetail':
         this.onShowDetail(e.data);
         break;
-      case 'updateStatus':
-        this.onUpdateStatus(e.data);
+      case 'cancelOrder':
+        this.onCancelOrder(e.data);
+        break;
+
+    }
+  }
+  onSearch() {
+    this.searchSubject.next(this.searchQuery);
+  }
+  statusPaymentBackground(status: string): string {
+    let className = '';
+    switch (STATUS_PAYMENT[status]) {
+      case 'Chưa thanh toán': className = 'bg-secondary'
+        break;
+      case 'Đã thanh toán': className = 'bg-success'
+        break;
+      case 'Hoàn tiền': className = 'bg-primary'
         break;
     }
+    return className;
+  }
+  onConfirmPayment(e: any) {
+    if (STATUS[e.status] === 'Hoàn thành') {
+      const modal = this.modalService.create({
+        nzTitle: 'Xác nhận thanh toán',
+        nzContent: ConfirmComponent,
+        nzWidth: '35%',
+        nzMaskClosable: false,
+        nzFooter: null
+      })
+      modal.componentInstance!.action = 'Xác nhận thanh toán';
+      modal.afterClose.subscribe((res: any) => {
+        if (res) {
+          this.paymentService.updateSatus({ orderId: e.orderId, status: 'DA_THANH_TOAN' }).subscribe((res: any) => {
+            if (res.code === StatusResponse.OK) {
+              this.getAllOrders({ page: this.page - 1, size: this.pageSize });
+              this.notification.success('Thông báo', 'Xác nhận thanh toán thành công');
+            }
+          })
+        }
+      })
+    }
+    else {
+      this.notification.error('Thông báo', `Đơn hàng đang trong trạng thái ${STATUS[e.status]}`);
+    }
+  }
+  getVisiblePages(): number[] {
+    const pages: number[] = [];
+    const totalPages = this.results.length;
+
+    for (let i = 2; i < totalPages; i++) {
+      if (Math.abs(this.page - i) <= 1 && i !== 1 && i !== totalPages) {
+        pages.push(i);
+      }
+    }
+
+    return pages;
   }
 }

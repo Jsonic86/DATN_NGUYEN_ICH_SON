@@ -9,11 +9,14 @@ export class PaymentService {
 
   constructor(private apiService: ApiService) { }
 
-  create(): Observable<any> {
-    return this.apiService.post('payments/create-vnpay', {
-      orderId: "ORDER123",
-      amount: 10000,
-      returnUrl: "http://localhost:4200/user/home"
+  create(payloads: any): Observable<any> {
+    return this.apiService.get('payments/create-payment', payloads);
+  }
+  updateSatus(payload: any = {}): Observable<any> {
+    const queryParams = new URLSearchParams();
+    Object.keys(payload).forEach(key => {
+      queryParams.append(key, payload[key]);
     });
+    return this.apiService.post(`payments/update-status?${queryParams.toString()}`);
   }
 }

@@ -1,74 +1,273 @@
-<section class="py-5 bg-light">
+<div class="p-3">
     <div class="container">
-        <h2 class="mb-4 text-center fw-bold">Thanh Toán</h2>
+
         <div class="row">
-            <!-- Thông tin giao hàng -->
-            <div class="col-md-7">
-                <div class="bg-white p-4 rounded shadow-sm mb-4">
-                    <h5 class="mb-3 fw-semibold">Thông tin khách hàng</h5>
-                    <form [formGroup]="checkoutForm" nz-form>
-                        <div class="mb-3">
-                            <label for="fullname" class="form-label">Họ và tên</label>
-                            <input type="text" class="form-control" id="fullname" placeholder="Nguyễn Văn A"
-                                formControlName="name">
+
+            <div class="col-xl-8">
+                <form nz-form [formGroup]="checkoutForm">
+                    <div class="card">
+                        <div class="card-body">
+                            <ol class="activity-checkout mb-0 px-4 mt-3">
+                                <li class="checkout-item">
+                                    <div class="avatar checkout-icon p-1">
+                                        <div class="avatar-title rounded-circle bg-primary">
+                                            <i class="bx bxs-receipt text-white font-size-20"></i>
+                                        </div>
+                                    </div>
+                                    <div class="feed-item-list">
+                                        <div>
+                                            <h5 class="font-size-16 mb-1">Thông tin hóa đơn</h5>
+                                            <p class="text-muted text-truncate mb-4">Vui lòng nhập thông tin hóa đơn</p>
+                                            <div class="mb-3">
+                                                <form>
+                                                    <div>
+                                                        <div class="row">
+                                                            <div class="col-lg-4">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label" for="billing-name">Họ
+                                                                        tên</label>
+                                                                    <input nz-input type="text" class="form-control"
+                                                                        id="billing-name" placeholder="Nhâp họ tên"
+                                                                        formControlName="name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label"
+                                                                        for="billing-email-address">Email</label>
+                                                                    <input nz-input type="email" class="form-control"
+                                                                        id="billing-email-address"
+                                                                        placeholder="Nhập email"
+                                                                        formControlName="email">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label" for="billing-phone">Số
+                                                                        điện
+                                                                        thoại</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="billing-phone"
+                                                                        placeholder="Nhập số điện thoại"
+                                                                        formControlName="phone" nz-input>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="billing-address">Địa
+                                                                chỉ</label>
+                                                            <textarea class="form-control" id="billing-address" rows="3"
+                                                                placeholder="Nhập đầy đủ địa chỉ"
+                                                                formControlName="address" nz-input></textarea>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="note">Ghi chú đơn
+                                                                hàng</label>
+                                                            <textarea class="form-control" id="note" rows="3"
+                                                                placeholder="Nhập ghi chú" formControlName="note"
+                                                                nz-input></textarea>
+                                                        </div>
+
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="checkout-item">
+                                    <div class="avatar checkout-icon p-1">
+                                        <div class="avatar-title rounded-circle bg-primary">
+                                            <i class="bx bxs-truck text-white font-size-20"></i>
+                                        </div>
+                                    </div>
+                                    <div class="feed-item-list">
+                                        <div>
+                                            <h5 class="font-size-16 mb-1">Thông tin giao hàng</h5>
+                                            <p class="text-muted text-truncate mb-4">Vui lòng nhập thông tin giao hàng
+                                            </p>
+                                            <div class="mb-3">
+                                                <div class="row">
+                                                    <div *ngFor="let address of listAddress;let i= index"
+                                                        class="col-lg-4 col-sm-6">
+                                                        <div data-bs-toggle="collapse">
+                                                            <label class="card-radio-label mb-0">
+                                                                <input type="radio" name="address" id="info-address1"
+                                                                    class="card-radio-input"
+                                                                    (change)="onChecked($event,i)">
+                                                                <div class="card-radio text-truncate p-3">
+                                                                    <span class="fs-14 mb-3 d-block fw-bold">Địa chỉ
+                                                                        {{i+1}}</span>
+                                                                    <span class="fs-14 mb-2 d-block">Tên người nhận:
+                                                                        {{address.name}}</span>
+                                                                    <span
+                                                                        class="text-muted fw-normal text-wrap mb-1 d-block">Địa
+                                                                        chỉ nhận: {{address.address}}</span>
+
+                                                                    <span class="text-muted fw-normal d-block">Số điện
+                                                                        thoại: {{address.phone}}</span>
+                                                                </div>
+                                                            </label>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row d-flex justify-content-start align-items-center mt-2"
+                                                    (click)="addAddressShipment()">
+                                                    <div class="col-3 ">
+                                                        <span class="rounded-1 pencil-icon">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                viewBox="0 0 512 512" width="20" height="20">
+                                                                <path
+                                                                    d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1 0 32c0 8.8 7.2 16 16 16l32 0zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                                                            </svg>
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="checkout-item">
+                                    <div class="avatar checkout-icon p-1">
+                                        <div class="avatar-title rounded-circle bg-primary">
+                                            <i class="bx bxs-wallet-alt text-white font-size-20"></i>
+                                        </div>
+                                    </div>
+                                    <div class="feed-item-list">
+                                        <div>
+                                            <h5 class="font-size-16 mb-1">Thông tin thanh toán</h5>
+                                            <p class="text-muted text-truncate mb-4">Vui lòng nhập phương thức thanh
+                                                toán
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-size-14 mb-3">Phương thức thanh toán :</h5>
+                                            <div class="row">
+                                                <div class="col-lg-3 col-sm-6">
+                                                    <div>
+                                                        <label class="card-radio-label">
+                                                            <input type="radio" name="pay-method" id="pay-methodoption2"
+                                                                class="card-radio-input" value="THE_TIN_DUNG">
+                                                            <span class="card-radio py-3 text-center text-truncate">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 576 512" width="20" height="20">
+                                                                    <path
+                                                                        d="M64 32C28.7 32 0 60.7 0 96l0 32 576 0 0-32c0-35.3-28.7-64-64-64L64 32zM576 224L0 224 0 416c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-192zM112 352l64 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-64 0c-8.8 0-16-7.2-16-16s7.2-16 16-16zm112 16c0-8.8 7.2-16 16-16l128 0c8.8 0 16 7.2 16 16s-7.2 16-16 16l-128 0c-8.8 0-16-7.2-16-16z" />
+                                                                </svg>
+                                                                VNpay
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-3 col-sm-6">
+                                                    <div>
+                                                        <label class="card-radio-label">
+                                                            <input type="radio" name="pay-method" id="pay-methodoption3"
+                                                                class="card-radio-input" checked="" value="TIEN_MAT">
+
+                                                            <span class="card-radio py-3 text-center text-truncate">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 576 512" width="20" height="20">
+                                                                    <path
+                                                                        d="M64 64C28.7 64 0 92.7 0 128L0 384c0 35.3 28.7 64 64 64l448 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64L64 64zm64 320l-64 0 0-64c35.3 0 64 28.7 64 64zM64 192l0-64 64 0c0 35.3-28.7 64-64 64zM448 384c0-35.3 28.7-64 64-64l0 64-64 0zm64-192c-35.3 0-64-28.7-64-64l64 0 0 64zM288 160a96 96 0 1 1 0 192 96 96 0 1 1 0-192z" />
+                                                                </svg>
+                                                                <span> Tiền mặt</span>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ol>
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="abc@example.com"
-                                formControlName="email">
-                        </div>
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Số điện thoại</label>
-                            <input type="text" class="form-control" id="phone" placeholder="0123 456 789"
-                                formControlName="phone">
-                        </div>
-                        <div class="mb-3">
-                            <label for="address" class="form-label">Địa chỉ giao hàng</label>
-                            <textarea class="form-control" id="address" rows="3"
-                                placeholder="Số nhà, đường, phường, quận, thành phố..."
-                                formControlName="address"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="note" class="form-label">Ghi chú đơn hàng (tuỳ chọn)</label>
-                            <textarea class="form-control" id="note" rows="2" formControlName="note"></textarea>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+
+                </form>
             </div>
 
-            <!-- Thông tin đơn hàng -->
-            <div class="col-md-5">
-                <div class="bg-white p-4 rounded shadow-sm">
-                    <h5 class="mb-3 fw-semibold">Đơn hàng của bạn</h5>
-                    <ul class="list-group mb-3">
-                        <li *ngFor="let item of cartService.getItems()"
-                            class="list-group-item d-flex justify-content-between">
-                            <div>
-                                <h6 class="my-0">{{item?.name}}</h6>
-                                <small class="text-muted">{{item?.quantity}} x {{item?.price|currency:'VND'}}</small>
-                            </div>
-                            <span class="text-dark">{{(item!.quantity*item!.price)|currency:'VND'}}</span>
-                        </li>
+            <div class="col-xl-4">
+                <div class="card checkout-order-summary">
+                    <div class="card-body">
+                        <div class="p-3 bg-light mb-3">
+                            <h5 class="font-size-16 mb-0">Chi tiết đơn <span class="float-end ms-2">#MN0124</span></h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-centered mb-0 table-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th class="border-top-0" style="width: 110px;" scope="col">Sản phẩm</th>
+                                        <th class="border-top-0" scope="col">Mô tả sản phẩm</th>
+                                        <th class="border-top-0" scope="col">Giá</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of filterCart()">
+                                        <th scope="row"><img
+                                                src="{{(item?.imageUrl?.includes('https://hoanghapccdn.com')?'':'http://localhost:8080/identity/api/images/')}}{{item.imageUrl}}"
+                                                alt="product-img" title="product-img" class="avatar-lg rounded"></th>
+                                        <td>
+                                            <h5 class="font-size-16 text-truncate"><a href="#"
+                                                    class="text-dark">{{item.name}}</a></h5>
+                                            <p class="text-muted mb-0">
+                                                <i class="bx bxs-star text-warning"></i>
+                                                <i class="bx bxs-star text-warning"></i>
+                                                <i class="bx bxs-star text-warning"></i>
+                                                <i class="bx bxs-star text-warning"></i>
+                                                <i class="bx bxs-star-half text-warning"></i>
+                                            </p>
+                                            <p class="text-muted mb-0 mt-1">{{item.price|currency:'VND'}} x
+                                                {{item.quantity}}</p>
+                                        </td>
+                                        <td>{{item.price * item.quantity|currency:'VND'}}</td>
+                                    </tr>
 
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>Tạm tính</span>
-                            <strong>{{cartService.getTotal()|currency:'VND'}}</strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>Phí vận chuyển</span>
-                            <strong>Miễn phí</strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>Tổng cộng</span>
-                            <strong class="text-primary fs-5">{{cartService.getTotal()|currency:'VND'}}</strong>
-                        </li>
-                    </ul>
+                                    <tr>
+                                        <td colspan="2">
+                                            <h6 class="font-size-14 m-0">Giảm giá :</h6>
+                                        </td>
+                                        <td>
+                                            - $ 78
+                                        </td>
+                                    </tr>
 
-                    <button class="btn btn-primary w-100 py-2" (click)="onCreateOrder()">
-                        <i class="bi bi-check2-circle me-2"></i> Xác nhận đặt hàng
-                    </button>
+                                    <tr>
+                                        <td colspan="2">
+                                            <h6 class="font-size-14 m-0">Phí giao hàng :</h6>
+                                        </td>
+                                        <td>
+                                            $ 25
+                                        </td>
+                                    </tr>
+
+
+                                    <tr class="bg-light">
+                                        <td colspan="2">
+                                            <h6 class="font-size-14 m-0">Tổng:</h6>
+                                        </td>
+                                        <td>
+                                            {{getTotal()|currency:'VND'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row d-flex justify-content-center align-items-center">
+                    <button class="btn btn-primary w-50" (click)="onCreateOrder()">Đặt hàng</button>
                 </div>
             </div>
         </div>
+        <!-- end row -->
+
     </div>
-</section>
+</div>

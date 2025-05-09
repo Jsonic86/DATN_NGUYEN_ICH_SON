@@ -42,7 +42,7 @@ public class ProductController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("productId").ascending());
+        Pageable pageable = PageRequest.of(page, size, Sort.by("productId").descending());
         return ApiResponse.<Page<ProductResponse>>builder()
                 .result(productService.findAll(name,pageable))
                 .code(1000)

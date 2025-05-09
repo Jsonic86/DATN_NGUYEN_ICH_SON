@@ -23,9 +23,6 @@ public class Product {
     @Column(name = "product_id")
     Integer productId;
 
-//    @ManyToOne
-//    @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "fk_products_categories"))
-//    Category category;
 
     @Column(name = "product_name", nullable = false, length = 255)
     String productName;

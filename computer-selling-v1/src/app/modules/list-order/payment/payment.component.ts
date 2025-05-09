@@ -13,8 +13,13 @@ export class PaymentComponent implements OnInit {
 
   ngOnInit(): void { }
   onConfirm() {
-    this.paymentService.create().subscribe(res => {
-      window.location.href = res.paymentUrl;
+    const payload = {
+      orderInfo: this.data.orderId,
+      amount: this.data.totalAmount,
+      returnUrl: 'http://localhost:4200/payment-success',
+    }
+    this.paymentService.create(payload).subscribe(res => {
+      window.location.href = res.result;
     });
   }
 }

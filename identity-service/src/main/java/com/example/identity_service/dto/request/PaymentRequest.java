@@ -17,10 +17,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PaymentRequest {
     PaymentMethod paymentMethod;
+    @Builder.Default
+    PaymentStatus paymentStatus = PaymentStatus.CHUA_THANH_TOAN ;
 
-    PaymentStatus paymentStatus ;
-
-    LocalDateTime paymentDate ;
-
-    Integer orderId;
 }

@@ -1,5 +1,132 @@
-<div class="container mt-3">
-    <app-table [data]="data" [settingValue]="settingValue" [columns]="cols" [scrollY]="'45vh'" [pageSize]="pageSize"
-        [loading]="loading" [page]="page" [totalElements]="totalElements" (pageChange)="onPageChange($event)"
-        (pageSizeChange)="onPageSizeChange($event)" (onAction)="onAction($event)"></app-table>
+<nz-input-group [nzSuffix]="suffixIcon" class="w-50 mb-2">
+    <input nz-input [(ngModel)]="searchQuery" placeholder="Search name" (ngModelChange)="onSearch()">
+</nz-input-group>
+<div class="container ">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row g-3 mb-4">
+                        <!-- <div class="col-md-4">
+                            <nz-input-group [nzSuffix]="suffixIcon" class="w-100">
+                                <input nz-input [(ngModel)]="searchQuery" placeholder="Search name"
+                                    (ngModelChange)="onSearch()">
+                            </nz-input-group>
+                        </div> -->
+                        <!-- <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-select">
+                                <option>Sort by: Latest</option>
+                                <option>Sort by: Oldest</option>
+                                <option>Sort by: Price High</option>
+                                <option>Sort by: Price Low</option>
+                            </select>
+                        </div> -->
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped align-middle">
+                            <thead class="table-light">
+                                <tr class="text-center">
+                                    <th>Mã đơn hàng</th>
+                                    <th>Ngày đặt</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
+                                    <th>Phương thức TT</th>
+                                    <th>Trạng thái TT</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr *ngFor="let item of data" class="text-center">
+                                    <td>#{{item.orderId}}</td>
+                                    <td>{{item.orderDate|date:'dd-MM-YYYY'}}</td>
+                                    <td>{{item.totalAmount|currency:'VND'}}</td>
+                                    <td><span
+                                            class="badge text-light {{statusBackground(item.status)}}">{{STATUS[item.status]}}</span>
+                                    </td>
+                                    <td>{{item.payment?PaymentMethod[item.payment.paymentMethod]:''}}</td>
+                                    <td> <span
+                                            class="badge text-light {{statusPaymentBackground(item.payment?item.payment.paymentStatus:'')}}">
+                                            {{item.payment?STATUS_PAYMENT[item.payment.paymentStatus]:''}}</span>
+                                    </td>
+                                    <td class="d-flex justify-content-center align-items-center gap-2">
+                                        <div nz-tooltip nzTooltipTitle="Cập nhật trạng thái đơn "
+                                            nzTooltipPlacement="topLeft" [nzTooltipArrowPointAtCenter]="true"
+                                            (click)="onUpdateStatus(item)">
+                                            <svg class="status-confirmed" xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 448 512" width="25" height="25">
+                                                <path
+                                                    d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l320 0c35.3 0 64-28.7 64-64l0-320c0-35.3-28.7-64-64-64L64 32zM325.8 139.7l14.4 14.4c15.6 15.6 15.6 40.9 0 56.6l-21.4 21.4-71-71 21.4-21.4c15.6-15.6 40.9-15.6 56.6 0zM119.9 289L225.1 183.8l71 71L190.9 359.9c-4.1 4.1-9.2 7-14.9 8.4l-60.1 15c-5.5 1.4-11.2-.2-15.2-4.2s-5.6-9.7-4.2-15.2l15-60.1c1.4-5.6 4.3-10.8 8.4-14.9z" />
+                                            </svg>
+                                        </div>
+                                        <div *ngIf="item.payment&&PaymentMethod[item.payment.paymentMethod]==='Tiền mặt'"
+                                            nz-tooltip nzTooltipTitle="Xác nhận thanh toán "
+                                            nzTooltipPlacement="topLeft" [nzTooltipArrowPointAtCenter]="true"
+                                            (click)="onConfirmPayment(item)">
+                                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                                                width="25" height="25">
+                                                <path
+                                                    d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z" />
+                                            </svg>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <nav class="mt-4">
+                        <ul class="pagination justify-content-center gap-2">
+                            <!-- Trước -->
+                            <li class="page-item" [class.disabled]="page === 1">
+                                <a class="page-link" (click)="onPageChange(page - 1)">Trước</a>
+                            </li>
+
+                            <!-- Trang đầu -->
+                            <li class="page-item" [class.active]="page === 1">
+                                <a class="page-link" (click)="onPageChange(1)">1</a>
+                            </li>
+
+                            <!-- Dấu ... -->
+                            <li class="page-item" *ngIf="page > 3">
+                                <span class="page-link">...</span>
+                            </li>
+
+                            <!-- Trang giữa -->
+                            <li class="page-item" *ngFor="let i of getVisiblePages()" [class.active]="page === i">
+                                <a class="page-link" (click)="onPageChange(i)">{{ i }}</a>
+                            </li>
+
+                            <!-- Dấu ... -->
+                            <li class="page-item" *ngIf="page < results.length - 2">
+                                <span class="page-link">...</span>
+                            </li>
+
+                            <!-- Trang cuối -->
+                            <li class="page-item" [class.active]="page === results.length">
+                                <a class="page-link" (click)="onPageChange(results.length)">
+                                    {{ results.length }}
+                                </a>
+                            </li>
+
+                            <!-- Sau -->
+                            <li class="page-item" [class.disabled]="page === results.length">
+                                <a class="page-link" (click)="onPageChange(page + 1)">Sau</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<ng-template #suffixIcon>
+    <i nz-icon nzType="search" style="cursor: pointer;" (click)="onSearch()"></i>
+</ng-template>

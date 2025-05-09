@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { StatusResponse } from 'src/app/core/const/constant';
 import { CartItem } from 'src/app/core/interface/cart-item.interface';
@@ -12,12 +13,28 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./list-product-by-cartegory.component.scss']
 })
 export class ListProductByCartegoryComponent implements OnInit {
-  id?: number;
   listItems: any[] = [];
-  constructor(private productService: ProductService, private notification: NzNotificationService, private cartService: CartService) {
+  id!: number;
 
-  }
+  constructor(
+    private productService: ProductService,
+    private notification: NzNotificationService,
+    private cartService: CartService,
+    private router: Router
+  ) { }
+
   ngOnInit(): void {
+    this.loadProductsByCategory();
+
+    // Lắng nghe sự kiện thay đổi route
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.loadProductsByCategory();
+      }
+    });
+  }
+
+  private loadProductsByCategory(): void {
     const urlSegments = window.location.href.split('/');
     this.id = +urlSegments[urlSegments.length - 1];
     if (this.id) {
@@ -27,7 +44,7 @@ export class ListProductByCartegoryComponent implements OnInit {
             this.listItems = res.result.content;
           }
         }
-      })
+      });
     }
   }
 

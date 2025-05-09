@@ -1,9 +1,7 @@
 package com.example.identity_service.dto.response;
 
 
-import com.example.identity_service.entity.Customer;
-import com.example.identity_service.entity.Employee;
-import com.example.identity_service.entity.OrderDetail;
+import com.example.identity_service.entity.*;
 import com.example.identity_service.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,4 +28,8 @@ public class OrderResponse {
     OrderStatus status;
 
     List<OrderDetail> orderDetails;
+
+    Payment payment;
+
+    ShipmentAddress shipmentAddress;
 }

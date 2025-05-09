@@ -4,6 +4,7 @@ import com.example.identity_service.dto.request.PaymentRequest;
 import com.example.identity_service.dto.response.PaymentResponse;
 import com.example.identity_service.entity.Order;
 import com.example.identity_service.entity.Payment;
+import com.example.identity_service.enums.PaymentStatus;
 import com.example.identity_service.exception.AppException;
 import com.example.identity_service.exception.ErrorCode;
 import com.example.identity_service.mapper.PaymentMapper;
@@ -32,25 +33,20 @@ public class PaymentService {
     @Autowired
     private PaymentMapper paymentMapper;
 
-    public PaymentResponse createPayment(PaymentRequest paymentRequest) {
-        Order order = orderRepository.findById(paymentRequest.getOrderId()).orElseThrow(
+    public Void updatePaymentStatus(Integer orderId,PaymentStatus status) {
+        Order order = orderRepository.findById(orderId).orElseThrow(
                 () -> new AppException(ErrorCode.ORDER_ITEM_EMPTY)
         );
 
-        Payment payment = Payment.builder()
-                .paymentMethod(paymentRequest.getPaymentMethod())
-                .order(order)
-                .paymentStatus(paymentRequest.getPaymentStatus())
-                .paymentDate(LocalDateTime.now())
-                .build();
-
+        Payment payment = order.getPayment();
+        payment.setPaymentStatus(status);
         paymentRepository.save(payment);
-        return paymentMapper.toPaymentResponse(payment);
+        return null;
     }
     private static final String SECRET_KEY = "2R8AU1QUMXSFCY58914ODOVZGWM1NNSX";
     private static final String VNPAY_URL = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
 
-    public String createPaymentUrl(String orderInfo, Long amount) {
+    public String createPaymentUrl(String orderInfo, Long amount, String returnUrl) {
         // Tạo mã giao dịch duy nhất
         String txnRef = String.valueOf(System.currentTimeMillis());
 
@@ -75,7 +71,7 @@ public class PaymentService {
         params.put("vnp_Locale", "vn");
         params.put("vnp_OrderInfo", URLEncoder.encode(orderInfo, StandardCharsets.UTF_8));
         params.put("vnp_OrderType", "other");
-        params.put("vnp_ReturnUrl", URLEncoder.encode("https://domain.vn/VnPayReturn", StandardCharsets.UTF_8));
+        params.put("vnp_ReturnUrl", URLEncoder.encode(returnUrl, StandardCharsets.UTF_8));
         params.put("vnp_TxnRef", txnRef);
         params.put("vnp_ExpireDate", expireDateTime);
 

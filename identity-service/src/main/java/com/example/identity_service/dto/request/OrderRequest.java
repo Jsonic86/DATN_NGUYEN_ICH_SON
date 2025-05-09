@@ -12,5 +12,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class OrderRequest {
     List<OrderItemRequest> items;
+    BillRequest bill;
     ShipmentRequest shipment;
+    PaymentRequest payment;
 }

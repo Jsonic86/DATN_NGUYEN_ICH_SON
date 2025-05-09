@@ -1,3 +1,21 @@
-.container {
-    height: 60vh;
+.summary-container {
+    margin-right: 12.9%;
+}
+
+.card-container {
+    margin: auto;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
+    border: transparent;
+}
+
+.btn-custom {
+    transition: all 0.2s ease;
+    background-color: #869ead;
+    border: none !important;
+}
+
+.btn-custom:hover {
+    background-color: #8fb9e5;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }

@@ -1,9 +1,13 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Column } from 'src/app/core/const/column.type';
-import { TYPE } from 'src/app/core/const/constant';
+import { PaymentMethod, STATUS, STATUS_PAYMENT, StatusResponse, TYPE } from 'src/app/core/const/constant';
 import { SettingValue } from 'src/app/core/const/settingValue.type';
+import { Order } from 'src/app/model/response/order.response';
+import { OrderService } from 'src/app/services/order.service';
+import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
   selector: 'app-list-order-detail',
@@ -12,6 +16,7 @@ import { SettingValue } from 'src/app/core/const/settingValue.type';
 })
 export class ListOrderDetailComponent {
   @Input() data: any = null;
+  item!: Order;
   fieldName: any = ['username', 'firstName', 'lastName', 'localDate'];
   token: string | null = '';
   settingValue: SettingValue = {
@@ -25,9 +30,28 @@ export class ListOrderDetailComponent {
   page: number = 0;
   pageSize: number = 10;
   searchQuery: string = '';
-  constructor(private notification: NzNotificationService, private modalRef: NzModalRef) {
+  id: string = '';
+  STATUS = STATUS;
+  PaymentMethod = PaymentMethod;
+  STATUS_PAYMENT = STATUS_PAYMENT;
+  constructor(private notification: NzNotificationService, private route: Router, private orderService: OrderService, private paymentService: PaymentService) {
+    this.token = localStorage.getItem('token');
   }
   ngOnInit(): void {
+    const segments = this.route.url.split('/');
+    this.id = segments[segments.length - 1];
+    console.log(this.id);
+    if (this.id) {
+      this.orderService.getOrderDetail({ orderId: this.id }).subscribe((res: any) => {
+        if (res.code === StatusResponse.OK) {
+          if (res.result) {
+            this.item = res.result;
+          }
+        } else {
+          this.notification.error('Lỗi', res.message);
+        }
+      })
+    }
     this.cols = [
       {
         id: '0',
@@ -67,10 +91,50 @@ export class ListOrderDetailComponent {
     ]
 
   }
-  ngAfterViewInit() {
-    this.data.forEach((element: any) => {
-      element.name = element.product.productName;
-      element.imageUrl = element.product.imageUrl;
+  statusBackground(status: string): string {
+    let className = '';
+    switch (STATUS[status]) {
+      case 'Chờ xử lý': className = 'bg-secondary'
+        break;
+      case 'Đang giao': className = 'bg-warning'
+        break;
+      case 'Hoàn thành': className = 'bg-success'
+        break;
+      case 'Đã hủy': className = 'bg-danger'
+        break;
+    }
+    return className;
+  }
+  statusPaymentBackground(status: string): string {
+    let className = '';
+    switch (STATUS_PAYMENT[status]) {
+      case 'Chưa thanh toán': className = 'bg-secondary'
+        break;
+      case 'Đã thanh toán': className = 'bg-success'
+        break;
+      case 'Hoàn tiền': className = 'bg-primary'
+        break;
+    }
+    return className;
+  }
+  getTotal() {
+    let total = 0;
+    this.item.orderDetails.forEach((item) => {
+      total += item.totalPrice;
     })
+    return total;
+  }
+  onPay() {
+    const payload = {
+      orderInfo: this.item.orderId,
+      amount: this.item.totalAmount,
+      returnUrl: 'http://localhost:4200/payment-success',
+    }
+    this.paymentService.create(payload).subscribe(res => {
+      window.location.href = res.result;
+    });
+  }
+  ngAfterViewInit() {
+
   }
 }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserLayoutComponent } from './user-layout.component';
+import { ListOrderDetailComponent } from 'src/app/modules/list-order/list-order-detail/list-order-detail.component';
 
 const routes: Routes = [
     {
@@ -13,6 +14,7 @@ const routes: Routes = [
             { path: 'checkout', loadChildren: () => import('./../../modules/checkout/checkout.module').then(m => m.CheckoutModule) },
             { path: 'list-order', loadChildren: () => import('./../../modules/list-order/list-order.module').then(m => m.ListOrderModule) },
             { path: 'list-product-by-category/:id', loadChildren: () => import('./../../modules/list-product-by-cartegory/list-product-by-cartegory.module').then(m => m.ListProductByCartegoryModule) },
+            { path: 'order-detail/:id', component: ListOrderDetailComponent }
         ]
     },
 

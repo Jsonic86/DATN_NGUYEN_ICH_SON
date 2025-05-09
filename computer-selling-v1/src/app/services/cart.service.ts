@@ -13,17 +13,26 @@ export class CartService {
       this.items = JSON.parse(saved);
     }
   }
-  private saveCart() {
+  public saveCart() {
     localStorage.setItem('cart', JSON.stringify(this.items));
   }
   getItems(): CartItem[] {
     return this.items.filter(item => item?.userName === getCookie('userName'));
   }
-
+  updateQuantity(item: any, quantity: number) {
+    this.items = this.items.map(i => {
+      if (i.id === item.id) {
+        i.quantity = quantity;
+      }
+      return i;
+    });
+    this.saveCart();
+  }
   addToCart(item: CartItem) {
-    const existing = this.items.find(i => (i.productId === item.productId));
+    const existing = this.items.find(i => (i.productId === item.productId && i.userName === item.userName));
     if (existing) {
-      existing.quantity += item.quantity;
+      existing.quantity += Number(item.quantity);
+      existing.checked = item.checked;
     } else {
       this.items.push({ ...item });
     }

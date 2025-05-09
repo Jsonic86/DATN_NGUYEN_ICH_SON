@@ -4,6 +4,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { CommonModule } from '@angular/common';
 import { ShoppingCartsRoutingModule } from './shopping-carts-routing.modules';
 import { ShoppingCartsComponent } from './shopping-carts.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
     declarations: [
         ShoppingCartsComponent
@@ -12,7 +13,8 @@ import { ShoppingCartsComponent } from './shopping-carts.component';
         NgZorroModule,
         ShoppingCartsRoutingModule,
         NzDividerModule,
-        CommonModule
+        CommonModule,
+        FormsModule
     ],
     providers: [],
 })

@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ConfirmComponent } from 'src/app/shared/component/confirm/confirm.component';
 import { PaymentComponent } from './payment/payment.component';
 import { Order } from 'src/app/model/response/order.response';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-list-order',
@@ -33,6 +34,9 @@ export class ListOrderComponent {
   pageSize: number = 10;
   searchQuery: string = '';
   customerId: string | null = '';
+  STATUS = STATUS;
+  results: any[] = [];
+  searchSubject: Subject<string> = new Subject<string>();
   constructor(private orderService: OrderService, private modalService: NzModalService, private notification: NzNotificationService, private userService: UserService) {
     this.token = getCookie('token');
   }
@@ -98,18 +102,48 @@ export class ListOrderComponent {
     this.userService.getInfo().subscribe(res => {
       if (res.code === StatusResponse.OK) {
         this.customerId = res.result?.customer.customerId;
+        if (this.token) {
+          this.getAllOrders(this.customerId);
+        }
       }
     })
-    if (this.token) {
-      this.getAllOrders();
-    }
+
   }
-  getAllOrders(payload: any = {}) {
+  getVisiblePages(): number[] {
+    const pages: number[] = [];
+    const totalPages = this.results.length;
+
+    for (let i = 2; i < totalPages; i++) {
+      if (Math.abs(this.page - i) <= 1 && i !== 1 && i !== totalPages) {
+        pages.push(i);
+      }
+    }
+
+    return pages;
+  }
+  statusBackground(status: string): string {
+    let className = '';
+    switch (STATUS[status]) {
+      case 'Chờ xử lý': className = 'bg-secondary'
+        break;
+      case 'Đang giao': className = 'bg-warning'
+        break;
+      case 'Hoàn thành': className = 'bg-success'
+        break;
+      case 'Đã hủy': className = 'bg-danger'
+        break;
+    }
+    return className;
+  }
+  getAllOrders(customerId: string | null, payload: any = {}) {
     this.loading = true;
-    this.orderService.getAllOrders(payload).subscribe((res: any) => {
+    payload.customerId = customerId;
+    this.orderService.getAllOrdersByCustomerId(payload).subscribe((res: any) => {
       if (res.code === StatusResponse.OK && res.result?.content.length > 0) {
+        for (let i = 0; i < res.result?.totalPages; i++) {
+          this.results.push(i + 1);
+        }
         this.data = res.result?.content;
-        this.data = this.data.filter((element: any) => element.customerId === this.customerId);
         this.data.forEach((element: any) => {
           element.statusValue = STATUS[element.status];
           return element;
@@ -124,13 +158,14 @@ export class ListOrderComponent {
 
 
   onPageChange(page: number) {
+    this.results = [];
     this.page = page - 1;
-    this.getAllOrders({ page: this.page });
+    this.getAllOrders(this.customerId, { page: this.page });
   }
   onPageSizeChange(pageSize: number) {
     this.pageSize = pageSize;
     this.page = 0;
-    this.getAllOrders({ size: this.pageSize });
+    this.getAllOrders(this.customerId, { size: this.pageSize });
   }
   onShowDetail(e: any) {
     const modal = this.modalService.create({
@@ -150,7 +185,7 @@ export class ListOrderComponent {
       nzMaskClosable: false,
       nzFooter: null
     })
-    modal.componentInstance!.data = e.orderDetails;
+    modal.componentInstance!.data = e;
   }
   onCancelOrder(e: any) {
     if (e.status === 'CHỜ_XỬ_LÝ') {
@@ -165,7 +200,7 @@ export class ListOrderComponent {
         if (res) {
           this.orderService.updateStatus(e.orderId, 'ĐÃ_HỦY').subscribe((res: any) => {
             if (res.code === StatusResponse.OK) {
-              this.getAllOrders({ page: this.page - 1, size: this.pageSize });
+              this.getAllOrders(this.customerId, { page: this.page - 1, size: this.pageSize });
               this.notification.success('Thông báo', 'Hủy đơn hàng thành công');
             }
           })
@@ -188,5 +223,8 @@ export class ListOrderComponent {
         this.onchosePayment(e.data);
         break;
     }
+  }
+  onSearch() {
+    this.searchSubject.next(this.searchQuery);
   }
 }

@@ -23,6 +23,7 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { ListPromotionComponent } from './modules/list-promotion/list-promotion.component';
 import { ListPromotionModule } from './modules/list-promotion/list-promotion.module';
+import { PaymentSuccessComponent } from './modules/payment-success/payment-success.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ListPromotionModule } from './modules/list-promotion/list-promotion.mod
     LayoutComponent,
     ConfirmComponent,
     NotFoundComponent,
+    PaymentSuccessComponent,
   ],
   imports: [
     BrowserModule,

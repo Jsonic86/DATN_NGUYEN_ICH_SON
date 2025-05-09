@@ -1,0 +1,26 @@
+<div class="payment-success-container">
+    <div class="payment-card">
+        <div class="checkmark-wrapper">
+            <div class="checkmark-circle">
+                <span class="checkmark">✔</span>
+            </div>
+        </div>
+        <h2 class="success-title">Giao dịch thành công</h2>
+        <p class="success-message">Cảm ơn bạn đã thanh toán. Thông tin đơn hàng của bạn như sau:</p>
+
+        <div class="payment-details">
+            <div class="detail-row"><span>Mã đơn hàng:</span><strong>{{ orderInfo.txnRef }}</strong></div>
+            <div class="detail-row"><span>Số tiền:</span><strong>{{ orderInfo.amount }}</strong></div>
+            <div class="detail-row"><span>Ngân hàng:</span><strong>{{ orderInfo.bank }}</strong></div>
+            <div class="detail-row"><span>Mã giao dịch:</span><strong>{{ orderInfo.transactionNo }}</strong></div>
+            <div class="detail-row"><span>Thời gian:</span><strong>{{ orderInfo.date }}</strong></div>
+            <div class="detail-row"><span>Trạng thái:</span><strong class="status success">{{ orderInfo.status
+                    }}</strong></div>
+        </div>
+
+        <div class="action-buttons">
+            <button routerLink="/user/home" class="btn primary" style=" width: 200px; ">Quay lại trang chủ</button>
+            <button routerLink="/user/list-order" class="btn secondary" style=" width: 200px; ">Xem đơn hàng</button>
+        </div>
+    </div>
+</div>

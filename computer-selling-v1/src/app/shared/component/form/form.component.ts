@@ -32,7 +32,7 @@ export class FormComponent implements OnInit {
         uid: '-1',
         name: this.item.imageUrl,
         status: 'done',
-        url: `http://localhost:8080/identity/api/images/${this.item.imageUrl}`  // URL của hình ảnh mà bạn muốn preview
+        url: `${(this.item?.imageUrl?.includes('https://hoanghapccdn.com') ? '' : 'http://localhost:8080/identity/api/images/')}${this.item.imageUrl}`  // URL của hình ảnh mà bạn muốn preview
       }]
     }
   }
