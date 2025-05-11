@@ -1,67 +1,71 @@
-<div class="p-3">
-    <div class="card">
-        <div class="row">
-            <div class="col-md-8 cart">
-                <div class="title">
+<div class="container py-5">
+    <div class="p-3">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-8 cart">
+                    <div class="title">
+                        <div class="row">
+                            <div class="col">
+                                <h4><b>Giỏ hàng</b></h4>
+                            </div>
+                            <div class="col align-self-center text-right text-muted">{{cartService.getItems().length}}
+                                sản
+                                phẩm</div>
+                        </div>
+                    </div>
+                    <div class="row border-top border-bottom" *ngFor="let item of cartService.getItems()">
+                        <div class="row main align-items-center">
+                            <div class="col-1">
+                                <ng-container *ngIf="item">
+                                    <label nz-checkbox (onChange)="onCheckedItem(item)"
+                                        [(ngModel)]="item.checked"></label>
+                                </ng-container>
+                            </div>
+                            <div class="col-2"><img class="img-fluid"
+                                    src="{{(item?.imageUrl?.includes('https://hoanghapccdn.com')?'':'http://localhost:8080/identity/api/images/')}}{{item.imageUrl}}">
+                            </div>
+                            <div class="col">
+                                <div class="row">{{item.name}}</div>
+                            </div>
+                            <div class="col">
+                                <input type="number" min="1" [value]="item!.quantity"
+                                    class="form-control w-50 text-center mx-auto my-auto"
+                                    (change)="updateQuantity(item,$event)">
+                            </div>
+                            <div class="col">{{item.price*item.quantity|currency:'VND'}}</div>
+                        </div>
+                    </div>
+                    <div class="back-to-shop text-hover" [routerLink]="'/user/home'"><a>&leftarrow;</a><span
+                            class="text-muted text-hover">Quay
+                            trở về
+                            trang chủ</span></div>
+                </div>
+                <div class="col-md-4 summary">
+                    <div>
+                        <h5><b>Chi tiết thanh toán</b></h5>
+                    </div>
+                    <hr>
                     <div class="row">
-                        <div class="col">
-                            <h4><b>Giỏ hàng</b></h4>
-                        </div>
-                        <div class="col align-self-center text-right text-muted">{{cartService.getItems().length}} sản
+                        <div class="col" style="padding-left:0;">{{cartService.getItems().length}} sản
                             phẩm</div>
+                        <div class="col text-right">{{getTotal()|currency:'VND'}}</div>
                     </div>
-                </div>
-                <div class="row border-top border-bottom" *ngFor="let item of cartService.getItems()">
-                    <div class="row main align-items-center">
-                        <div class="col-1">
-                            <ng-container *ngIf="item">
-                                <label nz-checkbox (onChange)="onCheckedItem(item)" [(ngModel)]="item.checked"></label>
-                            </ng-container>
-                        </div>
-                        <div class="col-2"><img class="img-fluid"
-                                src="{{(item?.imageUrl?.includes('https://hoanghapccdn.com')?'':'http://localhost:8080/identity/api/images/')}}{{item.imageUrl}}">
-                        </div>
-                        <div class="col">
-                            <div class="row">{{item.name}}</div>
-                        </div>
-                        <div class="col">
-                            <input type="number" min="1" [value]="item!.quantity"
-                                class="form-control w-50 text-center mx-auto my-auto"
-                                (change)="updateQuantity(item,$event)">
-                        </div>
-                        <div class="col">{{item.price*item.quantity|currency:'VND'}}</div>
-                    </div>
-                </div>
-                <div class="back-to-shop text-hover" [routerLink]="'/user/home'"><a>&leftarrow;</a><span
-                        class="text-muted text-hover">Quay
-                        trở về
-                        trang chủ</span></div>
-            </div>
-            <div class="col-md-4 summary">
-                <div>
-                    <h5><b>Chi tiết thanh toán</b></h5>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col" style="padding-left:0;">{{cartService.getItems().length}} sản
-                        phẩm</div>
-                    <div class="col text-right">{{getTotal()|currency:'VND'}}</div>
-                </div>
-                <form>
+                    <!-- <form>
                     <p>Phí vận chuyển</p>
                     <select>
                         <option class="text-muted">Standard-Delivery- &euro;5.00</option>
                     </select>
                     <p>Mã khuyến mãi</p>
                     <input id="code" placeholder="Enter your code">
-                </form>
-                <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
-                    <div class="col">Tổng giá</div>
-                    <div class="col text-right">{{getTotal()|currency:'VND'}}</div>
+                </form> -->
+                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                        <div class="col">Tổng giá</div>
+                        <div class="col text-right">{{getTotal()|currency:'VND'}}</div>
+                    </div>
+                    <button class="btn rounded-2" [routerLink]="'/user/checkout'">Đặt hàng</button>
                 </div>
-                <button class="btn rounded-2" [routerLink]="'/user/checkout'">Đặt hàng</button>
             </div>
-        </div>
 
+        </div>
     </div>
 </div>

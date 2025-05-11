@@ -22,7 +22,7 @@ export class UserLayoutComponent {
   }
 
   ngOnInit(): void {
-    this.categoryService.getAllCategories().subscribe((res) => {
+    this.categoryService.getAllCategories({ page: 0, size: 100 }).subscribe((res) => {
       if (res.code === StatusResponse.OK) {
         if (res.result.content.length > 0) {
           this.categories = res.result.content;

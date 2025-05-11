@@ -1,10 +1,50 @@
 <section id="products" class="py-5">
     <div class="container">
-        <h2 class="text-center fw-semibold mb-4">Sản phẩm nổi bật</h2>
+        <h2 class="text-center fw-semibold mb-4">{{listItems.length>0?listItems[0].categoryName:''}}</h2>
         <div class="row g-4">
             <div *ngFor="let item of listItems" class="col-md-4">
                 <app-cart-product [item]="item"></app-cart-product>
             </div>
         </div>
     </div>
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center gap-2">
+            <!-- Trước -->
+            <li class="page-item" [class.disabled]="page === 1">
+                <a class="page-link" (click)="onPageChange(page - 1)">Trước</a>
+            </li>
+
+            <!-- Trang đầu -->
+            <li class="page-item" [class.active]="page === 1">
+                <a class="page-link" (click)="onPageChange(1)">1</a>
+            </li>
+
+            <!-- Dấu ... -->
+            <li class="page-item" *ngIf="page > 3">
+                <span class="page-link">...</span>
+            </li>
+
+            <!-- Trang giữa -->
+            <li class="page-item" *ngFor="let i of getVisiblePages()" [class.active]="page === i">
+                <a class="page-link" (click)="onPageChange(i)">{{ i }}</a>
+            </li>
+
+            <!-- Dấu ... -->
+            <li class="page-item" *ngIf="page < results.length - 2">
+                <span class="page-link">...</span>
+            </li>
+
+            <!-- Trang cuối -->
+            <li class="page-item" [class.active]="page === results.length">
+                <a class="page-link" (click)="onPageChange(results.length)">
+                    {{ results.length }}
+                </a>
+            </li>
+
+            <!-- Sau -->
+            <li class="page-item" [class.disabled]="page === results.length">
+                <a class="page-link" (click)="onPageChange(page + 1)">Sau</a>
+            </li>
+        </ul>
+    </nav>
 </section>

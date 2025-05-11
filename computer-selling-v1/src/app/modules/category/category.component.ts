@@ -170,7 +170,7 @@ export class CategoryComponent {
   }
   onPageChange(page: number) {
     this.page = page - 1;
-    this.getAllCategories({ page: this.page });
+    this.getAllCategories({ page: this.page, size: this.pageSize });
   }
   onPageSizeChange(pageSize: number) {
     this.pageSize = pageSize;

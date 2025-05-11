@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Column } from 'src/app/core/const/column.type';
-import { STATUS, StatusResponse, TYPE } from 'src/app/core/const/constant';
+import { STATUS, STATUS_PAYMENT, StatusResponse, TYPE } from 'src/app/core/const/constant';
 import { SettingValue } from 'src/app/core/const/settingValue.type';
 import { getCookie } from 'src/app/core/utils';
 import { OrderService } from 'src/app/services/order.service';
@@ -35,67 +35,13 @@ export class ListOrderComponent {
   searchQuery: string = '';
   customerId: string | null = '';
   STATUS = STATUS;
+  STATUS_PAYMENT = STATUS_PAYMENT;
   results: any[] = [];
   searchSubject: Subject<string> = new Subject<string>();
   constructor(private orderService: OrderService, private modalService: NzModalService, private notification: NzNotificationService, private userService: UserService) {
     this.token = getCookie('token');
   }
   ngOnInit(): void {
-    this.cols = [
-      {
-        id: '0',
-        arr: 'Mã đơn hàng',
-        fieldName: 'orderId',
-        width: '10em',
-        type: TYPE.TEXT,
-      },
-      {
-        id: '1',
-        arr: 'Trạng thái',
-        fieldName: 'statusValue',
-        width: '10em',
-        type: TYPE.TEXT,
-      },
-      {
-        id: '2',
-        arr: 'Tổng giá',
-        fieldName: 'totalAmount',
-        width: '10em',
-        type: TYPE.TEXT,
-      },
-      {
-        id: '3',
-        arr: 'Ngày đặt hàng',
-        fieldName: 'orderDate',
-        width: '10em',
-        type: TYPE.DATE,
-      },
-      {
-        id: '4',
-        arr: 'Thao tác',
-        width: '10em',
-        type: TYPE.ACTION,
-        fieldName: 'action',
-        listOfAction: [
-          {
-            actionName: 'showDetail',
-            icon: 'info-circle',
-            keyName: 'showDetail'
-          },
-          {
-            actionName: 'cancelOrder',
-            icon: 'close-circle',
-            keyName: 'cancelOrder'
-          },
-          {
-            actionName: 'chosePayment',
-            icon: 'close-circle',
-            keyName: 'chosePayment'
-          },
-
-        ]
-      }
-    ]
 
   }
   ngAfterViewInit() {
@@ -121,6 +67,7 @@ export class ListOrderComponent {
 
     return pages;
   }
+
   statusBackground(status: string): string {
     let className = '';
     switch (STATUS[status]) {
@@ -226,5 +173,17 @@ export class ListOrderComponent {
   }
   onSearch() {
     this.searchSubject.next(this.searchQuery);
+  }
+  statusPaymentBackground(status: string): string {
+    let className = '';
+    switch (STATUS_PAYMENT[status]) {
+      case 'Chưa thanh toán': className = 'bg-secondary'
+        break;
+      case 'Đã thanh toán': className = 'bg-success'
+        break;
+      case 'Hoàn tiền': className = 'bg-primary'
+        break;
+    }
+    return className;
   }
 }

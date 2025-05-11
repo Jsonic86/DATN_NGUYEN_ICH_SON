@@ -230,7 +230,7 @@ export class ProductComponent {
   }
   onPageChange(page: number) {
     this.page = page - 1;
-    this.getAllProducts({ page: this.page });
+    this.getAllProducts({ page: this.page, size: this.pageSize });
   }
   onPageSizeChange(pageSize: number) {
     this.pageSize = pageSize;

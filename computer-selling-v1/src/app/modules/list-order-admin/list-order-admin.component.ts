@@ -212,4 +212,29 @@ export class ListOrderAdminComponent {
 
     return pages;
   }
+  onConfirmRefund(e: any) {
+    if (STATUS_PAYMENT[e.payment.paymentStatus] === 'Đã thanh toán' && STATUS[e.status] === 'Đã hủy') {
+      const modal = this.modalService.create({
+        nzTitle: 'Xác nhận hoàn tiền',
+        nzContent: ConfirmComponent,
+        nzWidth: '35%',
+        nzMaskClosable: false,
+        nzFooter: null
+      })
+      modal.componentInstance!.action = 'Xác nhận hoàn tiền';
+      modal.afterClose.subscribe((res: any) => {
+        if (res) {
+          this.paymentService.updateSatus({ orderId: e.orderId, status: 'HOAN_TIEN' }).subscribe((res: any) => {
+            if (res.code === StatusResponse.OK) {
+              this.getAllOrders({ page: this.page - 1, size: this.pageSize });
+              this.notification.success('Thông báo', 'Xác nhận hoàn tiền thành công');
+            }
+          })
+        }
+      })
+    }
+    else {
+      this.notification.error('Thông báo', `Đơn này chưa thanh toán hoặc không ở trạng thái đã hủy`);
+    }
+  }
 }
