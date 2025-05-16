@@ -166,7 +166,7 @@
     <!-- Start Header Bottom -->
     <div class="container">
         <div class="row align-items-center py-2">
-            <div class="col-lg-8 col-md-6 col-12">
+            <div class="col-lg-9 col-md-6 col-12">
                 <div class="nav-inner">
                     <!-- Start Mega Category Menu -->
                     <div class="mega-category-menu">
@@ -230,7 +230,7 @@
                     <!-- End Navbar -->
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-12">
+            <div class="col-lg-3 col-md-6 col-12">
                 <!-- Start Nav Social -->
                 <div class="nav-social">
                     <span class="title">Theo dõi:</span>
@@ -269,48 +269,50 @@
 </header>
 <!-- End Header Area -->
 
-<div class="body-container" style="min-height: calc(100vh - 100px); display: flex; flex-direction: column;">
+<!-- Main Content Wrapper -->
+<div class="page-wrapper">
     <router-outlet></router-outlet>
-    <div style="flex-grow: 1;"></div>
+</div>
 
-    <footer class="footer">
-        <!-- Start Footer Top -->
-        <div class="footer-top">
-            <div class="container">
-                <div class="inner-content">
-                    <div class="row align-items-center">
-                        <div class="col-lg-3 col-md-4 col-12">
-                            <div class="footer-logo">
-                                <a href="index.html">
-                                    <img src="../../../assets/logo-transparent.png" alt="#">
-                                </a>
-                            </div>
+<!-- Start Footer Area -->
+<footer class="footer">
+    <!-- Start Footer Top -->
+    <div class="footer-top">
+        <div class="container">
+            <div class="inner-content">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 col-12">
+                        <div class="footer-logo">
+                            <a href="index.html">
+                                <img src="../../../assets/logo-transparent.png" alt="#">
+                            </a>
                         </div>
-                        <div class="col-lg-9 col-md-8 col-12">
-                            <div class="footer-newsletter">
-                                <h4 class="title">
-                                    Thông tin chi nhánh
-                                    <span class="mb-2">Hà Nội : Số 6 P.Láng Hạ Thành Công, Ba Đình, Hà Nội</span>
-                                    <span>TP Hồ Chí Minh : 260 Lý Thường Kiệt, Phường 14, Quận 10, Hồ Chí Minh</span>
-                                </h4>
+                    </div>
+                    <div class="col-lg-9 col-md-8 col-12">
+                        <div class="footer-newsletter">
+                            <h4 class="title">
+                                Thông tin chi nhánh
+                                <span class="mb-2">Hà Nội : Số 6 P.Láng Hạ Thành Công, Ba Đình, Hà Nội</span>
+                                <span>TP Hồ Chí Minh : 260 Lý Thường Kiệt, Phường 14, Quận 10, Hồ Chí Minh</span>
+                            </h4>
 
-                                <div class="newsletter-form-head">
-                                    <form action="#" method="get" target="_blank" class="newsletter-form">
-                                        <input name="EMAIL" placeholder="Email address here..." type="email">
-                                        <div class="button">
-                                            <button class="btn">Subscribe</button>
-                                        </div>
-                                    </form>
-                                </div>
+                            <div class="newsletter-form-head">
+                                <form action="#" method="get" target="_blank" class="newsletter-form">
+                                    <input name="EMAIL" placeholder="Email address here..." type="email">
+                                    <div class="button">
+                                        <button class="btn">Subscribe</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Footer Top -->
-    </footer>
-</div>
+    </div>
+    <!-- End Footer Top -->
+</footer>
+<!-- End Footer Area -->
 
 <!-- Review Modal -->
 <div class="modal fade review-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -368,5 +370,3 @@
     </div>
 </div>
 <!-- End Review Modal -->
-
-<!-- Start Footer Area -->

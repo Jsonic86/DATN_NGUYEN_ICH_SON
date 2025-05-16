@@ -264,7 +264,9 @@ a:hover {
 }
 
 .container {
-    min-height: 90vh;
+    /* Đảm bảo container không chiếm toàn bộ chiều cao màn hình */
+    min-height: unset;
+    height: unset;
     padding-top: 30px;
     padding-bottom: 50px;
     background: linear-gradient(135deg, rgba(239, 242, 247, 0.4) 0%, rgba(214, 219, 238, 0.5) 100%);
