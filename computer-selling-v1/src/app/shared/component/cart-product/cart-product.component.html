@@ -1,12 +1,22 @@
-<div class="card h-100 shadow-sm transition-all duration-300 hover:shadow-lg"
-    [routerLink]="['/user/product-detail', item?.productId]">
-    <img src="{{(item?.imageUrl?.includes('https://hoanghapccdn.com')?'':'http://localhost:8080/identity/api/images/')}}{{item.imageUrl}}"
-        class="card-img-top p-3" alt="Product">
-    <div class="card-body text-center">
-        <h5 class="card-title">{{item?.productName}}</h5>
-        <div class="text-warning mb-2">★★★★☆</div>
-        <div class="fw-bold text-success mb-2">{{item?.price|currency:'VND'}}</div>
-        <a class="btn btn-outline-primary w-100" (click)="addToCart(item);$event.stopPropagation()"><i
-                class="lni lni-cart"></i> Thêm vào giỏ</a>
+<div class="product-card" [routerLink]="['/user/product-detail', item?.productId]">
+    <!-- Optional product tag - uncomment if you want to show "New" or other tags -->
+    <!-- <div class="product-tag">New</div> -->
+
+    <div class="product-image-wrapper">
+        <img class="product-image"
+            src="{{(item?.imageUrl?.includes('https://hoanghapccdn.com')?'':'http://localhost:8080/identity/api/images/')}}{{item.imageUrl}}"
+            alt="{{item?.productName}}">
+
+        <div class="quick-actions">
+            <button class="add-to-cart" (click)="addToCart(item);$event.stopPropagation()">
+                <i class="lni lni-cart"></i> Thêm vào giỏ
+            </button>
+        </div>
+    </div>
+
+    <div class="product-info text-center">
+        <h5 class="product-name">{{item?.productName}}</h5>
+        <div class="rating">★★★★☆</div>
+        <div class="price">{{item?.price|currency:'VND'}}</div>
     </div>
 </div>
