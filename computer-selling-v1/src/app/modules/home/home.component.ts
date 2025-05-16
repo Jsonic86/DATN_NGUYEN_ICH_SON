@@ -11,9 +11,13 @@ export class HomeComponent implements AfterViewInit {
   selectedCategory: string = 'pc';
   selectedCategoryBottom: string = 'cpu';
   outstandingId: string[] = ['125', '225', '633', '1817', '1532', '962', '253', '445', '789'];
-  outstandingItems: any[] = [
-
-  ];
+  // Khởi tạo mảng với các phần tử rỗng để tránh lỗi undefined
+  outstandingItems: any[] = Array(9).fill({
+    name: '',
+    price: 0,
+    imageUrl: '', // Thêm giá trị mặc định cho imageUrl
+    description: ''
+  });
   // Mảng ảnh cho từng danh mục
   categories: any = {
     pc: [
@@ -64,8 +68,8 @@ export class HomeComponent implements AfterViewInit {
         url: "https://hoanghapccdn.com/media/product/250_5401_ultra_9_285k_sale_t2_2025_s1.jpg"
       },
       {
-        id: 818,
-        url: "https://hoanghapccdn.com/media/product/250_4721_cpu_14900k_sale_t12_2023.jpg"
+        id: 840,
+        url: "https://hoanghapccdn.com/media/product/250_5730_5700x3d_tray_ha1.jpg"
       },
       {
         id: 822,
@@ -189,6 +193,28 @@ export class HomeComponent implements AfterViewInit {
 
   };
   constructor(private productService: ProductService) { }
+  ngOnInit(): void {
+    // Tải dữ liệu sản phẩm nổi bật
+    this.loadOutstandingProducts();
+  }
+
+  /**
+   * Tải dữ liệu sản phẩm nổi bật với xử lý lỗi
+   */
+  loadOutstandingProducts(): void {
+    for (let i = 0; i < this.outstandingId.length; i++) {
+      this.productService.getById(this.outstandingId[i]).subscribe({
+        next: (res) => {
+          if (res.code == StatusResponse.OK && res.result) {
+            this.outstandingItems[i] = res.result;
+          }
+        },
+        error: (err) => {
+          console.error(`Lỗi khi tải sản phẩm ID ${this.outstandingId[i]}:`, err);
+        }
+      });
+    }
+  }
   ngAfterViewInit(): void {
     const carouselElement = document.querySelector('#homeCarousel');
     if (carouselElement) {
@@ -199,15 +225,7 @@ export class HomeComponent implements AfterViewInit {
         wrap: true // Lặp lại carousel khi đến slide cuối
       });
     }
-    for (let i = 0; i < this.outstandingId.length; i++) {
-      {
-        this.productService.getById(this.outstandingId[i]).subscribe(res => {
-          if (res.code == StatusResponse.OK) {
-            this.outstandingItems[i] = res.result;
-          }
-        })
-      }
-    }
+
   }
 
 }

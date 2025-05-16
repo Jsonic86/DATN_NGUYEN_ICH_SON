@@ -69,7 +69,7 @@
                                     <span class="total-items">0</span>
                                 </a>
                             </div>
-                            <div class="cart-items">
+                            <div class="cart-items" style="position: relative;">
                                 <a href="javascript:void(0)"
                                     class="main-btn d-flex justify-content-center align-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
@@ -80,13 +80,13 @@
                                     <span class="total-items">{{cartService.getItems().length}}</span>
                                 </a>
                                 <!-- Shopping Item -->
-                                <div class="shopping-item" style="max-height: 450px; overflow: visible;">
+                                <div class="shopping-item dropdown-layer">
                                     <div class="dropdown-cart-header">
                                         <span>{{cartService.getItems().length}} Sản phẩm</span>
                                         <a (click)="goToListCart()">Xem giỏ hàng</a>
                                     </div>
-                                    <ul class="shopping-list">
-                                        <li *ngFor="let item of cartService.getItems()">
+                                    <ul class="shopping-list" style="max-height: calc(80vh - 150px); overflow-y: auto;">
+                                        <li *ngFor="let item of cartService.getItems(); let i = index" [style.--i]="i">
                                             <span class="close-icon"
                                                 (click)="cartService.removeFromCart(item!.id)">x</span>
                                             <div class="cart-img-head">
@@ -95,9 +95,10 @@
                                                         [(ngModel)]="item.checked"></label>
                                                 </ng-container>
                                                 <a class="cart-img"
-                                                    routerLink="/user/product-detail/{{item?.productId}}"><img
-                                                        [src]="(item?.imageUrl?.includes('https://hoanghapccdn.com')?'':'http://localhost:8080/identity/api/images/')+item?.imageUrl"
-                                                        alt="#"></a>
+                                                    routerLink="/user/product-detail/{{item?.productId}}">
+                                                    <img [src]="(item?.imageUrl?.includes('https://hoanghapccdn.com')?'':'http://localhost:8080/identity/api/images/')+item?.imageUrl"
+                                                        alt="#">
+                                                </a>
                                             </div>
 
                                             <div class="content">
@@ -108,7 +109,8 @@
                                             </div>
                                         </li>
                                     </ul>
-                                    <div class="bottom">
+                                    <div class="bottom"
+                                        style="position: sticky; bottom: 0; background-color: white; padding: 10px 0; border-top: 1px solid #f0f0f0; margin-top: auto;">
                                         <div class="total">
                                             <span>Tổng tiền</span>
                                             <span class="total-amount">{{cartService.getTotal()|currency:'VND'}}</span>
@@ -121,7 +123,7 @@
                                 </div>
                                 <!--/ End Shopping Item -->
                             </div>
-                            <div class="cart-items mx-3">
+                            <div class="cart-items mx-3" style="position: relative;">
                                 <a href="javascript:void(0)"
                                     class="main-btn d-flex justify-content-center align-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
@@ -131,7 +133,7 @@
                                     </svg>
                                 </a>
                                 <!-- Shopping Item -->
-                                <div class="shopping-item">
+                                <div class="shopping-item dropdown-layer">
                                     <div class="dropdown-cart-header">
                                         <div class="user" *ngIf="authService.isLoggedIn()">
                                             <i class="lni lni-user"></i>

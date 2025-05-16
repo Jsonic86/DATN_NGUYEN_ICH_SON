@@ -3,9 +3,12 @@
     <!-- <div class="product-tag">New</div> -->
 
     <div class="product-image-wrapper">
-        <img class="product-image"
-            src="{{(item?.imageUrl?.includes('https://hoanghapccdn.com')?'':'http://localhost:8080/identity/api/images/')}}{{item.imageUrl}}"
+        <img class="product-image" *ngIf="item?.imageUrl"
+            src="{{(item?.imageUrl?.includes('https://hoanghapccdn.com')?'':'http://localhost:8080/identity/api/images/')}}{{item?.imageUrl}}"
             alt="{{item?.productName}}">
+        <!-- Hiển thị ảnh mặc định nếu không có imageUrl -->
+        <img class="product-image" *ngIf="!item?.imageUrl" src="assets/icon/default-product.jpg"
+            alt="Sản phẩm đang tải">
 
         <div class="quick-actions">
             <button class="add-to-cart" (click)="addToCart(item);$event.stopPropagation()">

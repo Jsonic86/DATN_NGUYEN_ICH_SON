@@ -37,6 +37,7 @@ export class ListOrderComponent {
   STATUS = STATUS;
   STATUS_PAYMENT = STATUS_PAYMENT;
   results: any[] = [];
+  totalPages: number = 1;
   searchSubject: Subject<string> = new Subject<string>();
   constructor(private orderService: OrderService, private modalService: NzModalService, private notification: NzNotificationService, private userService: UserService) {
     this.token = getCookie('token');
@@ -53,16 +54,40 @@ export class ListOrderComponent {
         }
       }
     })
-
   }
+
   getVisiblePages(): number[] {
     const pages: number[] = [];
-    const totalPages = this.results.length;
 
-    for (let i = 2; i < totalPages; i++) {
-      if (Math.abs(this.page - i) <= 1 && i !== 1 && i !== totalPages) {
+    if (this.totalPages <= 7) {
+      // If we have 7 or fewer pages, show all pages
+      for (let i = 1; i <= this.totalPages; i++) {
         pages.push(i);
       }
+    } else {
+      // Always add first page
+      pages.push(1);
+
+      if (this.page > 3) {
+        // Add ellipsis if current page is far from beginning
+        pages.push(-1); // -1 represents ellipsis
+      }
+
+      // Add pages around current page
+      const startPage = Math.max(2, this.page - 1);
+      const endPage = Math.min(this.totalPages - 1, this.page + 1);
+
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
+
+      if (this.page < this.totalPages - 2) {
+        // Add ellipsis if current page is far from end
+        pages.push(-1); // -1 represents ellipsis
+      }
+
+      // Always add last page
+      pages.push(this.totalPages);
     }
 
     return pages;
@@ -84,12 +109,11 @@ export class ListOrderComponent {
   }
   getAllOrders(customerId: string | null, payload: any = {}) {
     this.loading = true;
+    this.results = []; // Reset results array before new fetch
     payload.customerId = customerId;
     this.orderService.getAllOrdersByCustomerId(payload).subscribe((res: any) => {
       if (res.code === StatusResponse.OK && res.result?.content.length > 0) {
-        for (let i = 0; i < res.result?.totalPages; i++) {
-          this.results.push(i + 1);
-        }
+        this.totalPages = res.result?.totalPages;
         this.data = res.result?.content;
         this.data.forEach((element: any) => {
           element.statusValue = STATUS[element.status];
@@ -98,16 +122,21 @@ export class ListOrderComponent {
         this.page = res.result?.number + 1;
         this.totalElements = res.result?.totalElements;
         this.pageSize = res.result?.size;
-        this.loading = false;
+      } else {
+        this.data = [];
+        this.totalElements = 0;
+        this.totalPages = 0;
       }
+      this.loading = false;
     });
   }
 
-
   onPageChange(page: number) {
-    this.results = [];
-    this.page = page - 1;
-    this.getAllOrders(this.customerId, { page: this.page });
+    if (page < 1 || page > this.totalPages || page === this.page) {
+      return; // Don't process invalid page changes
+    }
+    this.page = page;
+    this.getAllOrders(this.customerId, { page: this.page - 1 });
   }
   onPageSizeChange(pageSize: number) {
     this.pageSize = pageSize;
