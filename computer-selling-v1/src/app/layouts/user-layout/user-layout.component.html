@@ -2,14 +2,14 @@
 
 <!-- Start Header Area -->
 <header class="header navbar-area">
-
     <div class="header-middle">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-3 col-md-3 col-7">
+                <div class="col-lg-2 col-md-3 col-7">
                     <!-- Start Header Logo -->
                     <a class="navbar-brand" routerLink="/user/home">
-                        <img src="../../../assets/logo-transparent.png" alt="Logo" width="80" height="80">
+                        <img src="../../../assets/icon/logo.svg" alt="Logo">
+                        <span>Đức Tuấn</span>
                     </a>
                     <!-- End Header Logo -->
                 </div>
@@ -18,25 +18,24 @@
                     <div class="main-menu-search">
                         <!-- navbar search start -->
                         <div class="navbar-search search-style-5">
-                            <div class="search-select">
+                            <!-- <div class="search-select">
                                 <div class="select-position">
                                     <select id="select1">
-                                        <option selected>All</option>
-                                        <option value="1">option 01</option>
-                                        <option value="2">option 02</option>
-                                        <option value="3">option 03</option>
-                                        <option value="4">option 04</option>
-                                        <option value="5">option 05</option>
+                                        <option selected>Tất cả</option>
+                                        <option value="1">Laptop</option>
+                                        <option value="2">PC</option>
+                                        <option value="3">Linh kiện</option>
+                                        <option value="4">Phụ kiện</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="search-input">
-                                <input type="text" placeholder="Search">
+                            </div> -->
+                            <div class="search-input mx-2">
+                                <input type="text" placeholder="Tìm kiếm sản phẩm...">
                             </div>
                             <div class="search-btn">
-                                <button><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="20"
-                                        height="20">
-                                        <path fill="white"
+                                <button><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18"
+                                        height="18">
+                                        <path fill="currentColor"
                                             d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" />
                                     </svg></button>
                             </div>
@@ -45,14 +44,15 @@
                     </div>
                     <!-- End Main Menu Search -->
                 </div>
-                <div class="col-lg-4 col-md-2 col-5">
+                <div class="col-lg-5 col-md-2 col-5">
                     <div class="middle-right-area px-3">
-                        <div class="nav-hotline">
-                            <i class="lni lni-phone d-flex justify-content-center align-items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
-                                    <path fill="white"
+                        <div class="nav-hotline d-flex justify-content-center align-items-center">
+                            <i class="lni lni-phone d-flex justify-content-center align-items-center ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 512 512">
+                                    <path fill="currentColor"
                                         d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z" />
                                 </svg>
+
                             </i>
                             <h3>Hotline:
                                 <span>123 456 7890</span>
@@ -61,9 +61,9 @@
                         <div class="navbar-cart">
                             <div class="wishlist">
                                 <a href="javascript:void(0)" class="d-flex justify-content-center align-items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                         viewBox="0 0 448 512">
-                                        <path fill="white"
+                                        <path fill="currentColor"
                                             d="M224 0c-17.7 0-32 14.3-32 32l0 19.2C119 66 64 130.6 64 208l0 18.8c0 47-17.3 92.4-48.5 127.6l-7.4 8.3c-8.4 9.4-10.4 22.9-5.3 34.4S19.4 416 32 416l384 0c12.6 0 24-7.4 29.2-18.9s3.1-25-5.3-34.4l-7.4-8.3C401.3 319.2 384 273.9 384 226.8l0-18.8c0-77.4-55-142-128-156.8L256 32c0-17.7-14.3-32-32-32zm45.3 493.3c12-12 18.7-28.3 18.7-45.3l-64 0-64 0c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7z" />
                                     </svg>
                                     <span class="total-items">0</span>
@@ -72,23 +72,21 @@
                             <div class="cart-items">
                                 <a href="javascript:void(0)"
                                     class="main-btn d-flex justify-content-center align-items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                         viewBox="0 0 576 512">
-                                        <path fill="white"
+                                        <path fill="currentColor"
                                             d="M0 24C0 10.7 10.7 0 24 0L69.5 0c22 0 41.5 12.8 50.6 32l411 0c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3l-288.5 0 5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5L488 336c13.3 0 24 10.7 24 24s-10.7 24-24 24l-288.3 0c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5L24 48C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
                                     </svg>
                                     <span class="total-items">{{cartService.getItems().length}}</span>
                                 </a>
                                 <!-- Shopping Item -->
-                                <div class="shopping-item">
+                                <div class="shopping-item" style="max-height: 450px; overflow: visible;">
                                     <div class="dropdown-cart-header">
                                         <span>{{cartService.getItems().length}} Sản phẩm</span>
                                         <a (click)="goToListCart()">Xem giỏ hàng</a>
                                     </div>
                                     <ul class="shopping-list">
                                         <li *ngFor="let item of cartService.getItems()">
-                                            <!-- <a href="javascript:void(0)" class="remove" title="Remove this item"
-                                                (click)="cartService.removeFromCart(item!.id)"></a> -->
                                             <span class="close-icon"
                                                 (click)="cartService.removeFromCart(item!.id)">x</span>
                                             <div class="cart-img-head">
@@ -103,13 +101,12 @@
                                             </div>
 
                                             <div class="content">
-                                                <h4><a href="product-details.html">
+                                                <h4><a routerLink="/user/product-detail/{{item?.productId}}">
                                                         {{item?.name}}</a></h4>
                                                 <p class="quantity">{{item?.quantity}}x - <span
                                                         class="amount">{{item?.price|currency:'VND'}}</span></p>
                                             </div>
                                         </li>
-
                                     </ul>
                                     <div class="bottom">
                                         <div class="total">
@@ -127,9 +124,9 @@
                             <div class="cart-items mx-3">
                                 <a href="javascript:void(0)"
                                     class="main-btn d-flex justify-content-center align-items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                         viewBox="0 0 448 512">
-                                        <path fill="#fff"
+                                        <path fill="currentColor"
                                             d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z" />
                                     </svg>
                                 </a>
@@ -155,9 +152,7 @@
                                         <li *ngIf="!authService.isLoggedIn()" (click)="onRegister()" class="item-hover">
                                             <a>Đăng kí</a>
                                         </li>
-
                                     </ul>
-
                                 </div>
                                 <!--/ End Shopping Item -->
                             </div>
@@ -170,7 +165,7 @@
     <!-- End Header Middle -->
     <!-- Start Header Bottom -->
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center py-2">
             <div class="col-lg-8 col-md-6 col-12">
                 <div class="nav-inner">
                     <!-- Start Mega Category Menu -->
@@ -178,8 +173,9 @@
                         <span class="cat-button"><i class="lni lni-menu"></i>Danh mục</span>
                         <ul class="sub-category">
                             <li *ngFor="let category of categories">
-                                <a
-                                    routerLink="/user/list-product-by-category/{{category.categoryId}}">{{category.categoryName}}</a>
+                                <a routerLink="/user/list-product-by-category/{{category.categoryId}}">
+                                    {{category.categoryName}}
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -196,33 +192,38 @@
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ms-auto">
                                 <li class="nav-item ">
-                                    <a routerLink="/user/home" aria-label="Toggle navigation"
-                                        class="d-flex justify-content-center gap-2 align-items-center"><svg
-                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="20"
-                                            height="20">
-                                            <path
+                                    <a routerLink="/user/installment-support" aria-label="Toggle navigation"
+                                        class="d-flex justify-content-center gap-2 align-items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="18"
+                                            height="18">
+                                            <path fill="currentColor"
                                                 d="M312 24l0 10.5c6.4 1.2 12.6 2.7 18.2 4.2c12.8 3.4 20.4 16.6 17 29.4s-16.6 20.4-29.4 17c-10.9-2.9-21.1-4.9-30.2-5c-7.3-.1-14.7 1.7-19.4 4.4c-2.1 1.3-3.1 2.4-3.5 3c-.3 .5-.7 1.2-.7 2.8c0 .3 0 .5 0 .6c.2 .2 .9 1.2 3.3 2.6c5.8 3.5 14.4 6.2 27.4 10.1l.9 .3s0 0 0 0c11.1 3.3 25.9 7.8 37.9 15.3c13.7 8.6 26.1 22.9 26.4 44.9c.3 22.5-11.4 38.9-26.7 48.5c-6.7 4.1-13.9 7-21.3 8.8l0 10.6c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-11.4c-9.5-2.3-18.2-5.3-25.6-7.8c-2.1-.7-4.1-1.4-6-2c-12.6-4.2-19.4-17.8-15.2-30.4s17.8-19.4 30.4-15.2c2.6 .9 5 1.7 7.3 2.5c13.6 4.6 23.4 7.9 33.9 8.3c8 .3 15.1-1.6 19.2-4.1c1.9-1.2 2.8-2.2 3.2-2.9c.4-.6 .9-1.8 .8-4.1l0-.2c0-1 0-2.1-4-4.6c-5.7-3.6-14.3-6.4-27.1-10.3l-1.9-.6c-10.8-3.2-25-7.5-36.4-14.4c-13.5-8.1-26.5-22-26.6-44.1c-.1-22.9 12.9-38.6 27.7-47.4c6.4-3.8 13.3-6.4 20.2-8.2L264 24c0-13.3 10.7-24 24-24s24 10.7 24 24zM568.2 336.3c13.1 17.8 9.3 42.8-8.5 55.9L433.1 485.5c-23.4 17.2-51.6 26.5-80.7 26.5L192 512 32 512c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l36.8 0 44.9-36c22.7-18.2 50.9-28 80-28l78.3 0 16 0 64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0-16 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l120.6 0 119.7-88.2c17.8-13.1 42.8-9.3 55.9 8.5zM193.6 384c0 0 0 0 0 0l-.9 0c.3 0 .6 0 .9 0z" />
-                                        </svg>Hỗ trợ trả góp</a>
+                                        </svg>
+                                        <span>Hỗ trợ trả góp</span>
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a routerLink="/user/home" aria-label="Toggle navigation"
-                                        class="d-flex justify-content-center gap-2 align-items-center"><svg
-                                            xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    <a routerLink="/user/preferential-price" aria-label="Toggle navigation"
+                                        class="d-flex justify-content-center gap-2 align-items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 512 512">
-                                            <path
+                                            <path fill="currentColor"
                                                 d="M345 39.1L472.8 168.4c52.4 53 52.4 138.2 0 191.2L360.8 472.9c-9.3 9.4-24.5 9.5-33.9 .2s-9.5-24.5-.2-33.9L438.6 325.9c33.9-34.3 33.9-89.4 0-123.7L310.9 72.9c-9.3-9.4-9.2-24.6 .2-33.9s24.6-9.2 33.9 .2zM0 229.5L0 80C0 53.5 21.5 32 48 32l149.5 0c17 0 33.3 6.7 45.3 18.7l168 168c25 25 25 65.5 0 90.5L277.3 442.7c-25 25-65.5 25-90.5 0l-168-168C6.7 262.7 0 246.5 0 229.5zM144 144a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z" />
-                                        </svg>Giá ưu đãi</a>
+                                        </svg>
+                                        <span>Giá ưu đãi</span>
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a routerLink="/user/home" aria-label="Toggle navigation"
-                                        class="d-flex justify-content-center gap-2 align-items-center"><svg
-                                            xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                    <a routerLink="/user/guarantee" aria-label="Toggle navigation"
+                                        class="d-flex justify-content-center gap-2 align-items-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                             viewBox="0 0 512 512">
-                                            <path
+                                            <path fill="currentColor"
                                                 d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8l0 378.1C394 378 431.1 230.1 432 141.4L256 66.8s0 0 0 0z" />
-                                        </svg>Bảo hành tận nhà</a>
+                                        </svg>
+                                        <span>Bảo hành tận nhà</span>
+                                    </a>
                                 </li>
-
                             </ul>
                         </div> <!-- navbar collapse -->
                     </nav>
@@ -232,55 +233,56 @@
             <div class="col-lg-4 col-md-6 col-12">
                 <!-- Start Nav Social -->
                 <div class="nav-social">
-                    <h5 class="title">Follow Us:</h5>
+                    <span class="title">Theo dõi:</span>
                     <ul>
                         <li>
-                            <a href="javascript:void(0)" class="d-flex justify-content-center align-items-center"><i
-                                    class="lni lni-facebook-filled"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                        height="20" viewBox="0 0 512 512">
-                                        <path
-                                            d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z" />
-                                    </svg></i></a>
+                            <a href="javascript:void(0)" class="d-flex justify-content-center align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 512 512">
+                                    <path fill="currentColor"
+                                        d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z" />
+                                </svg>
+                            </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" class="d-flex justify-content-center align-items-center"><i
-                                    class="lni lni-twitter-original"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                        height="20" viewBox="0 0 512 512">
-                                        <path
-                                            d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
-                                    </svg></i></a>
+                            <a href="javascript:void(0)" class="d-flex justify-content-center align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 512 512">
+                                    <path fill="currentColor"
+                                        d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
+                                </svg>
+                            </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)" class="d-flex justify-content-center align-items-center"><i
-                                    class="lni lni-instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                        height="20" viewBox="0 0 448 512">
-                                        <path
-                                            d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
-                                    </svg></i></a>
+                            <a href="javascript:void(0)" class="d-flex justify-content-center align-items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 448 512">
+                                    <path fill="currentColor"
+                                        d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" />
+                                </svg>
+                            </a>
                         </li>
-
                     </ul>
                 </div>
                 <!-- End Nav Social -->
             </div>
         </div>
     </div>
-    <!-- Start Header Bottom -->
+    <!-- End Header Bottom -->
 </header>
 <!-- End Header Area -->
 
-<div class="body-container">
+<div class="body-container" style="min-height: calc(100vh - 100px); display: flex; flex-direction: column;">
     <router-outlet></router-outlet>
+    <div style="flex-grow: 1;"></div>
+
     <footer class="footer">
         <!-- Start Footer Top -->
         <div class="footer-top">
             <div class="container">
                 <div class="inner-content">
-                    <div class="row">
+                    <div class="row align-items-center">
                         <div class="col-lg-3 col-md-4 col-12">
                             <div class="footer-logo">
                                 <a href="index.html">
-                                    <img src="../../../assets/logo-transparent.png" width="80" height="80" alt="#">
+                                    <img src="../../../assets/logo-transparent.png" alt="#">
                                 </a>
                             </div>
                         </div>
@@ -296,7 +298,7 @@
                                     <form action="#" method="get" target="_blank" class="newsletter-form">
                                         <input name="EMAIL" placeholder="Email address here..." type="email">
                                         <div class="button">
-                                            <button class="btn">Subscribe<span class="dir-part"></span></button>
+                                            <button class="btn">Subscribe</button>
                                         </div>
                                     </form>
                                 </div>
@@ -306,11 +308,10 @@
                 </div>
             </div>
         </div>
-
-
-        <!-- End Footer Bottom -->
+        <!-- End Footer Top -->
     </footer>
 </div>
+
 <!-- Review Modal -->
 <div class="modal fade review-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
     aria-hidden="true">

@@ -24,6 +24,9 @@ import { DashboardModule } from './modules/dashboard/dashboard.module';
 import { ListPromotionComponent } from './modules/list-promotion/list-promotion.component';
 import { ListPromotionModule } from './modules/list-promotion/list-promotion.module';
 import { PaymentSuccessComponent } from './modules/payment-success/payment-success.component';
+import { InstallmentSupportComponent } from './modules/installment-support/installment-support.component';
+import { PreferentialPriceComponent } from './modules/preferential-price/preferential-price.component';
+import { GuaranteeComponent } from './modules/guarantee/guarantee.component';
 
 
 @NgModule({
@@ -33,6 +36,9 @@ import { PaymentSuccessComponent } from './modules/payment-success/payment-succe
     ConfirmComponent,
     NotFoundComponent,
     PaymentSuccessComponent,
+    InstallmentSupportComponent,
+    PreferentialPriceComponent,
+    GuaranteeComponent,
   ],
   imports: [
     BrowserModule,

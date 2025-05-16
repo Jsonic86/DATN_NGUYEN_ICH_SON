@@ -1,0 +1,236 @@
+.guarantee-container {
+    max-width: 700px;
+    margin: 40px auto;
+    background: linear-gradient(135deg, #fafdff 0%, #e3f2fd 100%);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(25, 118, 210, 0.10);
+    padding: 36px 32px 32px 32px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #222;
+    position: relative;
+    overflow: hidden;
+}
+
+.guarantee-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 18px;
+    justify-content: center;
+}
+
+.guarantee-icon {
+    width: 60px;
+    height: 60px;
+    filter: drop-shadow(0 2px 8px #1976d233);
+    animation: icon-pop 1s cubic-bezier(.68, -0.55, .27, 1.55);
+}
+
+@keyframes icon-pop {
+    0% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    80% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.guarantee-title {
+    font-size: 2.4rem;
+    font-weight: 800;
+    color: #1976d2;
+    margin: 0;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px #1976d21a;
+}
+
+.guarantee-quote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-style: italic;
+    color: #1976d2;
+    background: #e3f2fd;
+    border-left: 4px solid #1976d2;
+    border-radius: 8px;
+    padding: 10px 18px;
+    margin-bottom: 18px;
+    font-size: 1.08rem;
+    box-shadow: 0 2px 8px #1976d21a;
+}
+
+.guarantee-quote i {
+    opacity: 0.7;
+}
+
+.guarantee-description {
+    font-size: 1.13rem;
+    margin-bottom: 30px;
+    color: #444;
+    text-align: center;
+}
+
+.guarantee-section {
+    margin-bottom: 32px;
+    background: #f6f9fc;
+    border-radius: 14px;
+    padding: 22px 24px 16px 24px;
+    box-shadow: 0 2px 12px rgba(25, 118, 210, 0.07);
+    transition: box-shadow 0.2s;
+    border: 1.5px solid #e3f2fd;
+}
+
+.guarantee-section:hover {
+    box-shadow: 0 6px 24px rgba(25, 118, 210, 0.13);
+}
+
+.guarantee-section h2 {
+    font-size: 1.28rem;
+    color: #1565c0;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.guarantee-steps {
+    margin: 0 0 0 0;
+    padding: 0;
+    font-size: 1.04rem;
+    list-style: none;
+}
+
+.guarantee-steps li {
+    margin-bottom: 12px;
+    line-height: 1.7;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    padding-left: 0;
+    transition: background 0.2s;
+}
+
+.guarantee-steps li:hover {
+    background: #e3f2fd55;
+    border-radius: 8px;
+}
+
+.step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1976d2 60%, #42a5f5 100%);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 1.08rem;
+    box-shadow: 0 2px 8px #1976d233;
+    margin-right: 6px;
+    border: 2px solid #fff;
+}
+
+.guarantee-conditions-section {
+    background: #f1f8e9;
+    border: 1.5px solid #c5e1a5;
+}
+
+.guarantee-conditions {
+    margin: 0 0 0 0;
+    padding: 0;
+    font-size: 1.04rem;
+    list-style: none;
+}
+
+.guarantee-conditions li {
+    margin-bottom: 10px;
+    line-height: 1.7;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #388e3c;
+    font-weight: 500;
+}
+
+.guarantee-conditions li i {
+    color: #43a047;
+    font-size: 1.1em;
+    margin-right: 2px;
+}
+
+.guarantee-contact-section {
+    background: #e3f2fd;
+    border: 1.5px solid #90caf9;
+}
+
+.guarantee-contact p {
+    margin: 10px 0;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #1976d2;
+    font-weight: 500;
+}
+
+.contact-icon {
+    background: #1976d2;
+    color: #fff;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    margin-right: 6px;
+    box-shadow: 0 2px 8px #1976d233;
+}
+
+.guarantee-contact a {
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.15s;
+}
+
+.guarantee-contact a:hover {
+    text-decoration: underline;
+    color: #0d47a1;
+}
+
+@media (max-width: 600px) {
+    .guarantee-container {
+        padding: 14px 2px;
+    }
+
+    .guarantee-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .guarantee-title {
+        font-size: 1.4rem;
+    }
+
+    .guarantee-section {
+        padding: 12px 6px 10px 6px;
+    }
+
+    .guarantee-quote {
+        font-size: 0.98rem;
+        padding: 7px 8px;
+    }
+}

@@ -8,7 +8,8 @@ import { SettingValue } from 'src/app/core/const/settingValue.type';
 import { Order } from 'src/app/model/response/order.response';
 import { OrderService } from 'src/app/services/order.service';
 import { PaymentService } from 'src/app/services/payment.service';
-
+declare var require: any;
+const html2pdf = require('html2pdf.js')
 @Component({
   selector: 'app-list-order-detail',
   templateUrl: './list-order-detail.component.html',
@@ -91,6 +92,18 @@ export class ListOrderDetailComponent {
     ]
 
   }
+  generatePDF() {
+    const element = document.getElementById('invoice');
+    const options = {
+      margin: 0,
+      filename: `hoadon_${this.item.orderId}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(options).from(element).save();
+  }
+
   statusBackground(status: string): string {
     let className = '';
     switch (STATUS[status]) {

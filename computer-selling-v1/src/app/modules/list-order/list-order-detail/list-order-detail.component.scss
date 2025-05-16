@@ -7,6 +7,7 @@
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 1rem;
     border: transparent;
+    padding: 1rem;
 }
 
 .btn-custom {
@@ -18,4 +19,31 @@
 .btn-custom:hover {
     background-color: #8fb9e5;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.invoice-wrapper {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 20mm;
+    margin: auto;
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #000;
+}
+
+/* Gọn margin/padding card */
+.invoice-wrapper .card {
+    margin-bottom: 16px;
+}
+
+.invoice-wrapper .text-muted {
+    font-size: 13px;
+}
+
+/* Ẩn nút khi in */
+@media print {
+    .no-print {
+        display: none !important;
+    }
 }
