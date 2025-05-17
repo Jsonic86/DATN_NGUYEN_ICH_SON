@@ -32,14 +32,17 @@ export class ListOrderAdminComponent {
   cols: Column[] = [];
   loading: boolean = false;
   totalElements: number = 0;
-  page: number = 0;
+  currentPage: number = 1;
   pageSize: number = 10;
+  totalPages: number = 0;
+  visiblePages: number[] = [];
+  startPage: number = 1;
+  endPage: number = 1;
   searchQuery: string = '';
   customerId: string | null = '';
   STATUS = STATUS;
   PaymentMethod = PaymentMethod;
   STATUS_PAYMENT = STATUS_PAYMENT;
-  results: any[] = [];
   searchSubject: Subject<string> = new Subject<string>();
   constructor(private orderService: OrderService, private modalService: NzModalService, private notification: NzNotificationService, private userService: UserService, private paymentService: PaymentService) {
     this.token = getCookie('token');
@@ -70,34 +73,82 @@ export class ListOrderAdminComponent {
   }
   getAllOrders(payload: any = {}) {
     this.loading = true;
-    this.orderService.getAllOrders(payload).subscribe((res: any) => {
+    // Ensure page is zero-based when sending to API
+    const apiPayload = { ...payload };
+    if (payload.page !== undefined) {
+      apiPayload.page = payload.page - 1;
+    }
+
+    this.orderService.getAllOrders(apiPayload).subscribe((res: any) => {
       if (res.code === StatusResponse.OK && res.result?.content.length > 0) {
-        for (let i = 0; i < res.result?.totalPages; i++) {
-          this.results.push(i + 1);
-        }
         this.data = res.result?.content;
         this.data.forEach((element: any) => {
           element.statusValue = STATUS[element.status];
           return element;
-        })
-        this.page = res.result?.number + 1;
-        this.totalElements = res.result?.totalElements;
-        this.pageSize = res.result?.size;
-        this.loading = false;
+        });
+
+        // Update pagination metadata
+        this.currentPage = (res.result?.number || 0) + 1;
+        this.totalElements = res.result?.totalElements || 0;
+        this.pageSize = res.result?.size || 10;
+        this.totalPages = res.result?.totalPages || 0;
+
+        // Calculate visible page range
+        this.calculateVisiblePages();
+      } else {
+        this.data = [];
+        this.totalPages = 0;
+        this.totalElements = 0;
       }
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+      this.notification.error('Error', 'Failed to load orders');
     });
   }
 
+  calculateVisiblePages() {
+    // Show up to 5 page numbers including current page
+    const MAX_VISIBLE = 5;
+    const pageWindow = Math.floor(MAX_VISIBLE / 2);
+
+    this.startPage = Math.max(2, this.currentPage - pageWindow);
+    this.endPage = Math.min(this.totalPages - 1, this.currentPage + pageWindow);
+
+    // Adjust start if we're near the end
+    if (this.endPage - this.startPage + 1 < Math.min(MAX_VISIBLE - 1, this.totalPages - 2)) {
+      this.startPage = Math.max(2, this.endPage - (MAX_VISIBLE - 2));
+    }
+
+    // Adjust end if we're near the start
+    if (this.endPage - this.startPage + 1 < Math.min(MAX_VISIBLE - 1, this.totalPages - 2)) {
+      this.endPage = Math.min(this.totalPages - 1, this.startPage + (MAX_VISIBLE - 2));
+    }
+
+    // Generate the visible page numbers array
+    this.visiblePages = [];
+    for (let i = this.startPage; i <= this.endPage; i++) {
+      this.visiblePages.push(i);
+    }
+  }
 
   onPageChange(page: number) {
-    this.results = [];
-    this.page = page - 1;
-    this.getAllOrders({ page: this.page });
+    // Validate the page number
+    if (page < 1) page = 1;
+    if (page > this.totalPages) page = this.totalPages;
+
+    if (this.currentPage === page) return;
+
+    this.currentPage = page;
+    this.getAllOrders({ page: this.currentPage, size: this.pageSize });
   }
+
   onPageSizeChange(pageSize: number) {
+    if (this.pageSize === pageSize) return;
+
     this.pageSize = pageSize;
-    this.page = 0;
-    this.getAllOrders({ size: this.pageSize });
+    this.currentPage = 1;
+    this.getAllOrders({ page: this.currentPage, size: this.pageSize });
   }
   onShowDetail(e: any) {
     const modal = this.modalService.create({
@@ -119,7 +170,7 @@ export class ListOrderAdminComponent {
     })
     modal.afterClose.subscribe((res: any) => {
       if (res) {
-        this.getAllOrders({ page: this.page - 1, size: this.pageSize });
+        this.getAllOrders({ page: this.currentPage - 1, size: this.pageSize });
       }
     })
     modal.componentInstance!.data = e;
@@ -138,7 +189,7 @@ export class ListOrderAdminComponent {
         if (res) {
           this.orderService.updateStatus(e.orderId, 'ĐÃ_HỦY').subscribe((res: any) => {
             if (res.code === StatusResponse.OK) {
-              this.getAllOrders({ page: this.page - 1, size: this.pageSize });
+              this.getAllOrders({ page: this.currentPage - 1, size: this.pageSize });
               this.notification.success('Thông báo', 'Hủy đơn hàng thành công');
             }
           })
@@ -161,7 +212,12 @@ export class ListOrderAdminComponent {
     }
   }
   onSearch() {
-    this.searchSubject.next(this.searchQuery);
+    this.currentPage = 1;
+    this.getAllOrders({
+      page: this.currentPage,
+      size: this.pageSize,
+      search: this.searchQuery
+    });
   }
   statusPaymentBackground(status: string): string {
     let className = '';
@@ -189,7 +245,7 @@ export class ListOrderAdminComponent {
         if (res) {
           this.paymentService.updateSatus({ orderId: e.orderId, status: 'DA_THANH_TOAN' }).subscribe((res: any) => {
             if (res.code === StatusResponse.OK) {
-              this.getAllOrders({ page: this.page - 1, size: this.pageSize });
+              this.getAllOrders({ page: this.currentPage - 1, size: this.pageSize });
               this.notification.success('Thông báo', 'Xác nhận thanh toán thành công');
             }
           })
@@ -199,18 +255,6 @@ export class ListOrderAdminComponent {
     else {
       this.notification.error('Thông báo', `Đơn hàng đang trong trạng thái ${STATUS[e.status]}`);
     }
-  }
-  getVisiblePages(): number[] {
-    const pages: number[] = [];
-    const totalPages = this.results.length;
-
-    for (let i = 2; i < totalPages; i++) {
-      if (Math.abs(this.page - i) <= 1 && i !== 1 && i !== totalPages) {
-        pages.push(i);
-      }
-    }
-
-    return pages;
   }
   onConfirmRefund(e: any) {
     if (STATUS_PAYMENT[e.payment.paymentStatus] === 'Đã thanh toán' && STATUS[e.status] === 'Đã hủy') {
@@ -226,7 +270,7 @@ export class ListOrderAdminComponent {
         if (res) {
           this.paymentService.updateSatus({ orderId: e.orderId, status: 'HOAN_TIEN' }).subscribe((res: any) => {
             if (res.code === StatusResponse.OK) {
-              this.getAllOrders({ page: this.page - 1, size: this.pageSize });
+              this.getAllOrders({ page: this.currentPage - 1, size: this.pageSize });
               this.notification.success('Thông báo', 'Xác nhận hoàn tiền thành công');
             }
           })

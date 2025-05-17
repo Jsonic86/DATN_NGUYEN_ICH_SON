@@ -42,9 +42,13 @@ public class ProductService {
             return Page.empty();
         }
     }
-    public Page<ProductResponse> findAllByCategoryId(Pageable pageable,Long categoryId) {
+    public Page<ProductResponse> findAllByCategoryId(Pageable pageable,Long categoryId,String name) {
         try {
-            Page<Product> products = productRepository.findByCategoryCategoryId(pageable,categoryId);
+            Page<Product> products;
+                    if(categoryId==0){
+                        products = productRepository.findByProductNameContaining(name,pageable);
+                    }
+                    else products= productRepository.findByCategoryCategoryIdAndProductNameContaining(categoryId,name,pageable);
             return products.map(productMapper::toProductResponse);
         } catch (Exception e) {
             e.printStackTrace();

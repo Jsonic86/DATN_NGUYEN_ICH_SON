@@ -11,6 +11,7 @@ import { CreateUpdateProductComponent } from './create-update-product/create-upd
 import { ProductItemResponse } from 'src/app/model/response/product.response';
 import { Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { SetPromotionComponent } from './set-promotion/set-promotion.component';
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'app-product',
@@ -33,9 +34,20 @@ export class ProductComponent {
   pageSize: number = 10;
   searchQuery: string = '';
   searchSubject: Subject<string> = new Subject<string>();
-  constructor(private productSerivce: ProductService, private modalService: NzModalService, private notification: NzNotificationService) {
+
+  // New properties for category filtering
+  categories: any[] = [];
+  selectedCategory: any = null;
+
+  constructor(
+    private productSerivce: ProductService,
+    private modalService: NzModalService,
+    private notification: NzNotificationService,
+    private categoryService: CategoryService
+  ) {
     this.token = getCookie('token');
   }
+
   ngOnInit(): void {
     this.cols = [
       {
@@ -112,11 +124,18 @@ export class ProductComponent {
         ]
       },
     ]
-    this.searchSubject.pipe(
-      debounceTime(300),  // Đợi 300ms sau khi người dùng dừng nhập
-      distinctUntilChanged(),  // Chỉ thực hiện khi giá trị thay đổi
+
+    // Load categories for dropdown
+    this.getCategories(); this.searchSubject.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
       switchMap(searchTerm => {
-        return this.productSerivce.getAllProducts({ page: 0, size: this.pageSize, name: searchTerm });  // Gọi API với từ khóa tìm kiếm
+        return this.productSerivce.getAllProducts({
+          page: 0,
+          size: this.pageSize,
+          name: searchTerm,
+          categoryId: this.selectedCategory || 0 // Include category filter
+        });
       })
     ).subscribe(res => {
       if (res.code === StatusResponse.OK && res.result?.content.length > 0) {
@@ -125,29 +144,77 @@ export class ProductComponent {
         this.totalElements = res.result?.totalElements;
         this.pageSize = res.result?.size;
         this.loading = false;
+      } else {
+        this.data = [];
+        this.totalElements = 0;
+        this.loading = false;
       }
     });
   }
+
+  // Get categories for dropdown
+  getCategories() {
+    this.categoryService.getAllCategories().subscribe((res: any) => {
+      if (res.code === StatusResponse.OK) {
+        // Handle paginated response with content array
+        if (res.result && res.result.content && Array.isArray(res.result.content)) {
+          this.categories = res.result.content.map((category: any) => ({
+            id: category.categoryId,
+            name: category.categoryName
+          }));
+        } else if (Array.isArray(res.result)) {
+          // Fallback for non-paginated response
+          this.categories = res.result.map((category: any) => ({
+            id: category.categoryId || category.id,
+            name: category.categoryName || category.name
+          }));
+        } else {
+          this.categories = [];
+          console.error('Categories response format is unexpected:', res.result);
+        }
+      } else {
+        this.categories = [];
+      }
+    });
+  }
+  // Handle category change event
+  onCategoryChange() {
+    this.page = 0;
+    this.getAllProducts({
+      page: 0,
+      size: this.pageSize,
+      name: this.searchQuery,
+      categoryId: this.selectedCategory || 0
+    });
+  }
+
   ngAfterViewInit() {
     if (this.token) {
       this.getAllProducts();
     }
   }
+
   getAllProducts(payload: any = {}) {
     this.loading = true;
-    this.productSerivce.getAllProducts(payload).subscribe((res: any) => {
+    this.productSerivce.getAllProductsByCategory(payload).subscribe((res: any) => {
       if (res.code === StatusResponse.OK && res.result?.content.length > 0) {
         this.data = res.result?.content;
         this.page = res.result?.number + 1;
         this.totalElements = res.result?.totalElements;
         this.pageSize = res.result?.size;
         this.loading = false;
+      } else {
+        this.data = [];
+        this.totalElements = 0;
+        this.loading = false;
       }
     });
   }
+
   onSearch() {
     this.searchSubject.next(this.searchQuery);
   }
+
   onEdit(e: ProductItemResponse) {
     const modal = this.modalService.create({
       nzTitle: 'Sửa thông tin sản phẩm',
@@ -227,14 +294,22 @@ export class ProductComponent {
         this.onDelete(e.data);
         break;
     }
-  }
-  onPageChange(page: number) {
+  } onPageChange(page: number) {
     this.page = page - 1;
-    this.getAllProducts({ page: this.page, size: this.pageSize });
+    this.getAllProducts({
+      page: this.page,
+      size: this.pageSize,
+      name: this.searchQuery,
+      categoryId: this.selectedCategory || 0
+    });
   }
   onPageSizeChange(pageSize: number) {
     this.pageSize = pageSize;
     this.page = 0;
-    this.getAllProducts({ size: this.pageSize });
+    this.getAllProducts({
+      size: this.pageSize,
+      name: this.searchQuery,
+      categoryId: this.selectedCategory || 0
+    });
   }
 }

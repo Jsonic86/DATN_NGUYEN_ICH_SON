@@ -53,11 +53,11 @@ public class ProductController {
             @RequestParam(defaultValue = "") String name,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam() Long categoryId
+            @RequestParam(defaultValue = "0") Long categoryId
     ) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("productId").ascending());
         return ApiResponse.<Page<ProductResponse>>builder()
-                .result(productService.findAllByCategoryId(pageable,categoryId))
+                .result(productService.findAllByCategoryId(pageable,categoryId,name))
                 .code(1000)
                 .build();
     }

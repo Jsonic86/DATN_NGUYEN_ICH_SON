@@ -1,8 +1,19 @@
 <div class="mb-2 d-flex justify-content-between">
-
-    <nz-input-group [nzSuffix]="suffixIcon" class="search-input w-50">
-        <input nz-input [(ngModel)]="searchQuery" placeholder="Search name" (ngModelChange)="onSearch()">
-    </nz-input-group>
+    <div class="d-flex w-75 gap-3">
+        <div class="d-flex flex-column w-50">
+            <nz-input-group [nzSuffix]="suffixIcon" class="search-input">
+                <input nz-input [(ngModel)]="searchQuery" placeholder="Nhập tên sản phẩm..."
+                    (ngModelChange)="onSearch()">
+            </nz-input-group>
+        </div>
+        <div class="d-flex flex-column w-50">
+            <nz-select class="custom-select" [(ngModel)]="selectedCategory" (ngModelChange)="onCategoryChange()"
+                nzPlaceHolder="Chọn danh mục" nzAllowClear nzShowSearch>
+                <nz-option *ngFor="let category of categories" [nzValue]="category.id"
+                    [nzLabel]="category.name"></nz-option>
+            </nz-select>
+        </div>
+    </div>
     <span class="tab-header-item" (click)="onCreate()">
         Thêm mới
     </span>
