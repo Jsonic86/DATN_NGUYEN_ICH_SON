@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
@@ -27,7 +28,12 @@ public class CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
-
+    public List<CategoryResponse> getAllCategories() {
+        List<Category> categories = categoryRepository.findAll();
+        return categories.stream()
+                .map(categoryMapper::toCategoryResponse)
+                .collect(Collectors.toList());
+    }
     public Page<CategoryResponse> findAll(String name, Pageable pageable) {
         try {
             Page<Category> categories = categoryRepository.findByCategoryNameContaining(name,pageable);

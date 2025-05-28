@@ -14,6 +14,9 @@ export class CategoryService {
   getAllCategories(payload: any = {}): Observable<CommonResponse<Category>> {
     return this.apiService.get('categories', payload);
   }
+  findAllCategories(payload: any = {}): Observable<CommonResponse<Category>> {
+    return this.apiService.get('categories/get-all', payload);
+  }
   getById(id: string): Observable<CommonGetByIdResponse<Category>> {
     return this.apiService.getById(`categories/detail`, id);
   }

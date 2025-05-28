@@ -154,7 +154,7 @@ export class ProductComponent {
 
   // Get categories for dropdown
   getCategories() {
-    this.categoryService.getAllCategories().subscribe((res: any) => {
+    this.categoryService.findAllCategories().subscribe((res: any) => {
       if (res.code === StatusResponse.OK) {
         // Handle paginated response with content array
         if (res.result && res.result.content && Array.isArray(res.result.content)) {

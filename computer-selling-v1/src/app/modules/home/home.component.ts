@@ -64,8 +64,8 @@ export class HomeComponent implements AfterViewInit {
     ],
     cpu: [
       {
-        id: 815,
-        url: "https://hoanghapccdn.com/media/product/250_5401_ultra_9_285k_sale_t2_2025_s1.jpg"
+        id: 821,
+        url: "https://hoanghapccdn.com/media/product/250_3600_13900kf_sale_t3_2025.jpg"
       },
       {
         id: 840,

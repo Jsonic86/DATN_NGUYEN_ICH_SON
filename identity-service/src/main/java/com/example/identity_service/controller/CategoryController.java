@@ -38,7 +38,13 @@ public class CategoryController {
                 .code(1000)
                 .build();
     }
-
+    @GetMapping("/get-all")
+    public ApiResponse<List<CategoryResponse>> getAll(){
+        return ApiResponse.<List<CategoryResponse>>builder()
+                .result(categoryService.getAllCategories())
+                .code(1000)
+                .build();
+    }
     @GetMapping("/detail")
     public ApiResponse<Category> findById(@RequestParam Long id){
         return ApiResponse.<Category>builder()
