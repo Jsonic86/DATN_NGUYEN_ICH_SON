@@ -7,10 +7,12 @@ import { SharedModule } from 'src/app/shared/module/shared.module';
 import { DashboardRoutingModule } from './dashboard-routing.modules';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { DashboardComponent } from './dashboard.component';
+import { LineChartComponent } from './line-chart/line-chart.component';
 @NgModule({
     declarations: [
         DashboardComponent,
-        BarChartComponent
+        BarChartComponent,
+        LineChartComponent
     ],
     imports: [
         NgZorroModule,

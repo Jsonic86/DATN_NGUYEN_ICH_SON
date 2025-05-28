@@ -3,6 +3,7 @@ package com.example.identity_service.controller;
 import com.example.identity_service.dto.request.GetRevenueRequest;
 import com.example.identity_service.dto.request.OrderRequest;
 import com.example.identity_service.dto.response.ApiResponse;
+import com.example.identity_service.dto.response.CountCashPaymentResponse;
 import com.example.identity_service.dto.response.OrderResponse;
 import com.example.identity_service.entity.Order;
 import com.example.identity_service.entity.OrderDetail;
@@ -38,12 +39,12 @@ public class OrderController {
     }
 
     @GetMapping()
-    public ApiResponse<Page<Order>> getAll(@RequestParam(defaultValue = "") String name,
+    public ApiResponse<Page<Order>> getAll(@RequestParam(required = false) OrderStatus status,
                                            @RequestParam(defaultValue = "0") int page,
                                            @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("orderId").descending());
         return ApiResponse.<Page<Order>>builder()
-                .result(orderService.getAllOrders(pageable))
+                .result(orderService.getAllOrders(status, pageable))
                 .code(1000)
                 .message("success")
                 .build();
@@ -82,6 +83,16 @@ public class OrderController {
         return ApiResponse.<List<BigDecimal>>builder()
                 .message("success")
                 .result(orderService.getRevenueByMonth(year))
+                .code(1000)
+                .build();
+    }
+    @GetMapping("/count-cash")
+    public ApiResponse<CountCashPaymentResponse> getCountCashPayment(
+            @RequestParam("year") int year
+    ) {
+        return ApiResponse.<CountCashPaymentResponse>builder()
+                .message("success")
+                .result(orderService.getCountCashPayment(year))
                 .code(1000)
                 .build();
     }

@@ -63,3 +63,26 @@ export const convertValue: { [key: string]: string } = {
     INACTIVE: 'Không hoạt động',
     CANCELLED: 'Hủy'
 }
+
+export const StatusOptions = [
+    {
+        value: '',
+        label: 'Tất cả'
+    },
+    {
+        value: 'CHỜ_XỬ_LÝ',
+        label: 'Chờ xử lý'
+    },
+    {
+        value: 'ĐANG_GIAO',
+        label: 'Đang giao'
+    },
+    {
+        value: 'HOÀN_THÀNH',
+        label: 'Hoàn thành'
+    },
+    {
+        value: 'ĐÃ_HỦY',
+        label: 'Đã hủy'
+    }
+]

@@ -7,10 +7,14 @@ import { DashboardService } from 'src/app/services/dashboard.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+  date: Date = new Date();
+  year: number = 2025;
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
 
   }
-
+  onChange(event: any) {
+    this.year = event.getFullYear();
+  }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ListOrderDetailComponent } from '../list-order/list-order-detail/list-order-detail.component';
-import { PaymentMethod, STATUS, STATUS_PAYMENT, StatusResponse, TYPE, TYPE_UPDATE_STATUS } from 'src/app/core/const/constant';
+import { PaymentMethod, STATUS, STATUS_PAYMENT, StatusOptions, StatusResponse, TYPE, TYPE_UPDATE_STATUS } from 'src/app/core/const/constant';
 import { OrderService } from 'src/app/services/order.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -43,6 +43,8 @@ export class ListOrderAdminComponent {
   STATUS = STATUS;
   PaymentMethod = PaymentMethod;
   STATUS_PAYMENT = STATUS_PAYMENT;
+  StatusOptions = StatusOptions;
+  selectedStatus = StatusOptions[0].value;
   searchSubject: Subject<string> = new Subject<string>();
   constructor(private orderService: OrderService, private modalService: NzModalService, private notification: NzNotificationService, private userService: UserService, private paymentService: PaymentService) {
     this.token = getCookie('token');
@@ -56,6 +58,16 @@ export class ListOrderAdminComponent {
     if (this.token) {
       this.getAllOrders();
     }
+  }
+  onStatusChange(e: any) {
+    this.selectedStatus = e;
+    this.currentPage = 1;
+    this.getAllOrders({
+      page: this.currentPage,
+      size: this.pageSize,
+      status: e
+    });
+
   }
   statusBackground(status: string): string {
     let className = '';
@@ -140,7 +152,7 @@ export class ListOrderAdminComponent {
     if (this.currentPage === page) return;
 
     this.currentPage = page;
-    this.getAllOrders({ page: this.currentPage, size: this.pageSize });
+    this.getAllOrders({ page: this.currentPage, size: this.pageSize, status: this.selectedStatus });
   }
 
   onPageSizeChange(pageSize: number) {
@@ -148,7 +160,7 @@ export class ListOrderAdminComponent {
 
     this.pageSize = pageSize;
     this.currentPage = 1;
-    this.getAllOrders({ page: this.currentPage, size: this.pageSize });
+    this.getAllOrders({ page: this.currentPage, size: this.pageSize, status: this.selectedStatus });
   }
   onShowDetail(e: any) {
     const modal = this.modalService.create({
@@ -170,7 +182,7 @@ export class ListOrderAdminComponent {
     })
     modal.afterClose.subscribe((res: any) => {
       if (res) {
-        this.getAllOrders({ page: this.currentPage - 1, size: this.pageSize });
+        this.getAllOrders({ page: this.currentPage - 1, size: this.pageSize, status: this.selectedStatus });
       }
     })
     modal.componentInstance!.data = e;
@@ -245,7 +257,7 @@ export class ListOrderAdminComponent {
         if (res) {
           this.paymentService.updateSatus({ orderId: e.orderId, status: 'DA_THANH_TOAN' }).subscribe((res: any) => {
             if (res.code === StatusResponse.OK) {
-              this.getAllOrders({ page: this.currentPage - 1, size: this.pageSize });
+              this.getAllOrders({ page: this.currentPage - 1, size: this.pageSize, status: this.selectedStatus });
               this.notification.success('Thông báo', 'Xác nhận thanh toán thành công');
             }
           })
@@ -270,7 +282,7 @@ export class ListOrderAdminComponent {
         if (res) {
           this.paymentService.updateSatus({ orderId: e.orderId, status: 'HOAN_TIEN' }).subscribe((res: any) => {
             if (res.code === StatusResponse.OK) {
-              this.getAllOrders({ page: this.currentPage - 1, size: this.pageSize });
+              this.getAllOrders({ page: this.currentPage - 1, size: this.pageSize, status: this.selectedStatus });
               this.notification.success('Thông báo', 'Xác nhận hoàn tiền thành công');
             }
           })

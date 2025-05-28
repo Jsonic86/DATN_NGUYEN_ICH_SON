@@ -4,8 +4,8 @@ public enum OrderStatus {
     CHỜ_XỬ_LÝ("Chờ xử lý"),
     ĐANG_GIAO("Đang giao"),
     HOÀN_THÀNH("Hoàn thành"),
-    ĐÃ_HỦY("Đã hủy");
-
+    ĐÃ_HỦY("Đã hủy"),
+    ALL("All");
     private final String value;
 
     OrderStatus(String value) {

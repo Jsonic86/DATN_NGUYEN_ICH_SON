@@ -1,1 +1,6 @@
-<app-bar-chart></app-bar-chart>
+<div class="container">
+    <nz-date-picker nzMode="year" [(ngModel)]="date" (ngModelChange)="onChange($event)"
+        [nzPlaceHolder]="'Tìm kiếm theo năm'"></nz-date-picker>
+    <app-bar-chart [year]="year"></app-bar-chart>
+    <app-line-chart [year]="year"></app-line-chart>
+</div>

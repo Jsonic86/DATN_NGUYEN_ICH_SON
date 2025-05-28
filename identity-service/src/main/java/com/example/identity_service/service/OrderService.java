@@ -4,6 +4,7 @@ import com.example.identity_service.dto.request.CustomerRequest;
 import com.example.identity_service.dto.request.CustomerUpdationRequest;
 import com.example.identity_service.dto.request.GetRevenueRequest;
 import com.example.identity_service.dto.request.OrderRequest;
+import com.example.identity_service.dto.response.CountCashPaymentResponse;
 import com.example.identity_service.dto.response.OrderResponse;
 import com.example.identity_service.entity.*;
 import com.example.identity_service.enums.OrderStatus;
@@ -129,10 +130,13 @@ public class OrderService {
         return orderMapper.toOrderResponse(savedOrder);
     }
 
-   public Page<Order> getAllOrders(Pageable pageable) {
+   public Page<Order> getAllOrders(OrderStatus status,Pageable pageable) {
        try {
-           Page<Order> orders = orderRepository.findAll(pageable);
-           return orders;
+           if (status == null) {
+               return orderRepository.findAll(pageable);
+           } else {
+               return orderRepository.findAllByStatus(status, pageable);
+           }
        } catch (Exception e) {
            e.printStackTrace();
            return Page.empty();
@@ -183,5 +187,29 @@ public class OrderService {
 
         return getRevenueByMonth;
     }
+    public CountCashPaymentResponse getCountCashPayment(int year) {
+        List<Long> getCountPayment = new ArrayList<>();
+        List<Long> getCountVNPayPayment = new ArrayList<>();
+        for (int i = 1; i <= 12; i++) {
+            LocalDate startOfMonth = LocalDate.of(year, i, 1);
+            LocalDate endOfMonth = startOfMonth.withDayOfMonth(startOfMonth.lengthOfMonth());
 
+            Long monthlyRevenue = paymentRepository.countCashPayments(
+                    startOfMonth.atStartOfDay(),
+                    endOfMonth.plusDays(1).atStartOfDay().minusSeconds(1)
+            );
+            Long VNPay = paymentRepository.countVNPayPayments(
+                    startOfMonth.atStartOfDay(),
+                    endOfMonth.plusDays(1).atStartOfDay().minusSeconds(1)
+            );
+
+            getCountVNPayPayment.add(VNPay);
+            getCountPayment.add(monthlyRevenue);
+        }
+         CountCashPaymentResponse countCash = CountCashPaymentResponse.builder()
+                .cash(getCountPayment)
+                .vNPay(getCountVNPayPayment)
+                .build();
+        return countCash;
+    }
 }

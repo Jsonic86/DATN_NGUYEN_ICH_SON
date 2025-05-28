@@ -1,14 +1,14 @@
-import { Component, ViewChild, AfterViewInit, OnInit, SimpleChanges, Input } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { DashboardService } from 'src/app/services/dashboard.service';
 
 @Component({
-  selector: 'app-bar-chart',
-  templateUrl: './bar-chart.component.html',
-  styleUrls: ['./bar-chart.component.scss']
+  selector: 'app-line-chart',
+  templateUrl: './line-chart.component.html',
+  styleUrls: ['./line-chart.component.scss']
 })
-export class BarChartComponent implements AfterViewInit, OnInit {
-  @ViewChild('barChart') barChart!: any;
+export class LineChartComponent {
+  @ViewChild('lineChart') lineChart!: any;
   @Input() year: number = 2025; // Default year, can be changed as needed
   chartInstance!: Chart;
   constructor(private dashboardService: DashboardService) {
@@ -18,13 +18,13 @@ export class BarChartComponent implements AfterViewInit, OnInit {
 
   }
   ngAfterViewInit(): void {
-    this.dashboardService.getRevenueByMonth({ year: 2025 }).subscribe(data => {
+    this.dashboardService.getCountPayment({ year: 2025 }).subscribe(data => {
       this.initChart(data.result);
     });
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['year'].previousValue != changes['year'].currentValue) {
-      this.dashboardService.getRevenueByMonth({ year: this.year }).subscribe(data => {
+      this.dashboardService.getCountPayment({ year: this.year }).subscribe(data => {
         this.initChart(data.result);
       });
     }
@@ -35,17 +35,22 @@ export class BarChartComponent implements AfterViewInit, OnInit {
       labels: [...month],
       datasets: [
         {
-          label: 'Doanh thu',
-          data: [...chartData],
-          backgroundColor: 'rgba(54, 162, 235, 0.5)',
-          borderColor: 'rgba(54, 162, 235, 1)',
-          borderWidth: 1
+          label: 'Tiền mặt',
+          data: chartData.cash,
+          borderColor: 'red',
+          backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        },
+        {
+          label: 'VNPay',
+          data: chartData.vnpay,
+          borderColor: 'blue',
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
         }
       ]
     };
 
     const config: any = {
-      type: 'bar',
+      type: 'line',
       data: data,
       options: {
         responsive: true,
@@ -56,20 +61,16 @@ export class BarChartComponent implements AfterViewInit, OnInit {
           },
           title: {
             display: true,
-            text: 'Thống kê doanh thu theo tháng'
-          }
-        },
-        scales: {
-          y: {
-            beginAtZero: true
+            text: 'Biểu đồ so sánh phương thức thanh toán'
           }
         }
-      }
+      },
     };
+
     if (this.chartInstance) {
       this.chartInstance.destroy(); // Destroy previous instance if it exists
     }
 
-    this.chartInstance = new Chart(this.barChart.nativeElement, config);
+    this.chartInstance = new Chart(this.lineChart.nativeElement, config);
   }
 }

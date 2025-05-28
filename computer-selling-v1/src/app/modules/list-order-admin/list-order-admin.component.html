@@ -1,6 +1,18 @@
-<nz-input-group [nzSuffix]="suffixIcon" class="w-50 mb-2">
-    <input nz-input [(ngModel)]="searchQuery" placeholder="Search name" (ngModelChange)="onSearch()">
-</nz-input-group>
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <nz-input-group [nzSuffix]="suffixIcon" class="w-50 ">
+        <input nz-input [(ngModel)]="searchQuery" placeholder="Search name" (ngModelChange)="onSearch()">
+    </nz-input-group>
+    <div class="d-flex justify-content-end gap-2 align-items-center w-50">
+        <label>Tìm kiếm theo status : </label>
+        <nz-select ngModel="lucy" nzPlaceHolder="Chọn status" class="w-50" [(ngModel)]="selectedStatus"
+            (ngModelChange)="onStatusChange($event)">
+            <nz-option *ngFor="let status of StatusOptions" [nzValue]="status.value" [nzLabel]="status.label">
+            </nz-option>
+        </nz-select>
+    </div>
+
+</div>
+
 <div class="container ">
     <div class="row mb-4">
         <div class="col-12">
