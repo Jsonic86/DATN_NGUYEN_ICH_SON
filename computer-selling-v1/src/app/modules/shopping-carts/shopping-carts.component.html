@@ -30,7 +30,7 @@
                             <div class="col">
                                 <input type="number" min="1" [value]="item!.quantity"
                                     class="form-control w-50 text-center mx-auto my-auto"
-                                    (change)="updateQuantity(item,$event)">
+                                    (change)="updateQuantity(item,$event)" style="width: 100px !important;">
                             </div>
                             <div class="col">{{item.price*item.quantity|currency:'VND'}}</div>
                         </div>
